@@ -30,6 +30,11 @@ class Renderer
         return $this->twig->render($template, ['users' => $users]);
     }
 
+    public function viewSingleUser(string $template, array $user, $posts): string
+    {
+        return $this->twig->render($template, ['user' => $user, 'posts' => $posts]);
+    }
+
     public function error(string $template): void
     {
         $this->twig->load($template)->display();

@@ -9,19 +9,20 @@ class SinglePageController
 {
     public function post(): string
     {
-        $post = (new APIClient())->getSinglePost($_SERVER["REQUEST_URI"]);
-        $comments = (new APIClient())->getPostComments($_SERVER["REQUEST_URI"]);
+        $post = (new APIClient($_SERVER["REQUEST_URI"]))->getSinglePost();
+        $comments = (new APIClient($_SERVER["REQUEST_URI"] . '/comments'))->getPostComments();
         return (new Renderer())->viewPostAndComments('SinglePost.twig', $post, $comments);
     }
 
     public function user(): string
     {
-        $user = (new APIClient())->getSingleUser($_SERVER["REQUEST_URI"]);
-        return (new Renderer())->viewUsers('Users.twig', $user);
+        $user = (new APIClient($_SERVER["REQUEST_URI"]))->getSingleUser();
+        $posts = (new APIClient($_SERVER["REQUEST_URI"] . '/posts'))->getUserPosts();
+        return (new Renderer())->viewSingleUser('SingleUser.twig', $user, $posts);
     }
 
-    public function error()
+    public function error(): void
     {
-        return (new Renderer())->error('Error.twig');
+        (new Renderer())->error('Error.twig');
     }
 }

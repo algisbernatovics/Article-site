@@ -14,6 +14,8 @@ class Router
         $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
 
             $r->addRoute(['GET'], '/', '\App\Controller\PagesController@home');
+            
+            $r->addRoute(['GET'], '/allPosts', '\App\Controller\PagesController@allPosts');
             $r->addRoute(['GET'], '/allUsers', '\App\Controller\PagesController@AllUsers');
 
             $r->addRoute(['GET'], '/users[/{page}]', '\App\Controller\SinglePageController@user');

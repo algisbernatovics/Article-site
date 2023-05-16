@@ -8,14 +8,20 @@ use App\Core\Renderer;
 class PagesController
 {
     public function home(): string
+
     {
-        $posts = (new APIClient())->getPosts('/posts');
+        return $this->allPosts();
+    }
+
+    public function allPosts(): string
+    {
+        $posts = (new APIClient('/posts'))->getAllPosts();
         return (new Renderer())->viewPosts('Posts.twig', $posts);
     }
 
     public function allUsers(): string
     {
-        $users = (new APIClient())->getAllUsers('/users');
+        $users = (new APIClient('/users'))->getAllUsers();
         return (new Renderer())->viewUsers('Users.twig', $users);
     }
 }
