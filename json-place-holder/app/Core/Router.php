@@ -2,9 +2,9 @@
 
 namespace App\Core;
 
+
 use FastRoute;
 use FastRoute\Dispatcher;
-
 
 class Router
 {
@@ -13,13 +13,12 @@ class Router
 
         $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
 
-            $r->addRoute(['GET'], '/', '\App\Controller\PagesController@home');
-            
-            $r->addRoute(['GET'], '/allPosts', '\App\Controller\PagesController@allPosts');
-            $r->addRoute(['GET'], '/allUsers', '\App\Controller\PagesController@AllUsers');
+            $r->addRoute(['GET'], '/', '\App\Controllers\ArticlesController@home');
+            $r->addRoute(['GET'], '/allPosts', '\App\Controllers\ArticlesController@allPosts');
 
-            $r->addRoute(['GET'], '/users[/{page}]', '\App\Controller\SinglePageController@user');
-            $r->addRoute(['GET'], '/posts[/{page}]', '\App\Controller\SinglePageController@post');
+            $r->addRoute(['GET'], '/allUsers', '\App\Controllers\UsersController@AllUsers');
+            $r->addRoute(['GET'], '/users[/{page}]', '\App\Controllers\UsersController@user');
+            $r->addRoute(['GET'], '/posts[/{page}]', '\App\Controllers\ArticlesController@post');
 
         });
         // Fetch method and URI from somewhere

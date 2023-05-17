@@ -3,7 +3,7 @@
 
 namespace App;
 
-use App\Controller\SinglePageController;
+use App\Controller\UsersController;
 use App\Core\Cache;
 use App\Core\Functions;
 use App\Models\Comments;
@@ -11,8 +11,6 @@ use App\Models\Posts;
 use App\Models\Users;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
-
-//@formatter:off
 
 class APIClient
 {
@@ -30,7 +28,7 @@ class APIClient
             try {
                 $response = ($this->client->request('GET', $this->uri))->getBody()->getContents();
             } catch (GuzzleException $e) {
-                return (new SinglePageController)->error();
+                return (new UsersController)->error();
             }
         } else {
             $response = Cache::get($cacheFileName);
@@ -48,10 +46,12 @@ class APIClient
     {
         return $this->savePosts($this->response);
     }
+
     public function getAllPosts(): array
     {
         return $this->savePosts($this->response);
     }
+
     public function getAllUsers(): array
     {
         return $this->saveUsers($this->response);
@@ -86,6 +86,21 @@ class APIClient
         }
         return $comments;
     }
+    public function savePosts(array $response): array
+    {
+        $posts = [];
+        foreach ($response as $post) {
+            $posts[] = new Posts (
+                $post->userId,
+                $post->id,
+                $post->title,
+                $post->body,
+                '/users/' . $post->userId,
+                '/posts/' . $post->id
+            );
+        }
+        return $posts;
+    }
     public function saveUsers(array $response): array
     {
         $users = [];
@@ -102,20 +117,5 @@ class APIClient
             );
         }
         return $users;
-    }
-    public function savePosts(array $response): array
-    {
-        $posts = [];
-        foreach ($response as $post) {
-            $posts[] = new Posts (
-                $post->userId,
-                $post->id,
-                $post->title,
-                $post->body,
-                '/users/' . $post->userId,
-                '/posts/' . $post->id
-            );
-        }
-        return $posts;
     }
 }
