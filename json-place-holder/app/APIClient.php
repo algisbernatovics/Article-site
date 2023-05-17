@@ -3,7 +3,7 @@
 
 namespace App;
 
-use App\Controller\UsersController;
+use App\Controllers\ErrorController;
 use App\Core\Cache;
 use App\Core\Functions;
 use App\Models\Comments;
@@ -28,17 +28,17 @@ class APIClient
             try {
                 $response = ($this->client->request('GET', $this->uri))->getBody()->getContents();
             } catch (GuzzleException $e) {
-                return (new UsersController)->error();
+                return (new ErrorController())->error();
             }
         } else {
             $response = Cache::get($cacheFileName);
         }
         Cache::remember($cacheFileName, $response);
-        if ((gettype(json_decode($response))) === 'array'){
-            $this->response=json_decode($response);
+        if ((gettype(json_decode($response))) === 'array') {
+            $this->response = json_decode($response);
         }
-        if ((gettype(json_decode($response))) === 'object'){
-            $this->response=['0' => json_decode($response)];
+        if ((gettype(json_decode($response))) === 'object') {
+            $this->response = ['0' => json_decode($response)];
         }
     }
 
@@ -47,27 +47,28 @@ class APIClient
         return $this->savePosts($this->response);
     }
 
+    public function savePosts(array $response): array
+    {
+        $posts = [];
+        foreach ($response as $post) {
+            $posts[] = new Posts (
+                $post->userId,
+                $post->id,
+                $post->title,
+                $post->body,
+                '/users/' . $post->userId,
+                '/posts/' . $post->id
+            );
+        }
+        return $posts;
+    }
+
     public function getAllPosts(): array
     {
         return $this->savePosts($this->response);
     }
 
-    public function getAllUsers(): array
-    {
-        return $this->saveUsers($this->response);
-    }
-
-    public function getSinglePost(): array
-    {
-        return $this->savePosts($this->response);
-    }
-
-    public function getSingleUser(): array
-    {
-        return $this->saveUsers($this->response);
-    }
-
-    public function getPostComments(): array
+    public function getAllComments(): array
     {
         return $this->savePostComments($this->response);
     }
@@ -86,21 +87,12 @@ class APIClient
         }
         return $comments;
     }
-    public function savePosts(array $response): array
+
+    public function getAllUsers(): array
     {
-        $posts = [];
-        foreach ($response as $post) {
-            $posts[] = new Posts (
-                $post->userId,
-                $post->id,
-                $post->title,
-                $post->body,
-                '/users/' . $post->userId,
-                '/posts/' . $post->id
-            );
-        }
-        return $posts;
+        return $this->saveUsers($this->response);
     }
+
     public function saveUsers(array $response): array
     {
         $users = [];
@@ -117,5 +109,20 @@ class APIClient
             );
         }
         return $users;
+    }
+
+    public function getSinglePost(): array
+    {
+        return $this->savePosts($this->response);
+    }
+
+    public function getSingleUser(): array
+    {
+        return $this->saveUsers($this->response);
+    }
+
+    public function getPostComments(): array
+    {
+        return $this->savePostComments($this->response);
     }
 }

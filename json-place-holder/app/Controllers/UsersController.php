@@ -28,9 +28,4 @@ class UsersController
         $userResponse = $userService->execute();
         return (new Renderer())->viewUsers('Users.twig', $userResponse->getAllUsers());
     }
-
-    public function error(): void
-    {
-        (new Renderer())->error('Error.twig');
-    }
 }

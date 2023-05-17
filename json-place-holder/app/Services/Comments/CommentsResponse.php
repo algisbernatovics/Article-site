@@ -16,4 +16,8 @@ class CommentsResponse
         return $this->client->getPostComments();
     }
 
+    public function getAllComments(): array
+    {
+        return $this->client->getAllComments();
+    }
 }
