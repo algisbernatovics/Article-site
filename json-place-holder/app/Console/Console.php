@@ -7,7 +7,7 @@ use App\Services\Comments\CommentsService;
 use App\Services\Users\UsersRequest;
 use App\Services\Users\UsersService;
 
-require_once '../vendor/autoload.php';
+require_once '../../vendor/autoload.php';
 
 class Console
 {
