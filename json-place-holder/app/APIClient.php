@@ -24,11 +24,17 @@ class APIClient
         $this->uri = $uri;
         $this->client = new Client(['base_uri' => self::BASE_URI]);
         $cacheFileName = Functions::replaceSlash($this->uri);
+
         if (!Cache::has($cacheFileName)) {
             try {
                 $response = ($this->client->request('GET', $this->uri))->getBody()->getContents();
             } catch (GuzzleException $e) {
-                return (new ErrorController())->error();
+                if (!isset($_SERVER['argv'])) {
+                    return (new ErrorController())->error();
+                }
+                if (isset($_SERVER['argv'])) {
+                    throw new \RuntimeException;
+                }
             }
         } else {
             $response = Cache::get($cacheFileName);
@@ -47,16 +53,6 @@ class APIClient
         return $this->savePosts($this->response);
     }
 
-    public function getComments(): array
-    {
-        return $this->savePostComments($this->response);
-    }
-
-    public function getUsers(): array
-    {
-        return $this->saveUsers($this->response);
-    }
-
     public function savePosts(array $response): array
     {
         $posts = [];
@@ -73,6 +69,11 @@ class APIClient
         return $posts;
     }
 
+    public function getComments(): array
+    {
+        return $this->savePostComments($this->response);
+    }
+
     public function savePostComments(array $response): array
     {
         $comments = [];
@@ -86,6 +87,11 @@ class APIClient
             );
         }
         return $comments;
+    }
+
+    public function getUsers(): array
+    {
+        return $this->saveUsers($this->response);
     }
 
     public function saveUsers(array $response): array

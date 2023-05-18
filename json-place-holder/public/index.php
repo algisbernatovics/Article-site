@@ -6,4 +6,3 @@ use App\Core\Router;
 
 echo $response = Router::Router();
 
-

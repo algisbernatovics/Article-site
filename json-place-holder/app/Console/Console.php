@@ -2,7 +2,11 @@
 
 namespace App\Console;
 
+use App\Core\Functions;
+
 require_once '../../vendor/autoload.php';
+
+Functions::defineRootDir();
 
 echo '1- All Users' . PHP_EOL;
 echo '2- All Articles' . PHP_EOL;

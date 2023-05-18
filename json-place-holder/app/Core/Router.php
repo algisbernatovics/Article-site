@@ -11,16 +11,19 @@ class Router
     public static function Router()
     {
 
+        define('ROOT_DIR', realpath(__DIR__.'/../..'));
+
         $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
 
             $r->addRoute(['GET'], '/', '\App\Controllers\ArticlesController@home');
             $r->addRoute(['GET'], '/allPosts', '\App\Controllers\ArticlesController@allPosts');
 
             $r->addRoute(['GET'], '/allUsers', '\App\Controllers\UsersController@AllUsers');
-            $r->addRoute(['GET'], '/users[/{page}]', '\App\Controllers\UsersController@user');
-            $r->addRoute(['GET'], '/posts[/{page}]', '\App\Controllers\ArticlesController@post');
+            $r->addRoute(['GET'], '/users[/{id}]', '\App\Controllers\UsersController@user');
+            $r->addRoute(['GET'], '/posts[/{id}]', '\App\Controllers\ArticlesController@post');
 
         });
+
         // Fetch method and URI from somewhere
         $httpMethod = 'GET';
         $uri = $_SERVER['REQUEST_URI'];
@@ -47,9 +50,14 @@ class Router
             case Dispatcher::FOUND:
                 $handler = $routeInfo[1];
                 $vars = $routeInfo[2];
+
+                if(!isset($vars['id'])){
+                    $vars['id']=0;
+                }
+
                 [$controllerName, $methodName] = explode('@', $handler);
                 $controller = new $controllerName;
-                $response = $controller->{$methodName}((int)($vars['page']));
+                $response = $controller->{$methodName}((int)($vars['id']));
         }
         return $response;
     }
