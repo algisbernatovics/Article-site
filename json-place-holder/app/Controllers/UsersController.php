@@ -19,13 +19,17 @@ class UsersController
 
         $userPostService = new ArticleService(new ArticleRequest($_SERVER["REQUEST_URI"] . '/posts'));
         $userPostResponse = $userPostService->execute();
-        return (new Renderer())->viewSingleUser('SingleUser.twig', $userResponse->getAllUsers(), $userPostResponse->getSinglePost());
+        return (new Renderer())->viewSingleUser(
+            'SingleUser.twig',
+            $userResponse->getUsers(),
+            $userPostResponse->getPosts()
+        );
     }
 
     public function allUsers(): string
     {
         $userService = new UsersService(new UsersRequest('/users'));
         $userResponse = $userService->execute();
-        return (new Renderer())->viewUsers('Users.twig', $userResponse->getAllUsers());
+        return (new Renderer())->viewUsers('Users.twig', $userResponse->getUsers());
     }
 }

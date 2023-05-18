@@ -21,7 +21,7 @@ class ArticlesController
     {
         $articleService = new ArticleService(new ArticleRequest('/posts'));
         $articleResponse = $articleService->execute();
-        return (new Renderer())->viewPosts('Posts.twig', $articleResponse->getAllPosts());
+        return (new Renderer())->viewPosts('Posts.twig', $articleResponse->getPosts());
     }
 
     public function post(): string
@@ -34,8 +34,8 @@ class ArticlesController
         return (new Renderer())->viewPostAndComments
         (
             'SinglePost.twig',
-            $postResponse->getSinglePost(),
-            $commentResponse->getPostComments()
+            $postResponse->getPosts(),
+            $commentResponse->getComments()
         );
     }
 }

@@ -11,13 +11,8 @@ class ArticleResponse
         $this->client = $client;
     }
 
-    public function getAllPosts(): array
+    public function getPosts(): array
     {
-        return $this->client->getAllPosts();
-    }
-
-    public function getSinglePost(): array
-    {
-        return $this->client->getSinglePost();
+        return $this->client->getPosts();
     }
 }

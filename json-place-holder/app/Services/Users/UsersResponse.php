@@ -11,9 +11,9 @@ class UsersResponse
         $this->client = $client;
     }
 
-    public function getAllUsers(): array
+    public function getUsers(): array
     {
-        return $this->client->getAllUsers();
+        return $this->client->getUsers();
     }
 
 }

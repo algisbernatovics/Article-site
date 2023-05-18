@@ -42,9 +42,19 @@ class APIClient
         }
     }
 
-    public function getUserPosts(): array
+    public function getPosts(): array
     {
         return $this->savePosts($this->response);
+    }
+    
+    public function getComments(): array
+    {
+        return $this->savePostComments($this->response);
+    }
+
+    public function getUsers(): array
+    {
+        return $this->saveUsers($this->response);
     }
 
     public function savePosts(array $response): array
@@ -63,16 +73,6 @@ class APIClient
         return $posts;
     }
 
-    public function getAllPosts(): array
-    {
-        return $this->savePosts($this->response);
-    }
-
-    public function getAllComments(): array
-    {
-        return $this->savePostComments($this->response);
-    }
-
     public function savePostComments(array $response): array
     {
         $comments = [];
@@ -86,11 +86,6 @@ class APIClient
             );
         }
         return $comments;
-    }
-
-    public function getAllUsers(): array
-    {
-        return $this->saveUsers($this->response);
     }
 
     public function saveUsers(array $response): array
@@ -109,20 +104,5 @@ class APIClient
             );
         }
         return $users;
-    }
-
-    public function getSinglePost(): array
-    {
-        return $this->savePosts($this->response);
-    }
-
-    public function getSingleUser(): array
-    {
-        return $this->saveUsers($this->response);
-    }
-
-    public function getPostComments(): array
-    {
-        return $this->savePostComments($this->response);
     }
 }

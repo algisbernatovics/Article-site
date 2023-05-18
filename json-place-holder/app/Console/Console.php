@@ -1,67 +1,45 @@
 <?php
 
-use App\Services\Articles\ArticleRequest;
-use App\Services\Articles\ArticleService;
-use App\Services\Comments\CommentsRequest;
-use App\Services\Comments\CommentsService;
-use App\Services\Users\UsersRequest;
-use App\Services\Users\UsersService;
+namespace App\Console;
 
 require_once '../../vendor/autoload.php';
 
-class Console
-{
-    public array $argv;
-    protected array $response;
+echo '1- All Users' . PHP_EOL;
+echo '2- All Articles' . PHP_EOL;
+echo '3- All Comments' . PHP_EOL;
+echo '4- User By Id' . PHP_EOL;
+echo '5- Article By Id' . PHP_EOL;
+echo '6- Article Comments' . PHP_EOL;
+echo '7- Exit Console' . PHP_EOL;
 
-    public function __construct($argv)
-    {
-        $this->argv = $argv;
-
-    }
-
-    public function users(): array
-    {
-        $service = new UsersService(new UsersRequest($this->argv[1]));
-        $response = $service->execute();
-        return $this->response = $response->getAllUsers();
-    }
-
-    public function posts(): array
-    {
-        $service = new ArticleService(new ArticleRequest($this->argv[1]));
-        $response = $service->execute();
-        return $this->response = $response->getAllPosts();
-    }
-
-    public function comments(): array
-    {
-        $service = new CommentsService(new CommentsRequest($this->argv[1]));
-        $response = $service->execute();
-        return $this->response = $response->getAllComments();
-    }
-}
-
-$response = (new Console($argv))->{$argv[1]}();
-if ($argv[1] === 'users') {
-    foreach ($response as $user) {
-        echo '-----------------------------------------' . PHP_EOL;
-        echo 'ID: ' . $user->getId() . PHP_EOL;
-        echo 'Name: ' . $user->getName() . PHP_EOL;
-        echo 'UserName: ' . $user->getUserName() . PHP_EOL;
-    }
-}
-if ($argv[1] === 'posts') {
-    foreach ($response as $post) {
-        echo '-----------------------------------------' . PHP_EOL;
-        echo 'ID: ' . $post->getId() . PHP_EOL;
-        echo 'Body: ' . $post->getBody() . PHP_EOL;
-    }
-}
-if ($argv[1] === 'comments') {
-    foreach ($response as $comment) {
-        echo '-----------------------------------------' . PHP_EOL;
-        echo 'ID: ' . $comment->getId() . PHP_EOL;
-        echo 'Body: ' . $comment->getBody() . PHP_EOL;
-    }
+$i = (int)readline('Your Choice:');
+switch ($i) {
+    case 1:
+        ConsoleShowResponse::showUsers((new ConsoleMakeRequest())->allUsers());
+        break;
+    case 2:
+        ConsoleShowResponse::showPosts((new ConsoleMakeRequest())->allPosts());
+        break;
+    case 3:
+        ConsoleShowResponse::showComments((new ConsoleMakeRequest())->allComments());
+        break;
+    case 4:
+        $id = (int)readline('User Id:');
+        ConsoleShowResponse::showUsers((new ConsoleMakeRequest())->userById($id));
+        break;
+    case 5:
+        $id = (int)readline('Article Id:');
+        ConsoleShowResponse::showPosts((new ConsoleMakeRequest())->postsById($id));
+        break;
+    case 6:
+        $id = (int)readline('Article Id:');
+        ConsoleShowResponse::showComments((new ConsoleMakeRequest())->postComments($id));
+        break;
+    case 7:
+        echo 'Exit.' . PHP_EOL;
+        exit;
+    default:
+        echo 'Something Wrong' . PHP_EOL;
+        echo 'Exit.' . PHP_EOL;
+        exit;
 }
