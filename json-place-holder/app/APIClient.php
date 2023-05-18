@@ -46,7 +46,7 @@ class APIClient
     {
         return $this->savePosts($this->response);
     }
-    
+
     public function getComments(): array
     {
         return $this->savePostComments($this->response);
