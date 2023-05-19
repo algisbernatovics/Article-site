@@ -53,7 +53,7 @@ class APIClient
         return $this->savePosts($this->response);
     }
 
-    public function savePosts(array $response): array
+    private function savePosts(array $response): array
     {
         $posts = [];
         foreach ($response as $post) {
@@ -74,7 +74,7 @@ class APIClient
         return $this->savePostComments($this->response);
     }
 
-    public function savePostComments(array $response): array
+    private function savePostComments(array $response): array
     {
         $comments = [];
         foreach ($response as $comment) {
@@ -94,7 +94,7 @@ class APIClient
         return $this->saveUsers($this->response);
     }
 
-    public function saveUsers(array $response): array
+    private function saveUsers(array $response): array
     {
         $users = [];
         foreach ($response as $user) {

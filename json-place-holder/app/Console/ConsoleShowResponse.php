@@ -4,7 +4,7 @@ namespace App\Console;
 
 class ConsoleShowResponse
 {
-    public static function showUsers($response): void
+    public static function showUsers(array $response): void
     {
         foreach ($response as $user) {
             echo '-----------------------------------------' . PHP_EOL;
@@ -20,7 +20,7 @@ class ConsoleShowResponse
         }
     }
 
-    public static function showPosts($response): void
+    public static function showPosts(array $response): void
     {
         foreach ($response as $post) {
             echo '-----------------------------------------' . PHP_EOL;
@@ -33,7 +33,7 @@ class ConsoleShowResponse
         }
     }
 
-    public static function showComments($response): void
+    public static function showComments(array $response): void
     {
         foreach ($response as $comment) {
             echo '-----------------------------------------' . PHP_EOL;
