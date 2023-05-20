@@ -11,7 +11,7 @@ class Renderer
 
     public function __construct()
     {
-        $loader = new FilesystemLoader(ROOT_DIR.'/app/Views');
+        $loader = new FilesystemLoader(ROOT_DIR . '/app/Views');
         $this->twig = new Environment($loader);
     }
 
@@ -30,7 +30,7 @@ class Renderer
         return $this->twig->render($template, ['users' => $users]);
     }
 
-    public function viewSingleUser(string $template, array $user, $posts): string
+    public function viewSingleUser(string $template, array $user, array $posts): string
     {
         return $this->twig->render($template, ['user' => $user, 'posts' => $posts]);
     }

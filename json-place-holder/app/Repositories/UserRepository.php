@@ -17,14 +17,14 @@ class UserRepository
     private array $response;
     private string $requestUri;
 
-    public function __construct($requestUri)
+    public function __construct(string $requestUri)
     {
         $this->requestUri = $requestUri;
         $this->client = new Client(['base_uri' => self::BASE_URI]);
 
     }
 
-    public function getUsers()
+    public function getUsers(): ?array
     {
         $cacheFileName = Functions::replaceSlash($this->requestUri);
         if (!Cache::has($cacheFileName)) {
