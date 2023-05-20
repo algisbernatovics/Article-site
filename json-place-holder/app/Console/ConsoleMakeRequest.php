@@ -4,24 +4,25 @@ namespace App\Console;
 
 use App\Services\Articles\ArticleRequest;
 use App\Services\Articles\ArticleService;
-use App\Services\Comments\CommentsRequest;
-use App\Services\Comments\CommentsService;
-use App\Services\Users\UsersRequest;
-use App\Services\Users\UsersService;
+use App\Services\Comments\CommentRequest;
+use App\Services\Comments\CommentService;
+use App\Services\Users\UserRequest;
+use App\Services\Users\UserService;
 
 class ConsoleMakeRequest
 {
     protected array $response;
+
     public function __construct()
     {
-        $this->response=[];
+        $this->response = [];
     }
 
     public function allUsers(): array
     {
-        $service = new UsersService(new UsersRequest('users'));
+        $service = new UserService(new UserRequest('users'));
         $response = $service->execute();
-        return $response->getUsers();
+        return $response->getUser();
     }
 
     public function allPosts(): array
@@ -33,29 +34,29 @@ class ConsoleMakeRequest
 
     public function allComments(): array
     {
-        $service = new CommentsService(new CommentsRequest('comments'));
+        $service = new CommentService(new CommentRequest('comments'));
         $response = $service->execute();
-        return $response->getComments();
+        return $response->getComment();
     }
 
-    function userById(int $id): array
+    public function userById(int $id): array
     {
-        $service = new UsersService(new UsersRequest('users/' . "$id"));
+        $service = new UserService(new UserRequest('users/' . "$id"));
         $response = $service->execute();
-        return $response->getUsers();
+        return $response->getUser();
     }
 
-    function postsById(int $id): array
+    public function postsById(int $id): array
     {
         $service = new ArticleService(new ArticleRequest('posts/' . "$id"));
         $response = $service->execute();
         return $response->getPosts();
     }
 
-    function postComments(int $id): array
+    public function postComments(int $id): array
     {
-        $service = new CommentsService(new CommentsRequest('posts/' . "$id" . '/comments'));
+        $service = new CommentService(new CommentRequest('posts/' . "$id" . '/comments'));
         $response = $service->execute();
-        return $response->getComments();
+        return $response->getComment();
     }
 }

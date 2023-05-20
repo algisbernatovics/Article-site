@@ -4,15 +4,15 @@ namespace App\Services\Articles;
 
 class ArticleResponse
 {
-    protected object $client;
+    protected object $articleRepository;
 
-    public function __construct(object $client)
+    public function __construct(object $articleRepository)
     {
-        $this->client = $client;
+        $this->articleRepository = $articleRepository;
     }
 
     public function getPosts(): array
     {
-        return $this->client->getPosts();
+        return $this->articleRepository->getPosts();
     }
 }

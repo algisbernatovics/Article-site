@@ -2,19 +2,21 @@
 
 namespace App\Services\Articles;
 
-use App\APIClient;
+use App\Repositories\ArticleRepository;
 
 class ArticleService
 {
-    protected object $client;
+    protected object $repository;
+    protected object $articleRequest;
 
-    public function __construct(ArticleRequest $request)
+    public function __construct(ArticleRequest $articleRequest)
     {
-        $this->client = new APIClient($request->getUri());
+        $this->articleRequest = $articleRequest;
+        $this->repository = new ArticleRepository($articleRequest->getUri());
     }
 
     public function execute(): ArticleResponse
     {
-        return new ArticleResponse($this->client);
+        return new ArticleResponse($this->repository);
     }
 }

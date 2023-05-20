@@ -5,8 +5,8 @@ namespace App\Controllers;
 use App\Core\Renderer;
 use App\Services\Articles\ArticleRequest;
 use App\Services\Articles\ArticleService;
-use App\Services\Comments\CommentsRequest;
-use App\Services\Comments\CommentsService;
+use App\Services\Comments\CommentRequest;
+use App\Services\Comments\CommentService;
 
 
 class ArticlesController
@@ -29,13 +29,13 @@ class ArticlesController
         $postService = new ArticleService(new ArticleRequest($_SERVER["REQUEST_URI"]));
         $postResponse = $postService->execute();
 
-        $commentService = new CommentsService(new CommentsRequest($_SERVER["REQUEST_URI"] . '/comments'));
+        $commentService = new CommentService(new CommentRequest($_SERVER["REQUEST_URI"] . '/comments'));
         $commentResponse = $commentService->execute();
         return (new Renderer())->viewPostAndComments
         (
             'SinglePost.twig',
             $postResponse->getPosts(),
-            $commentResponse->getComments()
+            $commentResponse->getComment()
         );
     }
 }
