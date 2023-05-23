@@ -2,11 +2,12 @@
 
 namespace App\Services\Comments;
 
+use App\Repositories\Comment\CommentRepository;
 use App\Repositories\Comment\JsonPlaceHolderCommentRepository;
 
 class CommentService
 {
-    protected object $repository;
+    protected CommentRepository $repository;
     protected object $commentRequest;
 
     public function __construct(CommentRequest $commentRequest)

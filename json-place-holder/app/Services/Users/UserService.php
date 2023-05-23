@@ -3,10 +3,11 @@
 namespace App\Services\Users;
 
 use App\Repositories\User\JsonPlaceHolderUserRepository;
+use App\Repositories\User\UserRepository;
 
 class UserService
 {
-    protected object $repository;
+    protected UserRepository $repository;
     protected object $usersRequest;
 
     public function __construct(UserRequest $usersRequest)

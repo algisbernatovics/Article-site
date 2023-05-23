@@ -3,11 +3,12 @@
 namespace App\Services\Articles;
 
 
+use App\Repositories\Article\ArticleRepository;
 use App\Repositories\Article\JsonPlaceHolderArticleRepository;
 
 class ArticleService
 {
-    protected object $repository;
+    protected ArticleRepository $repository;
     protected object $articleRequest;
 
     public function __construct(ArticleRequest $articleRequest)

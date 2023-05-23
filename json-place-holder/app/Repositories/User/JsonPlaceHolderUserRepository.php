@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Repositories\User;
+namespace App\Repositories\User;
 
 use App\Controllers\ErrorController;
 use App\Core\Cache;
@@ -10,7 +10,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use RuntimeException;
 
-class JsonPlaceHolderUserRepository
+class JsonPlaceHolderUserRepository implements UserRepository
 {
     private const BASE_URI = 'https://jsonplaceholder.typicode.com/';
     private object $client;
