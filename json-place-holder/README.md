@@ -1,6 +1,5 @@
 <img src="prev0.png">
 <img src="prev1.png">
-<img src="prev2.png">
 
 
 This program works with api.
