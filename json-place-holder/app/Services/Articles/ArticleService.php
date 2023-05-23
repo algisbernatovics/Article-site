@@ -2,7 +2,8 @@
 
 namespace App\Services\Articles;
 
-use App\Repositories\ArticleRepository;
+
+use App\Repositories\Article\JsonPlaceHolderArticleRepository;
 
 class ArticleService
 {
@@ -12,7 +13,7 @@ class ArticleService
     public function __construct(ArticleRequest $articleRequest)
     {
         $this->articleRequest = $articleRequest;
-        $this->repository = new ArticleRepository($articleRequest->getUri());
+        $this->repository = new JsonPlaceHolderArticleRepository($articleRequest->getUri());
     }
 
     public function execute(): ArticleResponse

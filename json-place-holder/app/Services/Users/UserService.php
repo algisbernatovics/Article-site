@@ -2,7 +2,7 @@
 
 namespace App\Services\Users;
 
-use App\Repositories\UserRepository;
+use App\Repositories\User\JsonPlaceHolderUserRepository;
 
 class UserService
 {
@@ -12,7 +12,7 @@ class UserService
     public function __construct(UserRequest $usersRequest)
     {
         $this->usersRequest = $usersRequest;
-        $this->repository = new userRepository($usersRequest->getUri());
+        $this->repository = new JsonPlaceHolderUserRepository($usersRequest->getUri());
     }
 
     public function execute(): userResponse

@@ -2,7 +2,7 @@
 
 namespace App\Services\Comments;
 
-use App\Repositories\CommentRepository;
+use App\Repositories\Comment\JsonPlaceHolderCommentRepository;
 
 class CommentService
 {
@@ -12,7 +12,7 @@ class CommentService
     public function __construct(CommentRequest $commentRequest)
     {
         $this->commentRequest = $commentRequest;
-        $this->repository = new CommentRepository($commentRequest->getUri());
+        $this->repository = new JsonPlaceHolderCommentRepository($commentRequest->getUri());
     }
 
     public function execute(): CommentResponse
