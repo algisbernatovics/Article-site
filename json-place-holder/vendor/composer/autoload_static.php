@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit46b3c3a995dbcbbb082568a5cba8f706
+class ComposerStaticInit4f39ab44f82842cf35283b328a42cefc
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -16,6 +16,7 @@ class ComposerStaticInit46b3c3a995dbcbbb082568a5cba8f706
         'a1105708a18b76903365ca1c4aa61b02' => __DIR__ . '/..' . '/symfony/translation/Resources/functions.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         '253c157292f75eb38082b5acb06f3f01' => __DIR__ . '/..' . '/nikic/fast-route/src/functions.php',
+        'b33e3d135e5d9e47d845c576147bda89' => __DIR__ . '/..' . '/php-di/php-di/src/functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -35,6 +36,16 @@ class ComposerStaticInit46b3c3a995dbcbbb082568a5cba8f706
         array (
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Http\\Client\\' => 16,
+            'Psr\\Container\\' => 14,
+            'PhpDocReader\\' => 13,
+        ),
+        'L' => 
+        array (
+            'Laravel\\SerializableClosure\\' => 28,
+        ),
+        'I' => 
+        array (
+            'Invoker\\' => 8,
         ),
         'G' => 
         array (
@@ -45,6 +56,10 @@ class ComposerStaticInit46b3c3a995dbcbbb082568a5cba8f706
         'F' => 
         array (
             'FastRoute\\' => 10,
+        ),
+        'D' => 
+        array (
+            'DI\\' => 3,
         ),
         'C' => 
         array (
@@ -83,12 +98,28 @@ class ComposerStaticInit46b3c3a995dbcbbb082568a5cba8f706
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/http-client/src',
+        ),
+        'Psr\\Container\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/container/src',
+        ),
+        'PhpDocReader\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-di/phpdoc-reader/src/PhpDocReader',
+        ),
+        'Laravel\\SerializableClosure\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laravel/serializable-closure/src',
+        ),
+        'Invoker\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-di/invoker/src',
         ),
         'GuzzleHttp\\Psr7\\' => 
         array (
@@ -105,6 +136,10 @@ class ComposerStaticInit46b3c3a995dbcbbb082568a5cba8f706
         'FastRoute\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/fast-route/src',
+        ),
+        'DI\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-di/php-di/src',
         ),
         'Carbon\\' => 
         array (
@@ -128,9 +163,9 @@ class ComposerStaticInit46b3c3a995dbcbbb082568a5cba8f706
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit46b3c3a995dbcbbb082568a5cba8f706::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit46b3c3a995dbcbbb082568a5cba8f706::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit46b3c3a995dbcbbb082568a5cba8f706::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit4f39ab44f82842cf35283b328a42cefc::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit4f39ab44f82842cf35283b328a42cefc::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit4f39ab44f82842cf35283b328a42cefc::$classMap;
 
         }, null, ClassLoader::class);
     }

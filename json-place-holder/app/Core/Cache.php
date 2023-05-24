@@ -9,8 +9,9 @@ class Cache
 {
     public static function remember(string $key, string $data, int $ttl = 120): void
     {
+        $path = ROOT_DIR . '/cache/';
         $expire_at = Carbon\CarbonImmutable::now()->addSeconds($ttl);
-        $cacheFile = '../cache/' . $key;
+        $cacheFile = $path . $key;
         file_put_contents($cacheFile, json_encode([
             'expires_at' => $expire_at,
             'content' => $data
