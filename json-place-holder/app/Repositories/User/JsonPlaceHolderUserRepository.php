@@ -16,6 +16,9 @@ class JsonPlaceHolderUserRepository implements UserRepository
     private object $client;
     private array $response;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> ae8e32e (First Commit)
 
     public function __construct()
     {
@@ -28,6 +31,7 @@ class JsonPlaceHolderUserRepository implements UserRepository
         if (!Cache::has($cacheFileName)) {
             try {
                 $response = ($this->client->request('GET', $requestUri))->getBody()->getContents();
+<<<<<<< HEAD
 =======
     private string $requestUri;
 
@@ -44,6 +48,8 @@ class JsonPlaceHolderUserRepository implements UserRepository
             try {
                 $response = ($this->client->request('GET', $this->requestUri))->getBody()->getContents();
 >>>>>>> refs/remotes/origin/main
+=======
+>>>>>>> ae8e32e (First Commit)
             } catch (GuzzleException $e) {
                 if (!isset($_SERVER['argv'])) {
                     return (new ErrorController())->error();

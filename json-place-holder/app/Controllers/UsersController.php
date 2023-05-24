@@ -11,12 +11,16 @@ use App\Services\Users\UserService;
 class UsersController
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> ae8e32e (First Commit)
     private object $userService;
     private object $userArticleService;
     public function __construct(UserService $userService, ArticleService $userArticleService)
     {
         $this->userService = $userService;
         $this->userArticleService = $userArticleService;
+<<<<<<< HEAD
 =======
 
 
@@ -33,11 +37,16 @@ class UsersController
             $userPostResponse->getPosts()
         );
 >>>>>>> refs/remotes/origin/main
+=======
+>>>>>>> ae8e32e (First Commit)
     }
 
     public function allUsers(): string
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> ae8e32e (First Commit)
         $userRequest=new UserRequest('/users');
         $userResponse = $this->userService->execute();
         return (new Renderer())->viewUsers(
@@ -58,10 +67,13 @@ class UsersController
         );
     }
 
+<<<<<<< HEAD
 =======
         $userService = new UserService(new UserRequest('/users'));
         $userResponse = $userService->execute();
         return (new Renderer())->viewUsers('Users.twig', $userResponse->getUser());
     }
 >>>>>>> refs/remotes/origin/main
+=======
+>>>>>>> ae8e32e (First Commit)
 }

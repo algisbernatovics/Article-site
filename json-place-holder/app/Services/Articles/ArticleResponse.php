@@ -12,6 +12,7 @@ class ArticleResponse
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public function getResponse(): object
     {
         return $this->articleRepository;
@@ -20,5 +21,10 @@ class ArticleResponse
     {
         return $this->articleRepository->getPosts();
 >>>>>>> refs/remotes/origin/main
+=======
+    public function getResponse(): object
+    {
+        return $this->articleRepository;
+>>>>>>> ae8e32e (First Commit)
     }
 }

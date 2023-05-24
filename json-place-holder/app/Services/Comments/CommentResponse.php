@@ -12,6 +12,7 @@ class CommentResponse
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public function getResponse(): object
     {
         return $this->commentRepository;
@@ -20,5 +21,10 @@ class CommentResponse
     {
         return $this->commentRepository->getComments();
 >>>>>>> refs/remotes/origin/main
+=======
+    public function getResponse(): object
+    {
+        return $this->commentRepository;
+>>>>>>> ae8e32e (First Commit)
     }
 }

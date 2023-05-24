@@ -4,6 +4,9 @@ namespace App\Core;
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> ae8e32e (First Commit)
 use App\Repositories\Comment\CommentRepository;
 use App\Repositories\Comment\JsonPlaceHolderCommentRepository;
 use App\Repositories\User\JsonPlaceHolderUserRepository;
@@ -13,10 +16,13 @@ use FastRoute\Dispatcher;
 use DI\ContainerBuilder;
 use App\Repositories\Article\JsonPlaceHolderArticleRepository;
 use App\Repositories\Article\ArticleRepository;
+<<<<<<< HEAD
 =======
 use FastRoute;
 use FastRoute\Dispatcher;
 >>>>>>> refs/remotes/origin/main
+=======
+>>>>>>> ae8e32e (First Commit)
 
 class Router
 {
@@ -24,6 +30,9 @@ class Router
     {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> ae8e32e (First Commit)
         define('ROOT_DIR', realpath(__DIR__ . '/../..'));
         $builder = new ContainerBuilder();
         $builder->addDefinitions([
@@ -32,10 +41,13 @@ class Router
             CommentRepository::class => new JsonPlaceHolderCommentRepository()
         ]);
         $container = $builder->build();
+<<<<<<< HEAD
 =======
         define('ROOT_DIR', realpath(__DIR__.'/../..'));
 
 >>>>>>> refs/remotes/origin/main
+=======
+>>>>>>> ae8e32e (First Commit)
         $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
 
             $r->addRoute(['GET'], '/', '\App\Controllers\ArticlesController@home');
@@ -75,6 +87,9 @@ class Router
                 $vars = $routeInfo[2];
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> ae8e32e (First Commit)
                 if (!isset($vars['id'])) {
                     $vars['id'] = 0;
                 }
@@ -86,6 +101,7 @@ class Router
                 $controller = $container->get($controllerName);
                 return $controller->{$methodName}((int)($vars['id']));
 
+<<<<<<< HEAD
 =======
                 if(!isset($vars['id'])){
                     $vars['id']=0;
@@ -95,6 +111,8 @@ class Router
                 $controller = new $controllerName;
                 $response = $controller->{$methodName}((int)($vars['id']));
 >>>>>>> refs/remotes/origin/main
+=======
+>>>>>>> ae8e32e (First Commit)
         }
         return null;
     }
