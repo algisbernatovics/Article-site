@@ -3,6 +3,7 @@
 namespace App\Core;
 
 
+<<<<<<< HEAD
 use App\Repositories\Comment\CommentRepository;
 use App\Repositories\Comment\JsonPlaceHolderCommentRepository;
 use App\Repositories\User\JsonPlaceHolderUserRepository;
@@ -12,12 +13,17 @@ use FastRoute\Dispatcher;
 use DI\ContainerBuilder;
 use App\Repositories\Article\JsonPlaceHolderArticleRepository;
 use App\Repositories\Article\ArticleRepository;
+=======
+use FastRoute;
+use FastRoute\Dispatcher;
+>>>>>>> refs/remotes/origin/main
 
 class Router
 {
     public static function Router()
     {
 
+<<<<<<< HEAD
         define('ROOT_DIR', realpath(__DIR__ . '/../..'));
         $builder = new ContainerBuilder();
         $builder->addDefinitions([
@@ -26,6 +32,10 @@ class Router
             CommentRepository::class => new JsonPlaceHolderCommentRepository()
         ]);
         $container = $builder->build();
+=======
+        define('ROOT_DIR', realpath(__DIR__.'/../..'));
+
+>>>>>>> refs/remotes/origin/main
         $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
 
             $r->addRoute(['GET'], '/', '\App\Controllers\ArticlesController@home');
@@ -64,6 +74,7 @@ class Router
                 $handler = $routeInfo[1];
                 $vars = $routeInfo[2];
 
+<<<<<<< HEAD
                 if (!isset($vars['id'])) {
                     $vars['id'] = 0;
                 }
@@ -75,6 +86,15 @@ class Router
                 $controller = $container->get($controllerName);
                 return $controller->{$methodName}((int)($vars['id']));
 
+=======
+                if(!isset($vars['id'])){
+                    $vars['id']=0;
+                }
+
+                [$controllerName, $methodName] = explode('@', $handler);
+                $controller = new $controllerName;
+                $response = $controller->{$methodName}((int)($vars['id']));
+>>>>>>> refs/remotes/origin/main
         }
         return null;
     }

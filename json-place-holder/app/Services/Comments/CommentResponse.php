@@ -11,8 +11,14 @@ class CommentResponse
         $this->commentRepository = $commentRepository;
     }
 
+<<<<<<< HEAD
     public function getResponse(): object
     {
         return $this->commentRepository;
+=======
+    public function getComment(): array
+    {
+        return $this->commentRepository->getComments();
+>>>>>>> refs/remotes/origin/main
     }
 }

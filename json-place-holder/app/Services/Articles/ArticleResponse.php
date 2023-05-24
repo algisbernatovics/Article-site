@@ -11,8 +11,14 @@ class ArticleResponse
         $this->articleRepository = $articleRepository;
     }
 
+<<<<<<< HEAD
     public function getResponse(): object
     {
         return $this->articleRepository;
+=======
+    public function getPosts(): array
+    {
+        return $this->articleRepository->getPosts();
+>>>>>>> refs/remotes/origin/main
     }
 }

@@ -10,16 +10,34 @@ use App\Services\Users\UserService;
 
 class UsersController
 {
+<<<<<<< HEAD
     private object $userService;
     private object $userArticleService;
     public function __construct(UserService $userService, ArticleService $userArticleService)
     {
         $this->userService = $userService;
         $this->userArticleService = $userArticleService;
+=======
+
+
+    public function user(): string
+    {
+        $userService = new UserService(new UserRequest($_SERVER["REQUEST_URI"]));
+        $userResponse = $userService->execute();
+
+        $userPostService = new ArticleService(new ArticleRequest($_SERVER["REQUEST_URI"] . '/posts'));
+        $userPostResponse = $userPostService->execute();
+        return (new Renderer())->viewSingleUser(
+            'SingleUser.twig',
+            $userResponse->getUser(),
+            $userPostResponse->getPosts()
+        );
+>>>>>>> refs/remotes/origin/main
     }
 
     public function allUsers(): string
     {
+<<<<<<< HEAD
         $userRequest=new UserRequest('/users');
         $userResponse = $this->userService->execute();
         return (new Renderer())->viewUsers(
@@ -40,4 +58,10 @@ class UsersController
         );
     }
 
+=======
+        $userService = new UserService(new UserRequest('/users'));
+        $userResponse = $userService->execute();
+        return (new Renderer())->viewUsers('Users.twig', $userResponse->getUser());
+    }
+>>>>>>> refs/remotes/origin/main
 }
