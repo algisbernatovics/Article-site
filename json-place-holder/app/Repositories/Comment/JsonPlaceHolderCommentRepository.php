@@ -14,10 +14,6 @@ class JsonPlaceHolderCommentRepository implements CommentRepository
 {
     private const BASE_URI = 'https://jsonplaceholder.typicode.com/';
     private object $client;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> ae8e32e (First Commit)
     private array $response;
 
     public function __construct()
@@ -32,27 +28,6 @@ class JsonPlaceHolderCommentRepository implements CommentRepository
         if (!Cache::has($cacheFileName)) {
             try {
                 $response = ($this->client->request('GET', $requestUri))->getBody()->getContents();
-<<<<<<< HEAD
-=======
-    private string $requestUri;
-    private array $response;
-
-    public function __construct(string $requestUri)
-    {
-        $this->requestUri = $requestUri;
-        $this->client = new Client(['base_uri' => self::BASE_URI]);
-    }
-
-    public function getComments(): ?array
-    {
-        $cacheFileName = Functions::replaceSlash($this->requestUri);
-
-        if (!Cache::has($cacheFileName)) {
-            try {
-                $response = ($this->client->request('GET', $this->requestUri))->getBody()->getContents();
->>>>>>> refs/remotes/origin/main
-=======
->>>>>>> ae8e32e (First Commit)
             } catch (GuzzleException $e) {
                 if (!isset($_SERVER['argv'])) {
                     return (new ErrorController())->error();

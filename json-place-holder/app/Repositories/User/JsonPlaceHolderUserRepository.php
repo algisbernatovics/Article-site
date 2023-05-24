@@ -15,10 +15,6 @@ class JsonPlaceHolderUserRepository implements UserRepository
     private const BASE_URI = 'https://jsonplaceholder.typicode.com/';
     private object $client;
     private array $response;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> ae8e32e (First Commit)
 
     public function __construct()
     {
@@ -31,25 +27,6 @@ class JsonPlaceHolderUserRepository implements UserRepository
         if (!Cache::has($cacheFileName)) {
             try {
                 $response = ($this->client->request('GET', $requestUri))->getBody()->getContents();
-<<<<<<< HEAD
-=======
-    private string $requestUri;
-
-    public function __construct(string $requestUri)
-    {
-        $this->requestUri = $requestUri;
-        $this->client = new Client(['base_uri' => self::BASE_URI]);
-    }
-
-    public function getUsers(): ?array
-    {
-        $cacheFileName = Functions::replaceSlash($this->requestUri);
-        if (!Cache::has($cacheFileName)) {
-            try {
-                $response = ($this->client->request('GET', $this->requestUri))->getBody()->getContents();
->>>>>>> refs/remotes/origin/main
-=======
->>>>>>> ae8e32e (First Commit)
             } catch (GuzzleException $e) {
                 if (!isset($_SERVER['argv'])) {
                     return (new ErrorController())->error();

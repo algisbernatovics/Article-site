@@ -17,16 +17,7 @@
     "twig/twig": "^3.5",
     "ext-json": "*",
     "nesbot/carbon": "^2.66",
-<<<<<<< HEAD
-<<<<<<< HEAD
     "ext-readline": "*",
     "php-di/php-di": "^6.4"
-=======
-    "ext-readline": "*"
->>>>>>> refs/remotes/origin/main
-=======
-    "ext-readline": "*",
-    "php-di/php-di": "^6.4"
->>>>>>> ae8e32e (First Commit)
   }
 }
