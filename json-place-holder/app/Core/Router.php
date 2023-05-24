@@ -2,7 +2,6 @@
 
 namespace App\Core;
 
-
 use App\Repositories\Comment\CommentRepository;
 use App\Repositories\Comment\JsonPlaceHolderCommentRepository;
 use App\Repositories\User\JsonPlaceHolderUserRepository;
@@ -17,30 +16,14 @@ class Router
 {
     public static function Router()
     {
-
         define('ROOT_DIR', realpath(__DIR__ . '/../..'));
-        $builder = new ContainerBuilder();
-        $builder->addDefinitions([
-            ArticleRepository::class => new JsonPlaceHolderArticleRepository(),
-            UserRepository::class => new JsonPlaceHolderUserRepository(),
-            CommentRepository::class => new JsonPlaceHolderCommentRepository()
-        ]);
-        $container = $builder->build();
-        $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
 
-            $r->addRoute(['GET'], '/', '\App\Controllers\ArticlesController@home');
-            $r->addRoute(['GET'], '/allPosts', '\App\Controllers\ArticlesController@allPosts');
-
-            $r->addRoute(['GET'], '/allUsers', '\App\Controllers\UsersController@AllUsers');
-            $r->addRoute(['GET'], '/users[/{id}]', '\App\Controllers\UsersController@user');
-            $r->addRoute(['GET'], '/posts[/{id}]', '\App\Controllers\ArticlesController@post');
-
-        });
+        $container = (new Container())->getContainer();
+        $dispatcher = (new Routes())->getDispatcher();
 
         // Fetch method and URI from somewhere
         $httpMethod = 'GET';
         $uri = $_SERVER['REQUEST_URI'];
-
 
         // Strip query string (?foo=bar) and decode URI
 
@@ -69,12 +52,8 @@ class Router
                 }
 
                 [$controllerName, $methodName] = explode('@', $handler);
-//                $controller = new $controllerName;
-//                $response = $controller->{$methodName}((int)($vars['id']));
-
                 $controller = $container->get($controllerName);
                 return $controller->{$methodName}((int)($vars['id']));
-
         }
         return null;
     }

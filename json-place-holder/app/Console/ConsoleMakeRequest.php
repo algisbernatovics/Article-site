@@ -12,6 +12,10 @@ use App\Services\Users\UserService;
 class ConsoleMakeRequest
 {
     protected array $response;
+    private ArticleService $articleService;
+    private CommentService $commentService;
+    private UserService $userService;
+
 
     public function __construct()
     {
@@ -21,8 +25,8 @@ class ConsoleMakeRequest
     public function allUsers(): array
     {
         $service = new UserService(new UserRequest('users'));
-        $response = $service->execute();
-        return $response->getUser();
+        $user = $service->execute();
+        return $user->getUsers();
     }
 
     public function allPosts(): array

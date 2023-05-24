@@ -39,5 +39,4 @@ class UsersController
             $userArticleResponse->getResponse()->getArticles($userArticleRequest->getUri())
         );
     }
-
 }

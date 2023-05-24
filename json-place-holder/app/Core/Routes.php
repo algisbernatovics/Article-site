@@ -1,0 +1,29 @@
+<?php
+
+namespace App\Core;
+
+use FastRoute;
+
+class Routes
+{
+    protected object $dispatcher;
+
+    public function __construct()
+    {
+        $this->dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
+
+            $r->addRoute(['GET'], '/', '\App\Controllers\ArticlesController@home');
+            $r->addRoute(['GET'], '/allPosts', '\App\Controllers\ArticlesController@allPosts');
+
+            $r->addRoute(['GET'], '/allUsers', '\App\Controllers\UsersController@AllUsers');
+            $r->addRoute(['GET'], '/users[/{id}]', '\App\Controllers\UsersController@user');
+            $r->addRoute(['GET'], '/posts[/{id}]', '\App\Controllers\ArticlesController@post');
+
+        });
+    }
+
+    public function getDispatcher(): object
+    {
+        return $this->dispatcher;
+    }
+}
