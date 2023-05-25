@@ -8,12 +8,12 @@ use App\Services\Articles\ArticleService;
 use App\Services\Comments\CommentRequest;
 use App\Services\Comments\CommentService;
 
-
 class ArticlesController
 {
     private object $articleService;
     private object $commentService;
-    public function __construct(articleService $articleService,commentService $commentService)
+
+    public function __construct(articleService $articleService, commentService $commentService)
     {
         $this->articleService = $articleService;
         $this->commentService = $commentService;
