@@ -20,7 +20,7 @@ class ConsoleShowResponse
         }
     }
 
-    public static function showPosts(array $response): void
+    public static function showArticles(array $response): void
     {
         foreach ($response as $post) {
             echo '-----------------------------------------' . PHP_EOL;

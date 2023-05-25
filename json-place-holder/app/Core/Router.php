@@ -2,15 +2,7 @@
 
 namespace App\Core;
 
-use App\Repositories\Comment\CommentRepository;
-use App\Repositories\Comment\JsonPlaceHolderCommentRepository;
-use App\Repositories\User\JsonPlaceHolderUserRepository;
-use App\Repositories\User\UserRepository;
-use FastRoute;
 use FastRoute\Dispatcher;
-use DI\ContainerBuilder;
-use App\Repositories\Article\JsonPlaceHolderArticleRepository;
-use App\Repositories\Article\ArticleRepository;
 
 class Router
 {

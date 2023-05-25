@@ -14,6 +14,7 @@ use DI\ContainerBuilder;
 class Container
 {
     protected object $container;
+
     public function __construct()
     {
         $builder = new ContainerBuilder();
@@ -23,9 +24,11 @@ class Container
             CommentRepository::class => new JsonPlaceHolderCommentRepository()
         ]);
 
-        $this->container= $builder->build();
+        $this->container = $builder->build();
     }
-    public function getContainer(){
+
+    public function getContainer()
+    {
         return $this->container;
     }
 }

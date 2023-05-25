@@ -3,64 +3,60 @@
 namespace App\Console;
 
 use App\Services\Articles\ArticleRequest;
-use App\Services\Articles\ArticleService;
 use App\Services\Comments\CommentRequest;
-use App\Services\Comments\CommentService;
 use App\Services\Users\UserRequest;
-use App\Services\Users\UserService;
+
 
 class ConsoleMakeRequest
 {
     protected array $response;
-    private ArticleService $articleService;
-    private CommentService $commentService;
-    private UserService $userService;
+    private object $service;
 
-
-    public function __construct()
+    public function __construct(object $service)
     {
+        $this->service = $service;
         $this->response = [];
     }
 
     public function allUsers(): array
     {
-        $service = new UserService(new UserRequest('users'));
-        $user = $service->execute();
-        return $user->getUsers();
+        $userRequest = new UserRequest('users');
+        $userResponse = $this->service->execute();
+        return $userResponse->getResponse()->getUsers($userRequest->getUri());
     }
 
-    public function allPosts(): array
+    public function allArticles(): array
     {
-        $service = new ArticleService(new ArticleRequest('posts'));
-        $response = $service->execute();
-        return $response->getPosts();
+        $articleRequest = new ArticleRequest('posts');
+        $articleResponse = $this->service->execute();
+        return $articleResponse->getResponse()->getArticles($articleRequest->getUri());
     }
 
     public function allComments(): array
     {
-        $service = new CommentService(new CommentRequest('comments'));
-        $response = $service->execute();
-        return $response->getComment();
+        $commentRequest = new CommentRequest('comments');
+        $commentResponse = $this->service->execute();
+        return $commentResponse->getResponse()->getComments($commentRequest->getUri());
     }
 
     public function userById(int $id): array
     {
-        $service = new UserService(new UserRequest('users/' . "$id"));
-        $response = $service->execute();
-        return $response->getUser();
+        $userRequest = new UserRequest('users/' . $id);
+        $userResponse = $this->service->execute();
+        return $userResponse->getResponse()->getUsers($userRequest->getUri());
     }
 
     public function postsById(int $id): array
     {
-        $service = new ArticleService(new ArticleRequest('posts/' . "$id"));
-        $response = $service->execute();
-        return $response->getPosts();
+        $articleRequest = new ArticleRequest('posts/' . $id);
+        $articleResponse = $this->service->execute();
+        return $articleResponse->getResponse()->getArticles($articleRequest->getUri());
     }
 
     public function postComments(int $id): array
     {
-        $service = new CommentService(new CommentRequest('posts/' . "$id" . '/comments'));
-        $response = $service->execute();
-        return $response->getComment();
+        $commentRequest = new CommentRequest('comments/' . $id);
+        $commentResponse = $this->service->execute();
+        return $commentResponse->getResponse()->getComments($commentRequest->getUri());
     }
 }
