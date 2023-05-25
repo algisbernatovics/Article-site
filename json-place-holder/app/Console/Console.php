@@ -44,7 +44,7 @@ switch ($i) {
     case 5:
         $id = (int)readline('Article Id:');
         ConsoleShowResponse::showArticles((
-        new ConsoleMakeRequest($container->get('App\Services\Articles\ArticleService')))->postsById($id));
+        new ConsoleMakeRequest($container->get('App\Services\Articles\ArticleService')))->articlesById($id));
         break;
     case 6:
         $id = (int)readline('Article Id:');

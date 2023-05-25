@@ -28,17 +28,16 @@ class HomeArticleRepository implements ArticleRepository
                 ->from('articles')
                 ->where("id =$id")
                 ->fetchAllAssociative();
-            return $this->buildModel($response);
         } else {
             $response = $this->queryBuilder->select('*')
                 ->from('articles')
                 ->fetchAllAssociative();
-            return $this->buildModel($response);
         }
+        return $this->buildModel($response);
     }
 
-    private
-    function buildModel(array $response): array
+
+    private function buildModel(array $response): array
     {
         $articles = [];
         foreach ($response as $article) {

@@ -46,7 +46,7 @@ class ConsoleMakeRequest
         return $userResponse->getResponse()->getUsers($userRequest->getUri());
     }
 
-    public function postsById(int $id): array
+    public function articlesById(int $id): array
     {
         $articleRequest = new ArticleRequest('posts/' . $id);
         $articleResponse = $this->service->execute();
