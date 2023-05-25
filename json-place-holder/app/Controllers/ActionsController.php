@@ -4,8 +4,8 @@ namespace App\Controllers;
 
 use App\Core\Functions;
 use App\Core\Renderer;
-use App\Services\Articles\Show\ArticleRequest;
-use App\Services\Articles\Show\ArticleService;
+use App\Services\Articles\ArticleRequest;
+use App\Services\Articles\ArticleService;
 
 class ActionsController
 {

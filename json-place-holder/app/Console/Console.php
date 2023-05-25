@@ -30,7 +30,7 @@ switch ($i) {
         break;
     case 2:
         ConsoleShowResponse::showArticles((
-        new ConsoleMakeRequest($container->get('App\Services\Articles\Show\ArticleService')))->allArticles());
+        new ConsoleMakeRequest($container->get('App\Services\Articles\ArticleService')))->allArticles());
         break;
     case 3:
         ConsoleShowResponse::showComments((
@@ -44,7 +44,7 @@ switch ($i) {
     case 5:
         $id = (int)readline('Article Id:');
         ConsoleShowResponse::showArticles((
-        new ConsoleMakeRequest($container->get('App\Services\Articles\Show\ArticleService')))->postsById($id));
+        new ConsoleMakeRequest($container->get('App\Services\Articles\ArticleService')))->postsById($id));
         break;
     case 6:
         $id = (int)readline('Article Id:');
