@@ -19,4 +19,12 @@ class Functions
         return (int)preg_replace('/[^0-9]/', "", $value, -1);
     }
 
+    public static function redirect($url, $permanent = false)
+    {
+        if (headers_sent() === false) {
+            header('Location: ' . $url, true, ($permanent === true) ? 301 : 302);
+        }
+    }
+
+
 }
