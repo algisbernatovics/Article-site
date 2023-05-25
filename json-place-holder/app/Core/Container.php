@@ -4,7 +4,7 @@
 namespace App\Core;
 
 use App\Repositories\Article\ArticleRepository;
-use App\Repositories\Article\JsonPlaceHolderArticleRepository;
+use App\Repositories\Article\HomeArticleRepository;
 use App\Repositories\Comment\CommentRepository;
 use App\Repositories\Comment\JsonPlaceHolderCommentRepository;
 use App\Repositories\User\JsonPlaceHolderUserRepository;
@@ -19,7 +19,8 @@ class Container
     {
         $builder = new ContainerBuilder();
         $builder->addDefinitions([
-            ArticleRepository::class => new JsonPlaceHolderArticleRepository(),
+            ArticleRepository::class => new HomeArticleRepository(),
+//            ArticleRepository::class => new JsonPlaceHolderArticleRepository(),
             UserRepository::class => new JsonPlaceHolderUserRepository(),
             CommentRepository::class => new JsonPlaceHolderCommentRepository()
         ]);

@@ -2,8 +2,8 @@
 
 namespace App\Console;
 
-use App\Core\Functions;
 use App\Core\Container;
+use App\Core\Functions;
 
 require_once '../../vendor/autoload.php';
 
@@ -20,7 +20,9 @@ echo '5- Article By Id' . PHP_EOL;
 echo '6- Article Comments' . PHP_EOL;
 echo '7- Exit Console' . PHP_EOL;
 
-$i = (int)readline('Your Choice:');
+
+$i = readline('Your Choice:');
+
 switch ($i) {
     case 1:
         ConsoleShowResponse::showUsers((
