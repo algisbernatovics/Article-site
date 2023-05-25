@@ -5,7 +5,7 @@ namespace App\Repositories\Article;
 use App\Controllers\ErrorController;
 use App\Core\Cache;
 use App\Core\Functions;
-use App\Models\Posts;
+use App\Models\Articles;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use RuntimeException;
@@ -53,7 +53,7 @@ class JsonPlaceHolderArticleRepository implements ArticleRepository
     {
         $posts = [];
         foreach ($response as $post) {
-            $posts[] = new Posts (
+            $posts[] = new Articles (
                 $post->userId,
                 $post->id,
                 $post->title,

@@ -19,6 +19,8 @@ class Routes
             $r->addRoute(['GET'], '/users[/{id}]', '\App\Controllers\UsersController@user');
             $r->addRoute(['GET'], '/posts[/{id}]', '\App\Controllers\ArticlesController@post');
 
+            $r->addRoute(['GET'], '/delete[/{id}]', '\App\Controllers\ActionsController@deleteArticle');
+
         });
     }
 

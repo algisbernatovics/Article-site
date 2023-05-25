@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class Posts
+class Articles
 {
     protected int $userId;
     protected int $id;
@@ -21,7 +21,7 @@ class Posts
         $this->userUrl = $userUrl;
         $this->postUrl = $postUrl;
     }
-    
+
     public function getUserId(): int
     {
         return $this->userId;

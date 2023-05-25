@@ -5,31 +5,32 @@ namespace App\Repositories\Article;
 
 use App\Core\Functions;
 use App\Core\PDO;
-use App\Models\Posts;
+use App\Models\Articles;
 
 
 class HomeArticleRepository implements ArticleRepository
 {
     private object $PDOConnection;
+    private object $queryBuilder;
 
     public function __construct()
     {
         $this->PDOConnection = (new PDO())->getPDOconnection();
+        $this->queryBuilder = $this->PDOConnection->createQueryBuilder();
     }
 
     public function getArticles(string $requestUri): ?array
     {
         $id = Functions::digitsOnly($requestUri);
-        $queryBuilder = $this->PDOConnection->createQueryBuilder();
 
         if ($id > 0) {
-            $response = $queryBuilder->select('*')
+            $response = $this->queryBuilder->select('*')
                 ->from('articles')
                 ->where("id =$id")
                 ->fetchAllAssociative();
             return $this->buildModel($response);
         } else {
-            $response = $queryBuilder->select('*')
+            $response = $this->queryBuilder->select('*')
                 ->from('articles')
                 ->fetchAllAssociative();
             return $this->buildModel($response);
@@ -41,9 +42,9 @@ class HomeArticleRepository implements ArticleRepository
     {
         $articles = [];
         foreach ($response as $article) {
-            $articles[] = new Posts (
-                $article['id'],
+            $articles[] = new Articles (
                 $article['user_id'],
+                $article['id'],
                 $article['title'],
                 $article['body'],
                 '/users/' . $article['user_id'],
@@ -51,5 +52,15 @@ class HomeArticleRepository implements ArticleRepository
             );
         }
         return $articles;
+    }
+
+    public function deleteArticle(string $requestUri)
+    {
+        $id = Functions::digitsOnly($requestUri);
+        $this->queryBuilder
+            ->delete('articles')
+            ->where('id = :id')
+            ->setParameter('id', $id)
+            ->executeStatement();
     }
 }
