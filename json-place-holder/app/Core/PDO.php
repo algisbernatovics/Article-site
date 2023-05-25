@@ -12,10 +12,9 @@ class PDO
     public function __construct()
     {
         $_ENV = (new DotEnv())->getENV();
-
         $connectionParams = [
             'dbname' => $_ENV['DBNAME'],
-            'user' => $_ENV['USER'],
+            'user' => $_ENV['USER_'],
             'password' => $_ENV['PASSWORD'],
             'host' => $_ENV['HOST'],
             'driver' => $_ENV['DRIVER'],
