@@ -20,7 +20,8 @@ class Routes
             $r->addRoute(['GET'], '/posts[/{id}]', '\App\Controllers\ArticlesController@post');
 
             $r->addRoute(['GET'], '/delete[/{id}]', '\App\Controllers\ActionsController@deleteArticle');
-
+            $r->addRoute(['GET'], '/showForm', '\App\Controllers\ActionsController@showInputForm');
+            $r->addRoute(['GET'], '/addArticle', '\App\Controllers\ActionsController@addArticle');
         });
     }
 

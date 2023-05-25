@@ -63,4 +63,20 @@ class HomeArticleRepository implements ArticleRepository
             ->setParameter('id', $id)
             ->executeStatement();
     }
+
+    public function addArticle($PostData)
+    {
+        //TODO User
+
+        $this->queryBuilder
+            ->insert('articles')
+            ->values([
+                'title' => ':title',
+                'body' => ':body',
+                'user_id' => '1',
+            ])
+            ->setParameter('title', $PostData['title'])
+            ->setParameter('body', $PostData['body'])
+            ->executeStatement();
+    }
 }

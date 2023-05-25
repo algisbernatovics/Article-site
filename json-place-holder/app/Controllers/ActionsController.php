@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Core\Functions;
+use App\Core\Renderer;
 use App\Services\Articles\Show\ArticleRequest;
 use App\Services\Articles\Show\ArticleService;
 
@@ -15,12 +16,15 @@ class ActionsController
         $this->articleService = $articleService;
     }
 
+    public function showInputForm()
+    {
+        (new Renderer())->error('ArticleForm.twig');
+    }
+
     public function addArticle()
     {
-        var_dump('ādd');
-        $articleRequest = new ArticleRequest($_SERVER["REQUEST_URI"]);
         $articleResponse = $this->articleService->execute();
-        $articleResponse->getResponse()->deleteArticle($articleRequest->getUri());
+        $articleResponse->getResponse()->addArticle($_POST);
         Functions::Redirect('/', false);
     }
 

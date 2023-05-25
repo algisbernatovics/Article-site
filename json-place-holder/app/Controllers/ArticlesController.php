@@ -44,7 +44,7 @@ class ArticlesController
         $commentResponse = $this->commentService->execute();
         return (new Renderer())->viewPostAndComments
         (
-            'SinglePost.twig',
+            'SingleArticle.twig',
             $articleResponse->getResponse()->getArticles($articleRequest->getUri()),
             $commentResponse->getResponse()->getComments($commentRequest->getUri())
         );
