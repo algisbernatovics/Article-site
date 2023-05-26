@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Articles;
+namespace App\Services\Articles\Show;
 
 class ArticleResponse
 {

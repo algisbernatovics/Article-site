@@ -21,6 +21,7 @@
                         <a href="{{ post.userUrl }}" rel="author"
                            class="text-xl font-bold text-gray-900 dark:text-white">Author User
                             ID:{{ post.userId }}</a>
+                        <p>PostId:{{ post.id }}</p>
 
                     </div>
                 </div>
@@ -32,7 +33,7 @@
                      alt="{{ post.title|capitalize }}"></a>
 
         </header>
-        <p>{{ post.id }}
+
         <p class="lead">{{ post.body|capitalize }}</p>
         <form action="/delete/{{ post.id }}" method="post">
             <button name="delete" value=""

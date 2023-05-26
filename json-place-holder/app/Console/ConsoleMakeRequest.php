@@ -2,9 +2,9 @@
 
 namespace App\Console;
 
-use App\Services\Articles\ArticleRequest;
-use App\Services\Comments\CommentRequest;
-use App\Services\Users\UserRequest;
+use App\Services\Articles\Show\ArticleRequest;
+use App\Services\Comments\Show\CommentRequest;
+use App\Services\Users\Show\UserRequest;
 
 
 class ConsoleMakeRequest

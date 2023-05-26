@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Comments;
+namespace App\Services\Comments\Show;
 
 class CommentResponse
 {

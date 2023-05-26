@@ -8,7 +8,7 @@ use App\Core\PDO;
 use App\Models\Articles;
 
 
-class HomeArticleRepository implements ArticleRepository
+class LocalDbArticleRepository implements ArticleRepository
 {
     private object $PDOConnection;
     private object $queryBuilder;

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Services\Users;
-class UserRequest
+namespace App\Services\Comments\Show;
+
+class CommentRequest
 {
     protected string $uri;
 

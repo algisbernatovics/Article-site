@@ -60,7 +60,8 @@ class JsonPlaceHolderUserRepository implements UserRepository
                 $user->address->city,
                 $user->phone,
                 $user->website,
-                $user->company->name
+                $user->company->name,
+                'NoPassword'
             );
         }
         return $users;

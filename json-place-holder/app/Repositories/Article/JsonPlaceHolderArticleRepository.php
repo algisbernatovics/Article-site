@@ -51,17 +51,17 @@ class JsonPlaceHolderArticleRepository implements ArticleRepository
 
     private function buildModel(array $response): array
     {
-        $posts = [];
+        $articles = [];
         foreach ($response as $post) {
-            $posts[] = new Articles (
+            $articles[] = new Articles (
                 $post->userId,
                 $post->id,
                 $post->title,
                 $post->body,
                 '/users/' . $post->userId,
-                '/posts/' . $post->id
+                '/post/' . $post->id
             );
         }
-        return $posts;
+        return $articles;
     }
 }

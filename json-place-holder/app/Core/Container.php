@@ -4,10 +4,10 @@
 namespace App\Core;
 
 use App\Repositories\Article\ArticleRepository;
-use App\Repositories\Article\HomeArticleRepository;
+use App\Repositories\Article\LocalDbArticleRepository;
 use App\Repositories\Comment\CommentRepository;
-use App\Repositories\Comment\JsonPlaceHolderCommentRepository;
-use App\Repositories\User\JsonPlaceHolderUserRepository;
+use App\Repositories\Comment\LocalDbCommentRepository;
+use App\Repositories\User\LocalDbUserRepository;
 use App\Repositories\User\UserRepository;
 use DI\ContainerBuilder;
 
@@ -19,10 +19,17 @@ class Container
     {
         $builder = new ContainerBuilder();
         $builder->addDefinitions([
-            ArticleRepository::class => new HomeArticleRepository(),
+
+//Local Database Resource
+            ArticleRepository::class => new LocalDbArticleRepository(),
+            CommentRepository::class => new LocalDbCommentRepository(),
+            UserRepository::class => new LocalDbUserRepository(),
+
+//JSON Place Holder API Resource
 //            ArticleRepository::class => new JsonPlaceHolderArticleRepository(),
-            UserRepository::class => new JsonPlaceHolderUserRepository(),
-            CommentRepository::class => new JsonPlaceHolderCommentRepository()
+//            UserRepository::class => new JsonPlaceHolderUserRepository(),
+//            CommentRepository::class => new JsonPlaceHolderCommentRepository()
+
         ]);
 
         $this->container = $builder->build();

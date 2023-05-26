@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Users;
+namespace App\Services\Users\Show;
 
 use App\Repositories\User\UserRepository;
 
@@ -10,7 +10,7 @@ class UserService
 
     public function __construct(UserRepository $UserRepository)
     {
-        $this->UserRepository=$UserRepository;
+        $this->UserRepository = $UserRepository;
     }
 
     public function execute(): UserResponse

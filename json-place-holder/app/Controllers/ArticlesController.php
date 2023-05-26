@@ -3,10 +3,10 @@
 namespace App\Controllers;
 
 use App\Core\Renderer;
-use App\Services\Articles\ArticleRequest;
-use App\Services\Articles\ArticleService;
-use App\Services\Comments\CommentRequest;
-use App\Services\Comments\CommentService;
+use App\Services\Articles\Show\ArticleRequest;
+use App\Services\Articles\Show\ArticleService;
+use App\Services\Comments\Show\CommentRequest;
+use App\Services\Comments\Show\CommentService;
 
 
 class ArticlesController
