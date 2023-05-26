@@ -1,50 +1,50 @@
 {% extends "Layout.twig" %}
 {% block content %}
-    {% for post in posts %}
+    <div class="dark:bg-black grid place-items-up place-items-center">
+        <div class="h-56 grid grid-cols-2 gap-12 content-normal">
 
-        <main class="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white">
+            {% for post in posts %}
 
-            <div class="flex justify-between px-4 mx-auto max-w-screen-xl ">
+                <div class="w-full shadow-lg rounded-lg mb-6">
 
-                <article
+                    <figure class="dark:bg-slate-800 hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700
+                        shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] p-6 bg-white border border-gray-200 rounded-lg shadow
+                        dark:bg-gray-800 dark:border-gray-700 ">
+                        <article>
 
-                        class="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert">
+                            <header class="mb-4 lg:mb-6 not-format">
+                                <address class="flex items-center mb-6 not-italic">
+                                    <div class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white">
+                                        <div>
 
-                    <header class="mb-4 lg:mb-6 not-format">
+                                            <a href="{{ post.userUrl }}" rel="author"
+                                               class="text-xl font-bold text-gray-900 dark:text-white">Author User
+                                                ID:{{ post.userId }}</a>
 
-                        <address class="flex items-center mb-6 not-italic">
+                                        </div>
+                                    </div>
+                                </address>
+                                <a href="{{ post.postUrl }}">
+                                    <img src="https://placehold.co/600x400?text={{ post.title|capitalize }}"
+                                         alt="post.title"></a>
+                            </header>
+                            <p class="lead">{{ post.body|capitalize }}</p>
+                            <section class="not-format">
+                            </section>
+                        </article>
+                    </figure>
 
-                            <div class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white">
-                                <div>
+                </div>
 
-                                    <a href="{{ post.userUrl }}" rel="author"
-                                       class="text-xl font-bold text-gray-900 dark:text-white">Author User
-                                        ID:{{ post.userId }}</a>
 
-                                </div>
-                            </div>
 
-                        </address>
+            {% endfor %}
 
-                        <a href="{{ post.postUrl }}">
-                            <img src="https://placehold.co/600x400?text={{ post.title|capitalize }}"
-                                 alt="post.title"></a>
+        </div>
 
-                    </header>
-                    
-                    <p class="lead">{{ post.body|capitalize }}</p>
+    </div>
 
-                    <section class="not-format">
 
-                    </section>
-
-                </article>
-
-            </div>
-
-        </main>
-
-    {% endfor %}
 {% endblock %}
 
 
