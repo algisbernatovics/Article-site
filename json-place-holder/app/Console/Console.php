@@ -8,6 +8,7 @@ use App\Core\Functions;
 require_once '../../vendor/autoload.php';
 
 Functions::defineRootDir();
+Functions::loadDotEnv();
 
 $container = (new Container())->getContainer();
 $container->get('\App\Controllers\UserShowController');

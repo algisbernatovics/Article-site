@@ -7,12 +7,10 @@ use Doctrine\DBAL\DriverManager;
 
 class PDO
 {
-    private $PDOconnection;
+    protected $PDOconnection;
 
     public function __construct()
     {
-        $_ENV = (new DotEnv())->getENV();
-
         $connectionParams = [
             'dbname' => $_ENV['DBNAME'],
             'user' => $_ENV['USER_'],

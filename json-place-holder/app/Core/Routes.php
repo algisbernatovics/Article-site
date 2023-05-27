@@ -28,9 +28,7 @@ class Routes
 
             $r->addRoute(['GET'], '/loginForm', '\App\Controllers\UserSessionController@showLoginForm');
             $r->addRoute(['GET'], '/login', '\App\Controllers\UserSessionController@login');
-
             $r->addRoute(['GET'], '/logout', '\App\Controllers\UserSessionController@logout');
-
 
         });
     }

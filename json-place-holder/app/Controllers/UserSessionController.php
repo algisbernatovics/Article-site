@@ -29,8 +29,7 @@ class UserSessionController
         $userRequest = new UserRequest($userId);
         $userResponse = $this->userService->execute();
         $userId = (int)($userResponse->getResponse())->getUsers($userRequest->getUri())[0]->getId();
-        $_SESSION["state"] = ($userId);
-
+        $_SESSION["state"] = $userId;
         functions::redirect('/', false);
     }
 

@@ -30,9 +30,11 @@ class ArticleAddEditDeleteController
 
     public function deleteArticle(): void
     {
-        $articleRequest = new ArticleRequest($_SERVER["REQUEST_URI"]);
-        $articleResponse = $this->articleService->execute();
-        $articleResponse->getResponse()->deleteArticle($articleRequest->getUri());
-        Functions::Redirect('/', false);
+        if (isset($_SESSION)) {
+            $articleRequest = new ArticleRequest($_SERVER["REQUEST_URI"]);
+            $articleResponse = $this->articleService->execute();
+            $articleResponse->getResponse()->deleteArticle($articleRequest->getUri());
+            Functions::Redirect('/', false);
+        } else (new ErrorController())->error();
     }
 }

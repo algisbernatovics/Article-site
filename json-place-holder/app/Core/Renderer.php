@@ -47,4 +47,9 @@ class Renderer
     {
         return $this->twig->render($template, ['sessionState' => $this->sessionState]);
     }
+
+    public function wrongEmailOrPassword(string $template): void
+    {
+        $this->twig->load($template)->display();
+    }
 }

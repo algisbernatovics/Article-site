@@ -3,6 +3,7 @@
 
 namespace App\Repositories\User;
 
+
 use App\Controllers\ErrorController;
 use App\Core\Functions;
 use App\Core\PDO;
@@ -36,7 +37,6 @@ class LocalDbUserRepository implements UserRepository
         }
         return $this->buildModel($response);
     }
-
 
     private function buildModel(array $response): array
     {
@@ -72,15 +72,19 @@ class LocalDbUserRepository implements UserRepository
             ->setParameter(0, $userInputEmail)
             ->fetchAllAssociative();
 
-        if ($response[0]['password'] === $userInputPassword && count($response) === 1) {
-            return $response[0]['id'];
-        } else return (new ErrorController())->wrongEmailOrPassword();
-
+        if (count($response) === 1) {
+            $verificationResult = Functions::passwordVerify($userInputPassword, $response[0]['password']);
+            if ($verificationResult === true) {
+                return $response[0]['id'];
+            }
+        }
+        return (new ErrorController())->wrongEmailOrPassword();
     }
 
     public function addUser($PostData): void
 
     {
+        $userPassword = Functions::hash($PostData['password']);
         $this->queryBuilder
             ->insert('users')
             ->values([
@@ -103,7 +107,7 @@ class LocalDbUserRepository implements UserRepository
             ->setParameter('phone', $PostData['phone'])
             ->setParameter('website', $PostData['website'])
             ->setParameter('company', $PostData['company'])
-            ->setParameter('password', $PostData['password'])
+            ->setParameter('password', $userPassword)
             ->executeStatement();
     }
 }
