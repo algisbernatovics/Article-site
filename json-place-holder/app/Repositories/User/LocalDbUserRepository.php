@@ -58,27 +58,37 @@ class LocalDbUserRepository implements UserRepository
 
     public function deleteUser(string $requestUri)
     {
-        $id = Functions::digitsOnly($requestUri);
-        $this->queryBuilder
-            ->delete('users')
-            ->where('id = :id')
-            ->setParameter('id', $id)
-            ->executeStatement();
+
     }
 
     public function addUser($PostData)
-    {
-        //TODO User
 
+    {
+        var_dump($PostData);
         $this->queryBuilder
             ->insert('users')
             ->values([
-                'title' => ':title',
-                'body' => ':body',
-                'user_id' => '1',
+                'id' => ':id',
+                'name' => ':name',
+                'username' => ':username',
+                'email' => ':email',
+                'city' => ':city',
+                'phone' => ':phone',
+                'website' => ':website',
+                'company' => ':company',
+                'password' => ':password',
+
             ])
-            ->setParameter('title', $PostData['title'])
-            ->setParameter('body', $PostData['body'])
+            ->setParameter('id', $PostData['id'])
+            ->setParameter('name', $PostData['name'])
+            ->setParameter('username', $PostData['username'])
+            ->setParameter('email', $PostData['email'])
+            ->setParameter('city', $PostData['city'])
+            ->setParameter('phone', $PostData['phone'])
+            ->setParameter('website', $PostData['website'])
+            ->setParameter('company', $PostData['company'])
+            ->setParameter('password', $PostData['password'])
             ->executeStatement();
     }
 }
+

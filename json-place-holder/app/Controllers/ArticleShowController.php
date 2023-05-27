@@ -9,7 +9,7 @@ use App\Services\Comments\Show\CommentRequest;
 use App\Services\Comments\Show\CommentService;
 
 
-class ArticlesController
+class ArticleShowController
 {
     private object $articleService;
     private object $commentService;
@@ -35,7 +35,7 @@ class ArticlesController
             $articleResponse->getResponse()->getArticles($articleRequest->getUri()));
     }
 
-    public function post(): string
+    public function singlePost(): string
     {
         $articleRequest = new ArticleRequest($_SERVER["REQUEST_URI"]);
         $articleResponse = $this->articleService->execute();

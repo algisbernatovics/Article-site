@@ -7,7 +7,7 @@ use App\Core\Renderer;
 use App\Services\Articles\Show\ArticleRequest;
 use App\Services\Articles\Show\ArticleService;
 
-class ActionsController
+class ArticleAddEditDeleteController
 {
     private ArticleService $articleService;
 
@@ -18,7 +18,7 @@ class ActionsController
 
     public function showInputForm()
     {
-        (new Renderer())->error('ArticleForm.twig');
+        (new Renderer())->error('ArticleAddEdit.twig');
     }
 
     public function addArticle()

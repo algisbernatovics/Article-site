@@ -28,7 +28,7 @@ class UsersController
             $userResponse->getResponse()->getUsers($userRequest->getUri()));
     }
 
-    public function user(): string
+    public function singleUser(): string
     {
         $userRequest = new UserRequest($_SERVER["REQUEST_URI"]);
         $userResponse = $this->userService->execute();

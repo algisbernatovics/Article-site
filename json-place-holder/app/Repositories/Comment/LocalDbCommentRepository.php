@@ -54,28 +54,12 @@ class LocalDbCommentRepository implements CommentRepository
 
     public function deleteComment(string $requestUri)
     {
-        $id = Functions::digitsOnly($requestUri);
-        $this->queryBuilder
-            ->delete('comments')
-            ->where('id = :id')
-            ->setParameter('id', $id)
-            ->executeStatement();
+
     }
 
     public function addComment($PostData)
     {
-        //TODO User
 
-        $this->queryBuilder
-            ->insert('comments')
-            ->values([
-                'title' => ':title',
-                'body' => ':body',
-                'user_id' => '1',
-            ])
-            ->setParameter('title', $PostData['title'])
-            ->setParameter('body', $PostData['body'])
-            ->executeStatement();
     }
 }
 
