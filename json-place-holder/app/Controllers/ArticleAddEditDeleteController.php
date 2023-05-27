@@ -16,9 +16,9 @@ class ArticleAddEditDeleteController
         $this->articleService = $articleService;
     }
 
-    public function showInputForm(): void
+    public function showInputForm(): string
     {
-        (new Renderer())->showForm('ArticleAddEditForm.twig');
+        return (new Renderer())->showForm('ArticleAddEditForm.twig');
     }
 
     public function addArticle(): void

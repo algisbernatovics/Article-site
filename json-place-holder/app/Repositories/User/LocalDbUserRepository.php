@@ -73,7 +73,7 @@ class LocalDbUserRepository implements UserRepository
             ->fetchAllAssociative();
 
         if ($response[0]['password'] === $userInputPassword && count($response) === 1) {
-            return true;
+            return $response[0]['id'];
         } else return (new ErrorController())->wrongEmailOrPassword();
 
     }

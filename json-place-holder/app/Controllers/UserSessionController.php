@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Core\Functions;
 use App\Core\Renderer;
+use App\Services\Users\Show\UserRequest;
 use App\Services\Users\Show\UserService;
 
 class UserSessionController
@@ -15,19 +16,27 @@ class UserSessionController
         $this->userService = $userService;
     }
 
-    public function showLoginForm(): void
+    public function showLoginForm(): string
     {
-        (new Renderer())->showForm('ViewLoginForm.twig');
+        return (new Renderer())->showForm('ViewLoginForm.twig');
     }
 
     public function login(): void
     {
         $response = $this->userService->execute();
         $response->getResponse()->userLogin($_POST);
-        if ($response->getResponse()->userLogin($_POST)) {
+        $userId = ($response->getResponse()->userLogin($_POST));
+        $userRequest = new UserRequest($userId);
+        $userResponse = $this->userService->execute();
+        $userId = (int)($userResponse->getResponse())->getUsers($userRequest->getUri())[0]->getId();
+        $_SESSION["state"] = ($userId);
 
+        functions::redirect('/', false);
+    }
 
-            functions::redirect('/', false);
-        }
+    public function logout(): void
+    {
+        unset($_SESSION['state']);
+        functions::redirect('/', false);
     }
 }

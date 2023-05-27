@@ -49,7 +49,7 @@ class Users
         return $this->name;
     }
 
-    public function getUsername(): string
+    public function getUserName(): string
     {
         return $this->username;
     }

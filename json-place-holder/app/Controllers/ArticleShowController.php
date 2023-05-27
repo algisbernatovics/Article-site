@@ -23,19 +23,20 @@ class ArticleShowController
     public function home(): string
 
     {
-        return $this->allPosts();
+        return $this->allArticles();
     }
 
-    public function allPosts(): string
+    public function allArticles(): string
     {
         $articleRequest = new ArticleRequest('/posts');
         $articleResponse = $this->articleService->execute();
         return (new Renderer())->showAllArticles(
             'ShowArticles.twig',
-            $articleResponse->getResponse()->getArticles($articleRequest->getUri()));
+            $articleResponse->getResponse()->getArticles($articleRequest->getUri()),
+        );
     }
 
-    public function singlePost(): string
+    public function singleArticle(): string
     {
         $articleRequest = new ArticleRequest($_SERVER["REQUEST_URI"]);
         $articleResponse = $this->articleService->execute();
