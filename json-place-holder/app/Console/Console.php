@@ -1,5 +1,5 @@
 <?php
-
+//TODO The console does not notify if the record is not found.
 namespace App\Console;
 
 use App\Core\Container;
@@ -10,7 +10,7 @@ require_once '../../vendor/autoload.php';
 Functions::defineRootDir();
 
 $container = (new Container())->getContainer();
-$container->get('\App\Controllers\UsersController');
+$container->get('\App\Controllers\UserShowController');
 
 echo '1- All Users' . PHP_EOL;
 echo '2- All Articles' . PHP_EOL;

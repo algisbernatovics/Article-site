@@ -1,7 +1,5 @@
 <?php
 
-//TODO The console does not notify if the record is not found.
-
 namespace App\Controllers;
 
 use App\Core\Functions;
@@ -18,19 +16,19 @@ class UserAddEditDeleteController
 
     }
 
-    public function showInputForm()
+    public function showUserAddEditForm(): void
     {
-        (new Renderer())->error('UserAddEditForm.twig');
+        (new Renderer())->showForm('UserAddEditForm.twig');
     }
 
-    public function addUser()
+    public function addUser(): void
     {
         $userResponse = $this->userService->execute();
         $userResponse->getResponse()->addUser($_POST);
         Functions::Redirect('/', false);
     }
 
-    public function deleteUser()
+    public function deleteUser(): void
     {
     }
 }

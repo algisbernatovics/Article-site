@@ -3,6 +3,7 @@
 
 namespace App\Repositories\User;
 
+use App\Controllers\ErrorController;
 use App\Core\Functions;
 use App\Core\PDO;
 use App\Models\Users;
@@ -56,15 +57,30 @@ class LocalDbUserRepository implements UserRepository
         return $users;
     }
 
-    public function deleteUser(string $requestUri)
+    public function deleteUser(string $requestUri): void
     {
 
     }
 
-    public function addUser($PostData)
+    public function userLogin($PostData): string
+    {
+        $userInputEmail = $PostData['email'];
+        $userInputPassword = $PostData['password'];
+        $response = $this->queryBuilder->select('*')
+            ->from('users')
+            ->where('email = ?')
+            ->setParameter(0, $userInputEmail)
+            ->fetchAllAssociative();
+
+        if ($response[0]['password'] === $userInputPassword && count($response) === 1) {
+            return true;
+        } else return (new ErrorController())->wrongEmailOrPassword();
+
+    }
+
+    public function addUser($PostData): void
 
     {
-        var_dump($PostData);
         $this->queryBuilder
             ->insert('users')
             ->values([

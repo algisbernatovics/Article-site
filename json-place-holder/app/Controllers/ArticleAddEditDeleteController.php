@@ -16,19 +16,19 @@ class ArticleAddEditDeleteController
         $this->articleService = $articleService;
     }
 
-    public function showInputForm()
+    public function showInputForm(): void
     {
-        (new Renderer())->error('ArticleAddEdit.twig');
+        (new Renderer())->showForm('ArticleAddEditForm.twig');
     }
 
-    public function addArticle()
+    public function addArticle(): void
     {
         $articleResponse = $this->articleService->execute();
         $articleResponse->getResponse()->addArticle($_POST);
         Functions::Redirect('/', false);
     }
 
-    public function deleteArticle()
+    public function deleteArticle(): void
     {
         $articleRequest = new ArticleRequest($_SERVER["REQUEST_URI"]);
         $articleResponse = $this->articleService->execute();

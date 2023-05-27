@@ -8,7 +8,7 @@ use App\Services\Articles\Show\ArticleService;
 use App\Services\Users\Show\UserRequest;
 use App\Services\Users\Show\UserService;
 
-class UsersController
+class UserShowController
 {
     private object $userService;
     private object $userArticleService;
@@ -23,8 +23,8 @@ class UsersController
     {
         $userRequest = new UserRequest('/users');
         $userResponse = $this->userService->execute();
-        return (new Renderer())->viewUsers(
-            'Users.twig',
+        return (new Renderer())->showAllUsers(
+            'ShowAllUsers.twig',
             $userResponse->getResponse()->getUsers($userRequest->getUri()));
     }
 
@@ -35,8 +35,8 @@ class UsersController
 
         $userArticleRequest = new ArticleRequest($_SERVER["REQUEST_URI"] . '/posts');
         $userArticleResponse = $this->userArticleService->execute();
-        return (new Renderer())->viewSingleUser(
-            'SingleUser.twig',
+        return (new Renderer())->showSingleUser(
+            'ShowSingleUser.twig',
             $userResponse->getResponse()->getUsers($userRequest->getUri()),
             $userArticleResponse->getResponse()->getArticles($userArticleRequest->getUri())
         );
