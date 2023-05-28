@@ -29,7 +29,7 @@ class ArticleAddEditDeleteController
         if (isset($_SESSION)) {
             $articleResponse = $this->articleService->execute();
             $articleResponse->getResponse()->addArticle($_POST);
-            Functions::Redirect('/', false);
+            Functions::Redirect('/');
         } else
             (new ErrorController())->errorSession();
     }

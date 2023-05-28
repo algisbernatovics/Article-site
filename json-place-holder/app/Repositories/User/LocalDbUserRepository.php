@@ -60,7 +60,7 @@ class LocalDbUserRepository implements UserRepository
 
     public function deleteUser(string $requestUri): void
     {
-
+//Todo
     }
 
     public function userLogin($PostData): string
@@ -82,7 +82,7 @@ class LocalDbUserRepository implements UserRepository
         return (new ErrorController())->wrongEmailOrPassword();
     }
 
-    public function addUser($PostData)
+    public function addUser($PostData): void
 
     {
         try {
@@ -116,14 +116,13 @@ class LocalDbUserRepository implements UserRepository
         } catch (Exception $exception) {
 
             if (!isset($_SERVER['argv'])) {
-                return (new ErrorController())->errorVoid();
+                (new ErrorController())->errorVoid();
             }
             if (isset($_SERVER['argv'])) {
                 throw new Exception("SQLState 23000 Duplicate Email Entry");
 
             }
         }
-
     }
 }
 

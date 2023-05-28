@@ -25,7 +25,7 @@ class UserAddEditDeleteController
     {
         $userResponse = $this->userService->execute();
         $userResponse->getResponse()->addUser($_POST);
-        Functions::Redirect('/', false);
+        Functions::Redirect('/');
     }
 
     public function deleteUser(): void

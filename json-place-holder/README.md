@@ -1,5 +1,5 @@
-<img src="prev0.png">
-<img src="prev1.png">
+<img src="prev0.png" alt="">
+<img src="prev1.png" alt="">
 
 
 This program works with api.

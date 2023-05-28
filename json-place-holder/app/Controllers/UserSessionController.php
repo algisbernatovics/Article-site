@@ -30,12 +30,12 @@ class UserSessionController
         $userResponse = $this->userService->execute();
         $userId = (int)($userResponse->getResponse())->getUsers($userRequest->getUri())[0]->getId();
         $_SESSION["state"] = $userId;
-        functions::redirect('/', false);
+        functions::redirect('/');
     }
 
     public function logout(): void
     {
         unset($_SESSION['state']);
-        functions::redirect('/', false);
+        functions::redirect('/');
     }
 }
