@@ -19,7 +19,7 @@ class LocalDbArticleRepository implements ArticleRepository
         $this->queryBuilder = $this->PDOConnection->createQueryBuilder();
     }
 
-    public function getArticles(string $requestUri): ?array
+    public function getArticles(string $requestUri): array
     {
         $id = Functions::digitsOnly($requestUri);
 
@@ -35,7 +35,6 @@ class LocalDbArticleRepository implements ArticleRepository
         }
         return $this->buildModel($response);
     }
-
 
     private function buildModel(array $response): array
     {
@@ -63,10 +62,8 @@ class LocalDbArticleRepository implements ArticleRepository
             ->executeStatement();
     }
 
-    public function addArticle($PostData)
+    public function insertArticle($PostData)
     {
-        //TODO User
-
         $this->queryBuilder
             ->insert('articles')
             ->values([
@@ -74,6 +71,21 @@ class LocalDbArticleRepository implements ArticleRepository
                 'body' => ':body',
                 'user_id' => '1',
             ])
+            ->setParameter('title', $PostData['title'])
+            ->setParameter('body', $PostData['body'])
+            ->executeStatement();
+    }
+
+    public function updateArticle($PostData, $requestUri)
+    {
+        $id = Functions::digitsOnly($requestUri);
+
+        $this->queryBuilder
+            ->update('articles')
+            ->where('id = :id')
+            ->set('title', ':title')
+            ->set('body', ':body')
+            ->setParameter('id', $id)
             ->setParameter('title', $PostData['title'])
             ->setParameter('body', $PostData['body'])
             ->executeStatement();

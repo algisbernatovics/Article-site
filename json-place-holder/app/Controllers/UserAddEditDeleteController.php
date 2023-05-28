@@ -13,22 +13,25 @@ class UserAddEditDeleteController
     public function __construct(UserService $userService)
     {
         $this->userService = $userService;
-
     }
 
     public function showUserForm(): string
     {
-        return (new Renderer())->showForm('UserAddEditForm.twig');
+        return (new Renderer())->showArticleInputForm('UserAddEditForm.twig');
     }
 
     public function addUser(): void
     {
-        $userResponse = $this->userService->execute();
-        $userResponse->getResponse()->addUser($_POST);
-        Functions::Redirect('/');
+        if (!isset($_SESSION['state'])) {
+            $userResponse = $this->userService->execute();
+            $userResponse->getResponse()->addUser($_POST);
+            Functions::Redirect('/');
+        } else (new ErrorController())->errorVoid();
     }
 
+//Todo
     public function deleteUser(): void
     {
+
     }
 }

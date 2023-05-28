@@ -31,7 +31,7 @@ class ArticleShowController
         $articleRequest = new ArticleRequest('/posts');
         $articleResponse = $this->articleService->execute();
         return (new Renderer())->showAllArticles(
-            'ShowArticles.twig',
+            'ShowAllArticles.twig',
             $articleResponse->getResponse()->getArticles($articleRequest->getUri()),
         );
     }
@@ -44,6 +44,7 @@ class ArticleShowController
         $commentRequest = new CommentRequest($_SERVER["REQUEST_URI"] . '/comments');
         $commentResponse = $this->commentService->execute();
         return (new Renderer())->showArticleAndComments
+
         (
             'ShowSingleArticle.twig',
             $articleResponse->getResponse()->getArticles($articleRequest->getUri()),

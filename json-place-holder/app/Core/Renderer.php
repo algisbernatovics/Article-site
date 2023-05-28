@@ -38,7 +38,7 @@ class Renderer
         return $this->twig->render($template, ['user' => $user, 'posts' => $posts, 'sessionState' => $this->sessionState]);
     }
 
-    public function showForm(string $template): string
+    public function showArticleInputForm(string $template): string
     {
         return $this->twig->render($template, ['sessionState' => $this->sessionState]);
     }
@@ -51,5 +51,24 @@ class Renderer
     public function wrongEmailOrPassword(string $template): void
     {
         $this->twig->load($template)->display();
+    }
+
+    public function unauthorizedErrorVoid(string $template): void
+    {
+        $this->twig->load($template)->display();
+    }
+
+    public function errorVoid(string $template): void
+    {
+        $this->twig->load($template);
+    }
+
+    public function showArticleEditForm(string $template, array $article): string
+    {
+        return $this->twig->render(
+            $template,
+            ['sessionState' => $this->sessionState,
+                'articles' => $article
+            ]);
     }
 }

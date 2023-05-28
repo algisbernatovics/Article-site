@@ -19,9 +19,11 @@ class Routes
             $r->addRoute(['GET'], '/allUsers', '\App\Controllers\UserShowController@allUsers');
             $r->addRoute(['GET'], '/users[/{id}]', '\App\Controllers\UserShowController@singleUser');
 
-            $r->addRoute(['GET'], '/delete[/{id}]', '\App\Controllers\ArticleAddEditDeleteController@deleteArticle');
-            $r->addRoute(['GET'], '/articleForm', '\App\Controllers\ArticleAddEditDeleteController@showArticleForm');
+            $r->addRoute(['GET'], '/deleteArticle[/{id}]', '\App\Controllers\ArticleAddEditDeleteController@deleteArticle');
+            $r->addRoute(['GET'], '/addArticleForm', '\App\Controllers\ArticleAddEditDeleteController@showAddArticleForm');
             $r->addRoute(['GET'], '/addArticle', '\App\Controllers\ArticleAddEditDeleteController@addArticle');
+            $r->addRoute(['GET'], '/editArticleForm[/{id}]', '\App\Controllers\ArticleAddEditDeleteController@showEditArticleForm');
+            $r->addRoute(['GET'], '/updateArticle[/{id}]', '\App\Controllers\ArticleAddEditDeleteController@updateArticle');
 
             $r->addRoute(['GET'], '/registerForm', '\App\Controllers\UserAddEditDeleteController@showUserForm');
             $r->addRoute(['GET'], '/addUser', '\App\Controllers\UserAddEditDeleteController@addUser');
@@ -29,6 +31,7 @@ class Routes
             $r->addRoute(['GET'], '/loginForm', '\App\Controllers\UserSessionController@showLoginForm');
             $r->addRoute(['GET'], '/login', '\App\Controllers\UserSessionController@login');
             $r->addRoute(['GET'], '/logout', '\App\Controllers\UserSessionController@logout');
+
 
         });
     }

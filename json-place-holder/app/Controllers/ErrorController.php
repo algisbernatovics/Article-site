@@ -25,4 +25,9 @@ class ErrorController
     {
         (new Renderer())->wrongEmailOrPassword('ErrorLoginFail.twig');
     }
+
+    public function unauthorizedErrorVoid(): void
+    {
+        (new Renderer())->unauthorizedErrorVoid('ErrorUnauthorized.twig');
+    }
 }

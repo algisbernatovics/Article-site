@@ -16,31 +16,58 @@ class ArticleAddEditDeleteController
         $this->articleService = $articleService;
     }
 
-    public function showArticleForm(): string
+    public function showAddArticleForm(): string
     {
         if (isset($_SESSION['state'])) {
-            return (new Renderer())->showForm('ArticleAddEditForm.twig');
+            return (new Renderer())->showArticleInputForm('ArticleAddForm.twig');
         } else
             return (new ErrorController())->unauthorizedError();
     }
 
-    public function addArticle(): void
+    public function showEditArticleForm()
     {
-        if (isset($_SESSION)) {
+        if (isset($_SESSION['state'])) {
+
+            $articleRequest = new ArticleRequest($_SERVER["REQUEST_URI"]);
             $articleResponse = $this->articleService->execute();
-            $articleResponse->getResponse()->addArticle($_POST);
-            Functions::Redirect('/');
+            return (new Renderer())->showArticleEditForm
+            (
+                'ArticleEditForm.twig',
+                $articleResponse->getResponse()->getArticles($articleRequest->getUri())
+            );
         } else
-            (new ErrorController())->errorSession();
+            (new ErrorController())->unauthorizedErrorVoid();
     }
 
     public function deleteArticle(): void
     {
-        if (isset($_SESSION)) {
+        if (isset($_SESSION['state'])) {
             $articleRequest = new ArticleRequest($_SERVER["REQUEST_URI"]);
             $articleResponse = $this->articleService->execute();
             $articleResponse->getResponse()->deleteArticle($articleRequest->getUri());
-            Functions::Redirect('/', false);
-        } else (new ErrorController())->errorSession();
+            Functions::Redirect('/');
+        } else
+            (new ErrorController())->unauthorizedErrorVoid();
+    }
+
+    public function updateArticle()
+    {
+        if (isset($_SESSION['state'])) {
+            $articleRequest = new ArticleRequest($_SERVER["REQUEST_URI"]);
+            $articleResponse = $this->articleService->execute();
+            $articleResponse->getResponse()->updateArticle($_POST, $articleRequest->getUri());
+            Functions::Redirect('/');
+        } else
+            (new ErrorController())->unauthorizedError();
+    }
+
+    public function addArticle(): void
+    {
+        if (isset($_SESSION['state'])) {
+            $articleResponse = $this->articleService->execute();
+            $articleResponse->getResponse()->insertArticle($_POST);
+            Functions::Redirect('/');
+        } else
+            (new ErrorController())->unauthorizedErrorVoid();
     }
 }

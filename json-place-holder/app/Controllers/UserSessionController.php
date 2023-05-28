@@ -18,19 +18,21 @@ class UserSessionController
 
     public function showLoginForm(): string
     {
-        return (new Renderer())->showForm('ViewLoginForm.twig');
+        return (new Renderer())->showArticleInputForm('ViewLoginForm.twig');
     }
 
     public function login(): void
     {
-        $response = $this->userService->execute();
-        $response->getResponse()->userLogin($_POST);
-        $userId = ($response->getResponse()->userLogin($_POST));
-        $userRequest = new UserRequest($userId);
-        $userResponse = $this->userService->execute();
-        $userId = (int)($userResponse->getResponse())->getUsers($userRequest->getUri())[0]->getId();
-        $_SESSION["state"] = $userId;
-        functions::redirect('/');
+        if (!isset($_SESSION['state'])) {
+            $response = $this->userService->execute();
+            $response->getResponse()->userLogin($_POST);
+            $userId = ($response->getResponse()->userLogin($_POST));
+            $userRequest = new UserRequest($userId);
+            $userResponse = $this->userService->execute();
+            $userId = (int)($userResponse->getResponse())->getUsers($userRequest->getUri())[0]->getId();
+            $_SESSION["state"] = $userId;
+            functions::redirect('/');
+        } else (new ErrorController())->errorVoid();
     }
 
     public function logout(): void

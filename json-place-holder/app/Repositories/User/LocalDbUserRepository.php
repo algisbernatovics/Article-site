@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Repositories\User;
-
 
 use App\Controllers\ErrorController;
 use App\Core\Functions;
@@ -22,7 +20,7 @@ class LocalDbUserRepository implements UserRepository
         $this->queryBuilder = $this->PDOConnection->createQueryBuilder();
     }
 
-    public function getUsers(string $requestUri): ?array
+    public function getUsers(string $requestUri): array
     {
         $id = Functions::digitsOnly($requestUri);
 
@@ -58,9 +56,10 @@ class LocalDbUserRepository implements UserRepository
         return $users;
     }
 
+//Todo
     public function deleteUser(string $requestUri): void
     {
-//Todo
+
     }
 
     public function userLogin($PostData): string

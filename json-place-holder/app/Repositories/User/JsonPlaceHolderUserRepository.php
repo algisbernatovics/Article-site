@@ -21,7 +21,7 @@ class JsonPlaceHolderUserRepository implements UserRepository
         $this->client = new Client(['base_uri' => self::BASE_URI]);
     }
 
-    public function getUsers($requestUri): ?array
+    public function getUsers($requestUri): array
     {
         $cacheFileName = Functions::replaceSlash($requestUri);
         if (!Cache::has($cacheFileName)) {

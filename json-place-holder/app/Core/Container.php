@@ -12,9 +12,7 @@ use App\Repositories\User\UserRepository;
 use DI\ContainerBuilder;
 
 //use App\Repositories\Article\JsonPlaceHolderArticleRepository;
-
 //use App\Repositories\Comment\JsonPlaceHolderCommentRepository;
-
 //use App\Repositories\User\JsonPlaceHolderUserRepository;
 
 class Container

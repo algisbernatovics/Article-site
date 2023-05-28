@@ -21,7 +21,7 @@ class JsonPlaceHolderCommentRepository implements CommentRepository
         $this->client = new Client(['base_uri' => self::BASE_URI]);
     }
 
-    public function getComments($requestUri): ?array
+    public function getComments($requestUri): array
     {
         $cacheFileName = Functions::replaceSlash($requestUri);
 
@@ -30,7 +30,7 @@ class JsonPlaceHolderCommentRepository implements CommentRepository
                 $response = ($this->client->request('GET', $requestUri))->getBody()->getContents();
             } catch (GuzzleException $e) {
                 if (!isset($_SERVER['argv'])) {
-                    return (new ErrorController())->errorSession();
+                    return (new ErrorController())->errorVoid();
                 }
                 if (isset($_SERVER['argv'])) {
                     throw new RuntimeException;

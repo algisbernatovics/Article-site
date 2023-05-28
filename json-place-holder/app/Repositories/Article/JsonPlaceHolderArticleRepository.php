@@ -21,7 +21,7 @@ class JsonPlaceHolderArticleRepository implements ArticleRepository
         $this->client = new Client(['base_uri' => self::BASE_URI]);
     }
 
-    public function getArticles($requestUri): ?array
+    public function getArticles($requestUri): array
     {
         $cacheFileName = Functions::replaceSlash($requestUri);
 
@@ -59,7 +59,7 @@ class JsonPlaceHolderArticleRepository implements ArticleRepository
                 $post->title,
                 $post->body,
                 '/users/' . $post->userId,
-                '/post/' . $post->id
+                '/posts/' . $post->id
             );
         }
         return $articles;

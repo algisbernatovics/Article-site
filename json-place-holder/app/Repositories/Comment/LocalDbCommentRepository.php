@@ -19,7 +19,7 @@ class LocalDbCommentRepository implements CommentRepository
         $this->queryBuilder = $this->PDOConnection->createQueryBuilder();
     }
 
-    public function getComments(string $requestUri): ?array
+    public function getComments(string $requestUri): array
     {
         $id = Functions::digitsOnly($requestUri);
 
@@ -52,11 +52,13 @@ class LocalDbCommentRepository implements CommentRepository
         return $comments;
     }
 
+//Todo
     public function deleteComment(string $requestUri)
     {
 
     }
 
+//Todo
     public function addComment($PostData)
     {
 
