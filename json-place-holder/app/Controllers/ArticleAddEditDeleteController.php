@@ -24,7 +24,7 @@ class ArticleAddEditDeleteController
             return (new ErrorController())->unauthorizedError();
     }
 
-    public function showEditArticleForm()
+    public function showEditArticleForm(): string
     {
         if (isset($_SESSION['state'])) {
 
@@ -50,7 +50,7 @@ class ArticleAddEditDeleteController
             (new ErrorController())->unauthorizedErrorVoid();
     }
 
-    public function updateArticle()
+    public function updateArticle(): void
     {
         if (isset($_SESSION['state'])) {
             $articleRequest = new ArticleRequest($_SERVER["REQUEST_URI"]);

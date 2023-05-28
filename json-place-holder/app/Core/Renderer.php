@@ -3,6 +3,7 @@
 namespace App\Core;
 
 use Twig\Environment;
+use Twig\Extension\DebugExtension;
 use Twig\Loader\FilesystemLoader;
 
 class Renderer
@@ -14,7 +15,10 @@ class Renderer
     public function __construct()
     {
         $loader = new FilesystemLoader(ROOT_DIR . '/app/Views');
-        $this->twig = new Environment($loader);
+        $this->twig = new Environment($loader, [
+            'debug' => true,
+        ]);
+        $this->twig->addExtension(new DebugExtension());
         $this->sessionState = $_SESSION['state'];
     }
 
@@ -43,12 +47,22 @@ class Renderer
         return $this->twig->render($template, ['sessionState' => $this->sessionState]);
     }
 
+    public function userAddEditForm(string $template, bool $passwMatch, bool $emailUnique): string
+    {
+        return $this->twig->render($template, ['sessionState' => $this->sessionState, 'controlPasswd' => $passwMatch, 'controlEmail' => $emailUnique]);
+    }
+
+    public function showLoginInputForm(string $template, bool $loginStatus): string
+    {
+        return $this->twig->render($template, ['sessionState' => $this->sessionState, 'correctPassword' => $loginStatus]);
+    }
+
     public function error(string $template): string
     {
         return $this->twig->render($template, ['sessionState' => $this->sessionState]);
     }
 
-    public function wrongEmailOrPassword(string $template): void
+    public function errorVoid(string $template): void
     {
         $this->twig->load($template)->display();
     }
@@ -56,11 +70,6 @@ class Renderer
     public function unauthorizedErrorVoid(string $template): void
     {
         $this->twig->load($template)->display();
-    }
-
-    public function errorVoid(string $template): void
-    {
-        $this->twig->load($template);
     }
 
     public function showArticleEditForm(string $template, array $article): string

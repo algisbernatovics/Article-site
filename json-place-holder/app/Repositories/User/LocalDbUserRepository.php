@@ -2,7 +2,6 @@
 
 namespace App\Repositories\User;
 
-use App\Controllers\ErrorController;
 use App\Core\Functions;
 use App\Core\PDO;
 use App\Models\Users;
@@ -62,7 +61,7 @@ class LocalDbUserRepository implements UserRepository
 
     }
 
-    public function userLogin($PostData): string
+    public function userLogin($PostData): bool
     {
         $userInputEmail = $PostData['email'];
         $userInputPassword = $PostData['password'];
@@ -75,18 +74,16 @@ class LocalDbUserRepository implements UserRepository
         if (count($response) === 1) {
             $verificationResult = Functions::passwordVerify($userInputPassword, $response[0]['password']);
             if ($verificationResult === true) {
-                return $response[0]['id'];
+                return true;
             }
         }
-        return (new ErrorController())->wrongEmailOrPassword();
+        return false;
     }
 
-    public function addUser($PostData): void
-
+    public function addUser($PostData): bool
     {
         try {
-
-            $userPassword = Functions::hash($PostData['password']);
+            $userPassword = Functions::hash($PostData['password0']);
             $this->queryBuilder
                 ->insert('users')
                 ->values([
@@ -115,13 +112,14 @@ class LocalDbUserRepository implements UserRepository
         } catch (Exception $exception) {
 
             if (!isset($_SERVER['argv'])) {
-                (new ErrorController())->errorVoid();
+                return false;
             }
             if (isset($_SERVER['argv'])) {
                 throw new Exception("SQLState 23000 Duplicate Email Entry");
 
             }
         }
+        return true;
     }
 }
 

@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use App\Core\Functions;
 use App\Core\Renderer;
-use App\Services\Users\Show\UserRequest;
 use App\Services\Users\Show\UserService;
 
 class UserSessionController
@@ -18,24 +17,34 @@ class UserSessionController
 
     public function showLoginForm(): string
     {
-        return (new Renderer())->showArticleInputForm('ViewLoginForm.twig');
+        if (!isset($_SESSION['state'])) {
+            return (new Renderer())->showLoginInputForm('ShowLoginForm.twig', true);
+        } else
+            return (new ErrorController())->error();
     }
 
-    public function login(): void
+    public function login(): string
     {
         if (!isset($_SESSION['state'])) {
             $response = $this->userService->execute();
             $response->getResponse()->userLogin($_POST);
             $userId = ($response->getResponse()->userLogin($_POST));
-            $userRequest = new UserRequest($userId);
-            $userResponse = $this->userService->execute();
-            $userId = (int)($userResponse->getResponse())->getUsers($userRequest->getUri())[0]->getId();
-            $_SESSION["state"] = $userId;
-            functions::redirect('/');
-        } else (new ErrorController())->errorVoid();
+            $passwordVerifyResult = ($response->getResponse()->userLogin($_POST));
+
+            if (!$passwordVerifyResult) {
+                return (new Renderer())->showLoginInputForm('ShowLoginForm.twig', $passwordVerifyResult);
+            }
+
+            if ($passwordVerifyResult) {
+                $_SESSION["state"] = $userId;
+                functions::redirect('/');
+            }
+        }
+        return (new ErrorController())->error();
     }
 
     public function logout(): void
+
     {
         unset($_SESSION['state']);
         functions::redirect('/');

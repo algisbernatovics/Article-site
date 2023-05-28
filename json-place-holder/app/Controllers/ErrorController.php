@@ -11,19 +11,14 @@ class ErrorController
         return (new Renderer())->error('ErrorUnauthorized.twig');
     }
 
-    public function errorSession(): string
+    public function error(): string
     {
         return (new Renderer())->error('Error.twig');
     }
 
     public function errorVoid(): void
     {
-        (new Renderer())->wrongEmailOrPassword('Error.twig');
-    }
-
-    public function wrongEmailOrPassword(): void
-    {
-        (new Renderer())->wrongEmailOrPassword('ErrorLoginFail.twig');
+        (new Renderer())->errorVoid('Error.twig');
     }
 
     public function unauthorizedErrorVoid(): void

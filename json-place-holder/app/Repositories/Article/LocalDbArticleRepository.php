@@ -22,7 +22,7 @@ class LocalDbArticleRepository implements ArticleRepository
     public function getArticles(string $requestUri): array
     {
         $id = Functions::digitsOnly($requestUri);
-
+        var_dump($requestUri);
         if ($id > 0) {
             $response = $this->queryBuilder->select('*')
                 ->from('articles')
