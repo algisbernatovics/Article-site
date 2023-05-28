@@ -29,7 +29,7 @@ class JsonPlaceHolderUserRepository implements UserRepository
                 $response = ($this->client->request('GET', $requestUri))->getBody()->getContents();
             } catch (GuzzleException $e) {
                 if (!isset($_SERVER['argv'])) {
-                    return (new ErrorController())->error();
+                    return (new ErrorController())->errorSession();
                 }
                 if (isset($_SERVER['argv'])) {
                     throw new RuntimeException;

@@ -6,13 +6,23 @@ use App\Core\Renderer;
 
 class ErrorController
 {
-    public function wrongEmailOrPassword(): string
+    public function unauthorizedError(): string
     {
-        return (new Renderer())->wrongEmailOrPassword('ShowWrongEmailOrPassword.twig');
+        return (new Renderer())->error('ErrorUnauthorized.twig');
     }
 
-    public function error(): string
+    public function errorSession(): string
     {
-        return (new Renderer())->error('Error');
+        return (new Renderer())->error('Error.twig');
+    }
+
+    public function errorVoid(): void
+    {
+        (new Renderer())->wrongEmailOrPassword('Error.twig');
+    }
+
+    public function wrongEmailOrPassword(): void
+    {
+        (new Renderer())->wrongEmailOrPassword('ErrorLoginFail.twig');
     }
 }

@@ -8,6 +8,7 @@ use App\Controllers\ErrorController;
 use App\Core\Functions;
 use App\Core\PDO;
 use App\Models\Users;
+use Doctrine\DBAL\Exception;
 
 
 class LocalDbUserRepository implements UserRepository
@@ -81,34 +82,48 @@ class LocalDbUserRepository implements UserRepository
         return (new ErrorController())->wrongEmailOrPassword();
     }
 
-    public function addUser($PostData): void
+    public function addUser($PostData)
 
     {
-        $userPassword = Functions::hash($PostData['password']);
-        $this->queryBuilder
-            ->insert('users')
-            ->values([
-                'id' => ':id',
-                'name' => ':name',
-                'username' => ':username',
-                'email' => ':email',
-                'city' => ':city',
-                'phone' => ':phone',
-                'website' => ':website',
-                'company' => ':company',
-                'password' => ':password',
+        try {
 
-            ])
-            ->setParameter('id', $PostData['id'])
-            ->setParameter('name', $PostData['name'])
-            ->setParameter('username', $PostData['username'])
-            ->setParameter('email', $PostData['email'])
-            ->setParameter('city', $PostData['city'])
-            ->setParameter('phone', $PostData['phone'])
-            ->setParameter('website', $PostData['website'])
-            ->setParameter('company', $PostData['company'])
-            ->setParameter('password', $userPassword)
-            ->executeStatement();
+            $userPassword = Functions::hash($PostData['password']);
+            $this->queryBuilder
+                ->insert('users')
+                ->values([
+                    'id' => ':id',
+                    'name' => ':name',
+                    'username' => ':username',
+                    'email' => ':email',
+                    'city' => ':city',
+                    'phone' => ':phone',
+                    'website' => ':website',
+                    'company' => ':company',
+                    'password' => ':password',
+
+                ])
+                ->setParameter('id', $PostData['id'])
+                ->setParameter('name', $PostData['name'])
+                ->setParameter('username', $PostData['username'])
+                ->setParameter('email', $PostData['email'])
+                ->setParameter('city', $PostData['city'])
+                ->setParameter('phone', $PostData['phone'])
+                ->setParameter('website', $PostData['website'])
+                ->setParameter('company', $PostData['company'])
+                ->setParameter('password', $userPassword)
+                ->executeStatement();
+
+        } catch (Exception $exception) {
+
+            if (!isset($_SERVER['argv'])) {
+                return (new ErrorController())->errorVoid();
+            }
+            if (isset($_SERVER['argv'])) {
+                throw new Exception("SQLState 23000 Duplicate Email Entry");
+
+            }
+        }
+
     }
 }
 

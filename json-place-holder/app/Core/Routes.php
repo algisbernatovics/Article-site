@@ -20,10 +20,10 @@ class Routes
             $r->addRoute(['GET'], '/users[/{id}]', '\App\Controllers\UserShowController@singleUser');
 
             $r->addRoute(['GET'], '/delete[/{id}]', '\App\Controllers\ArticleAddEditDeleteController@deleteArticle');
-            $r->addRoute(['GET'], '/articleForm', '\App\Controllers\ArticleAddEditDeleteController@showInputForm');
+            $r->addRoute(['GET'], '/articleForm', '\App\Controllers\ArticleAddEditDeleteController@showArticleForm');
             $r->addRoute(['GET'], '/addArticle', '\App\Controllers\ArticleAddEditDeleteController@addArticle');
 
-            $r->addRoute(['GET'], '/registerForm', '\App\Controllers\UserAddEditDeleteController@showUserAddEditForm');
+            $r->addRoute(['GET'], '/registerForm', '\App\Controllers\UserAddEditDeleteController@showUserForm');
             $r->addRoute(['GET'], '/addUser', '\App\Controllers\UserAddEditDeleteController@addUser');
 
             $r->addRoute(['GET'], '/loginForm', '\App\Controllers\UserSessionController@showLoginForm');

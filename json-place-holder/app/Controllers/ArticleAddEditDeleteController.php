@@ -16,16 +16,22 @@ class ArticleAddEditDeleteController
         $this->articleService = $articleService;
     }
 
-    public function showInputForm(): string
+    public function showArticleForm(): string
     {
-        return (new Renderer())->showForm('ArticleAddEditForm.twig');
+        if (isset($_SESSION['state'])) {
+            return (new Renderer())->showForm('ArticleAddEditForm.twig');
+        } else
+            return (new ErrorController())->unauthorizedError();
     }
 
     public function addArticle(): void
     {
-        $articleResponse = $this->articleService->execute();
-        $articleResponse->getResponse()->addArticle($_POST);
-        Functions::Redirect('/', false);
+        if (isset($_SESSION)) {
+            $articleResponse = $this->articleService->execute();
+            $articleResponse->getResponse()->addArticle($_POST);
+            Functions::Redirect('/', false);
+        } else
+            (new ErrorController())->errorSession();
     }
 
     public function deleteArticle(): void
@@ -35,6 +41,6 @@ class ArticleAddEditDeleteController
             $articleResponse = $this->articleService->execute();
             $articleResponse->getResponse()->deleteArticle($articleRequest->getUri());
             Functions::Redirect('/', false);
-        } else (new ErrorController())->error();
+        } else (new ErrorController())->errorSession();
     }
 }

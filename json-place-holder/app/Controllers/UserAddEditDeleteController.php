@@ -16,7 +16,7 @@ class UserAddEditDeleteController
 
     }
 
-    public function showUserAddEditForm(): string
+    public function showUserForm(): string
     {
         return (new Renderer())->showForm('UserAddEditForm.twig');
     }
