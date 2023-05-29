@@ -34,7 +34,7 @@ class UserSessionController
             if ($passwordVerifyResult) {
                 $userId = ((($response->getResponse())->getUserId($_POST['email'])[0])->getId());
                 $_SESSION['user_id'] = $userId;
-                functions::redirect('/');
+                Functions::redirect('/');
             }
         }
         return (new ErrorController())->error();

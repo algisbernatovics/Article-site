@@ -42,7 +42,17 @@ class LocalDbCommentRepository implements CommentRepository
         return $comments;
     }
 
+    public function getAllComments(): array
+    {
+        $response = $this->queryBuilder->select('*')
+            ->from('comments')
+            ->fetchAllAssociative();
+
+        return $this->buildModel($response);
+    }
+
 //Todo
+
     public function deleteComment(int $id): void
     {
 
