@@ -32,7 +32,6 @@ class Routes
             $r->addRoute(['GET'], '/login', '\App\Controllers\UserSessionController@login');
             $r->addRoute(['GET'], '/logout', '\App\Controllers\UserSessionController@logout');
 
-
         });
     }
 

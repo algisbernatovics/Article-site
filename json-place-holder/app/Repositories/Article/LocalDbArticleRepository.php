@@ -22,7 +22,7 @@ class LocalDbArticleRepository implements ArticleRepository
     public function getArticles(string $requestUri): array
     {
         $id = Functions::digitsOnly($requestUri);
-        var_dump($requestUri);
+
         if ($id > 0) {
             $response = $this->queryBuilder->select('*')
                 ->from('articles')
@@ -52,6 +52,18 @@ class LocalDbArticleRepository implements ArticleRepository
         return $articles;
     }
 
+    public function getUserArticles(string $requestUri): array
+    {
+        $id = Functions::digitsOnly($requestUri);
+
+        $response = $this->queryBuilder->select('*')
+            ->from('articles')
+            ->where("user_id = $id")
+            ->fetchAllAssociative();
+
+        return $this->buildModel($response);
+    }
+
     public function deleteArticle(string $requestUri)
     {
         $id = Functions::digitsOnly($requestUri);
@@ -62,17 +74,19 @@ class LocalDbArticleRepository implements ArticleRepository
             ->executeStatement();
     }
 
-    public function insertArticle($PostData)
+    public function insertArticle($PostData, $userId)
     {
+        var_dump($userId);
         $this->queryBuilder
             ->insert('articles')
             ->values([
                 'title' => ':title',
                 'body' => ':body',
-                'user_id' => '1',
+                'user_id' => ':user_Id',
             ])
             ->setParameter('title', $PostData['title'])
             ->setParameter('body', $PostData['body'])
+            ->setParameter('user_Id', $userId)
             ->executeStatement();
     }
 

@@ -18,7 +18,7 @@ class ArticleAddEditDeleteController
 
     public function showAddArticleForm(): string
     {
-        if (isset($_SESSION['state'])) {
+        if (isset($_SESSION['user_id'])) {
             return (new Renderer())->showArticleInputForm('ArticleAddForm.twig');
         } else
             return (new ErrorController())->unauthorizedError();
@@ -26,7 +26,7 @@ class ArticleAddEditDeleteController
 
     public function showEditArticleForm(): string
     {
-        if (isset($_SESSION['state'])) {
+        if (isset($_SESSION['user_id'])) {
 
             $articleRequest = new ArticleRequest($_SERVER["REQUEST_URI"]);
             $articleResponse = $this->articleService->execute();
@@ -41,7 +41,7 @@ class ArticleAddEditDeleteController
 
     public function deleteArticle(): void
     {
-        if (isset($_SESSION['state'])) {
+        if (isset($_SESSION['user_id'])) {
             $articleRequest = new ArticleRequest($_SERVER["REQUEST_URI"]);
             $articleResponse = $this->articleService->execute();
             $articleResponse->getResponse()->deleteArticle($articleRequest->getUri());
@@ -52,7 +52,7 @@ class ArticleAddEditDeleteController
 
     public function updateArticle(): void
     {
-        if (isset($_SESSION['state'])) {
+        if (isset($_SESSION['user_id'])) {
             $articleRequest = new ArticleRequest($_SERVER["REQUEST_URI"]);
             $articleResponse = $this->articleService->execute();
             $articleResponse->getResponse()->updateArticle($_POST, $articleRequest->getUri());
@@ -63,9 +63,9 @@ class ArticleAddEditDeleteController
 
     public function addArticle(): void
     {
-        if (isset($_SESSION['state'])) {
+        if (isset($_SESSION['user_id'])) {
             $articleResponse = $this->articleService->execute();
-            $articleResponse->getResponse()->insertArticle($_POST);
+            $articleResponse->getResponse()->insertArticle($_POST, $_SESSION['user_id']);
             Functions::Redirect('/');
         } else
             (new ErrorController())->unauthorizedErrorVoid();

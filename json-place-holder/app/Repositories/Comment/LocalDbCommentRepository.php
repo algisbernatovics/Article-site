@@ -23,16 +23,11 @@ class LocalDbCommentRepository implements CommentRepository
     {
         $id = Functions::digitsOnly($requestUri);
 
-        if ($id > 0) {
-            $response = $this->queryBuilder->select('*')
-                ->from('comments')
-                ->where("id =$id")
-                ->fetchAllAssociative();
-        } else {
-            $response = $this->queryBuilder->select('*')
-                ->from('comments')
-                ->fetchAllAssociative();
-        }
+        $response = $this->queryBuilder->select('*')
+            ->from('comments')
+            ->where("article_id = $id")
+            ->fetchAllAssociative();
+
         return $this->buildModel($response);
     }
 

@@ -121,5 +121,16 @@ class LocalDbUserRepository implements UserRepository
         }
         return true;
     }
+
+    public function getUserId(string $email): array
+    {
+        $response = $this->queryBuilder->select('*')
+            ->from('users')
+            ->where('email = ?')
+            ->setParameter(0, $email)
+            ->fetchAllAssociative();
+
+        return $this->buildModel($response);
+    }
 }
 

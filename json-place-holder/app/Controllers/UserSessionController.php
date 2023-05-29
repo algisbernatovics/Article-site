@@ -17,7 +17,7 @@ class UserSessionController
 
     public function showLoginForm(): string
     {
-        if (!isset($_SESSION['state'])) {
+        if (!isset($_SESSION['user_id'])) {
             return (new Renderer())->showLoginInputForm('ShowLoginForm.twig', true);
         } else
             return (new ErrorController())->error();
@@ -25,18 +25,15 @@ class UserSessionController
 
     public function login(): string
     {
-        if (!isset($_SESSION['state'])) {
+        if (!isset($_SESSION['user_id'])) {
             $response = $this->userService->execute();
-            $response->getResponse()->userLogin($_POST);
-            $userId = ($response->getResponse()->userLogin($_POST));
-            $passwordVerifyResult = ($response->getResponse()->userLogin($_POST));
-
+            $passwordVerifyResult = $response->getResponse()->userLogin($_POST);
             if (!$passwordVerifyResult) {
                 return (new Renderer())->showLoginInputForm('ShowLoginForm.twig', $passwordVerifyResult);
             }
-
             if ($passwordVerifyResult) {
-                $_SESSION["state"] = $userId;
+                $userId = ((($response->getResponse())->getUserId($_POST['email'])[0])->getId());
+                $_SESSION['user_id'] = $userId;
                 functions::redirect('/');
             }
         }
@@ -46,7 +43,7 @@ class UserSessionController
     public function logout(): void
 
     {
-        unset($_SESSION['state']);
+        unset($_SESSION['user_id']);
         functions::redirect('/');
     }
 }
