@@ -1,112 +1,100 @@
 {% extends "Layout.twig" %}
 {% block content %}
     <div class="dark:bg-black grid place-items-up place-items-center">
-        <div class="h-56 content-normal">
+    <article class="h-56 content-normal">
 
-            {% for post in posts %}
-
-                <div class="w-full shadow-lg rounded-lg mb-6">
-
-                    <figure class="dark:bg-slate-800 hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700
-                        shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] p-6 bg-white border border-gray-200 rounded-lg shadow
-                        dark:bg-gray-800 dark:border-gray-700 ">
-                        <article>
-
-                            <header class="mb-4 lg:mb-6 not-format">
-                                <address class="flex items-center mb-6 not-italic">
-                                    <div class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white">
-                                        <div>
-
-                                            <a href="{{ post.userUrl }}" rel="author"
-                                               class="text-xl font-bold text-gray-900 dark:text-white">Author User
-                                                ID:{{ post.userId }}</a>
-
-                                        </div>
-                                    </div>
-                                </address>
-
-                                <img src="https://placehold.co/600x400?text={{ post.title|capitalize }}"
-                                     alt="post.title">
-                            </header>
-                            <p class="lead">{{ post.body|capitalize }}</p>
-                            <section class="not-format">
-                            </section>
-                            <br>
+    {% for post in posts %}
 
 
-                            <div class=" h-56 grid grid-cols-3 gap-4 content-stretch ">
-                                <div class=" h-56 grid grid-cols-3 gap-4 content-stretch ">
+        <div class="w-full rounded-lg mb-6">
 
-                                    {% if sessionState %}
 
-                                        <form action="/deleteArticle/{{ post.id }}" method="post">
-                                            <button name="deleteArticle" value=""
-                                                    class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
-                                                <span>Delete</span>
-                                            </button>
-                                        </form>
+            <figure class=" border-gray-200 rounded-lg
+                            dark:bg-gray-800 dark:border-gray-700 ">
 
-                                        <form action="/editArticleForm/{{ post.id }}" method="post">
-                                            <button name="editArticle" value=""
-                                                    class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
-                                                <span>Edit</span>
-                                            </button>
-                                        </form>
+                <div>
 
-                                    {% endif %}
+                    <a href="{{ post.userUrl }}" rel="author"
+                       class="text-xl font-bold text-gray-900 dark:text-white">Author User
+                        Name:{{ post.userName }}</a>
 
-                                </div>
-                            </div>
-
-                            {% for comment in comments %}
-
-                                <section class="not-format">
-
-                                </section>
-
-                                <article class="text-base bg-white rounded-lg dark:bg-gray-900">
-
-                                    <footer class="flex justify-between items-center mb-2">
-
-                                        <div class="flex items-center">
-
-                                            <p class="inline-flex items-center mr-3 text-gray-900 dark:text-white">
-                                                <img
-
-                                                        class="mr-2 w-6 h-6 rounded-full"
-                                                        src="https://180dc.org/wp-content/uploads/2022/04/Blank-Avatar.png"
-                                                        alt="Michael Gough">{{ comment.name|capitalize }}</p>
-
-                                        </div>
-
-                                    </footer>
-
-                                    <br>
-
-                                    <p>{{ comment.body|capitalize }}</p>
-
-                                    <div class="flex items-center mt-4 space-x-4">
-
-                                    </div>
-
-                                </article>
-
-                            {% endfor %}
-
-                        </article>
-
-                    </figure>
 
                 </div>
 
-            {% endfor %}
+                <img src="https://placehold.co/600x400?text={{ post.title|capitalize }}"
+                     alt="post.title">
 
-            <br><br>
+                <p class="lead">{{ post.body|capitalize }}</p>
+
+                <address class="flex items-center mb-6 not-italic">
+
+
+                </address>
+                <h2 class="text-lg lg:text-2l font-bold text-gray-900 dark:text-white">Discussions</h2>
+
+
+                <form class="mb-6">
+                    <div class="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+                        <label for="comment" class="sr-only">Your comment</label>
+                        <textarea id="comment" rows="6"
+                                  class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800"
+                                  placeholder="Write a comment..." required></textarea>
+                    </div>
+
+                    <footer class="flex justify-between items-center mb-2">
+
+                        <br>
+                        <button type="submit"
+                                class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                            Post comment
+                        </button>
+
+                    </footer>
+
+                    <article class=" p-6 bg-white border border-gray-200 rounded-lg shadow
+                            dark:bg-gray-800 dark:border-gray-700">
+                        {% for comment in comments %}
+
+
+
+                            <div class="w-full shadow-lg rounded-lg mb-6 dark:bg-slate-800 hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700
+                            shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] p-6 bg-white border border-gray-200 rounded-lg shadow
+                            dark:bg-gray-800 dark:border-gray-700">
+
+                                <article class="text-base bg-white rounded-lg dark:bg-gray-900">
+
+
+                                    <p class="inline-flex items-center mr-3 text-gray-900 dark:text-white">
+                                        <img
+                                                class="mr-2 w-6 h-6 rounded-full"
+                                                src="https://180dc.org/wp-content/uploads/2022/04/Blank-Avatar.png"
+                                                alt="Michael Gough">{{ comment.name|capitalize }}</p>
+
+                                    <p>{{ comment.body|capitalize }}</p>
+
+
+                                </article>
+
+                            </div>
+                            <br>
+
+                        {% endfor %}
+
+
+                    </article>
+
+                </form>
+
+            </figure>
 
         </div>
 
-    </div>
+        </article>
 
+        </div>
+
+
+    {% endfor %}
 
 {% endblock %}
 

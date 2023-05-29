@@ -58,13 +58,42 @@ class JsonPlaceHolderArticleRepository implements ArticleRepository
                 $post->title,
                 $post->body,
                 '/users/' . $post->userId,
-                '/posts/' . $post->id
+                '/posts/' . $post->id,
+                '?'
             );
         }
         return $articles;
     }
 
     public function getUserArticles($id): array
+    {
+        $cacheFileName = "posts.$id";
+
+        if (!Cache::has($cacheFileName)) {
+            try {
+                $response = ($this->client->request('GET', '/posts/' . $id))->getBody()->getContents();
+            } catch (GuzzleException $e) {
+                if (!isset($_SERVER['argv'])) {
+                    (new ErrorController())->error();
+                }
+                if (isset($_SERVER['argv'])) {
+                    throw new RuntimeException;
+                }
+            }
+        } else {
+            $response = Cache::get($cacheFileName);
+        }
+        Cache::remember($cacheFileName, $response);
+        if ((gettype(json_decode($response))) === 'array') {
+            $this->response = json_decode($response);
+        }
+        if ((gettype(json_decode($response))) === 'object') {
+            $this->response = ['0' => json_decode($response)];
+        }
+        return $this->buildModel($this->response);
+    }
+
+    public function getSingleArticle($id): array
     {
         $cacheFileName = "posts.$id";
 

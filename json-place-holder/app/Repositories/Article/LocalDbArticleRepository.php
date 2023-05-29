@@ -5,6 +5,7 @@ namespace App\Repositories\Article;
 
 use App\Core\DBALConnection;
 use App\Models\Articles;
+use App\Repositories\User\LocalDbUserRepository;
 
 class LocalDbArticleRepository implements ArticleRepository
 {
@@ -27,15 +28,18 @@ class LocalDbArticleRepository implements ArticleRepository
 
     private function buildModel(array $response): array
     {
+        $userRepository = new LocalDbUserRepository();
         $articles = [];
         foreach ($response as $article) {
+            $userName = ($userRepository->getSingleUser($article['user_id']))[0]->getName();
             $articles[] = new Articles (
                 $article['user_id'],
                 $article['id'],
                 $article['title'],
                 $article['body'],
                 '/users/' . $article['user_id'],
-                '/posts/' . $article['id']
+                '/posts/' . $article['id'],
+                $userName
             );
         }
         return $articles;

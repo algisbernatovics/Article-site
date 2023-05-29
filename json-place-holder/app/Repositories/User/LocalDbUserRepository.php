@@ -60,7 +60,7 @@ class LocalDbUserRepository implements UserRepository
 
 //Todo
 
-    public function deleteUser(string $requestUri): void
+    public function deleteUser(int $userId): void
     {
 
     }
