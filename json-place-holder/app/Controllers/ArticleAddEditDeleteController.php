@@ -33,10 +33,10 @@ class ArticleAddEditDeleteController
             return (new Renderer())->showArticleEditForm
             (
                 'ArticleEditForm.twig',
-                $articleResponse->getResponse()->getArticles($articleRequest->getUri())
+                $articleResponse->getResponse()->getSingleArticle($articleRequest->getUri())
             );
         } else
-            (new ErrorController())->unauthorizedErrorVoid();
+            return (new ErrorController())->unauthorizedError();
     }
 
     public function deleteArticle(): void
@@ -58,7 +58,7 @@ class ArticleAddEditDeleteController
             $articleResponse->getResponse()->updateArticle($_POST, $articleRequest->getUri());
             Functions::Redirect('/');
         } else
-            (new ErrorController())->unauthorizedError();
+            (new ErrorController())->unauthorizedErrorVoid();
     }
 
     public function addArticle(): void

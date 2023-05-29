@@ -4,7 +4,6 @@ namespace App\Repositories\Comment;
 
 use App\Controllers\ErrorController;
 use App\Core\Cache;
-use App\Core\Functions;
 use App\Models\Comments;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
@@ -21,16 +20,16 @@ class JsonPlaceHolderCommentRepository implements CommentRepository
         $this->client = new Client(['base_uri' => self::BASE_URI]);
     }
 
-    public function getComments($requestUri): array
+    public function getComments(int $articleId): array
     {
-        $cacheFileName = Functions::replaceSlash($requestUri);
+        $cacheFileName = "posts.$articleId.comments";
 
         if (!Cache::has($cacheFileName)) {
             try {
-                $response = ($this->client->request('GET', $requestUri))->getBody()->getContents();
+                $response = ($this->client->request('GET', "posts/$articleId/comments"))->getBody()->getContents();
             } catch (GuzzleException $e) {
                 if (!isset($_SERVER['argv'])) {
-                    return (new ErrorController())->errorVoid();
+                    (new ErrorController())->errorVoid();
                 }
                 if (isset($_SERVER['argv'])) {
                     throw new RuntimeException;

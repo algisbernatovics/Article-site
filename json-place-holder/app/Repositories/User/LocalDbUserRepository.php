@@ -2,37 +2,29 @@
 
 namespace App\Repositories\User;
 
+use App\Core\DBALConnection;
 use App\Core\Functions;
-use App\Core\PDO;
 use App\Models\Users;
 use Doctrine\DBAL\Exception;
 
 
 class LocalDbUserRepository implements UserRepository
 {
-    private object $PDOConnection;
+    private object $DBALConnection;
     private object $queryBuilder;
 
     public function __construct()
     {
-        $this->PDOConnection = (new PDO())->getPDOconnection();
-        $this->queryBuilder = $this->PDOConnection->createQueryBuilder();
+        $this->DBALConnection = (new DBALConnection())->getDBALConnection();
+        $this->queryBuilder = $this->DBALConnection->createQueryBuilder();
     }
 
-    public function getUsers(string $requestUri): array
+    public function getUsers(): array
     {
-        $id = Functions::digitsOnly($requestUri);
+        $response = $this->queryBuilder->select('*')
+            ->from('users')
+            ->fetchAllAssociative();
 
-        if ($id > 0) {
-            $response = $this->queryBuilder->select('*')
-                ->from('users')
-                ->where("id =$id")
-                ->fetchAllAssociative();
-        } else {
-            $response = $this->queryBuilder->select('*')
-                ->from('users')
-                ->fetchAllAssociative();
-        }
         return $this->buildModel($response);
     }
 
@@ -55,7 +47,19 @@ class LocalDbUserRepository implements UserRepository
         return $users;
     }
 
+    public function getSingleUser($userId): array
+    {
+        $response = $this->queryBuilder->select('*')
+            ->from('users')
+            ->where('id = :id')
+            ->setParameter('id', $userId)
+            ->fetchAllAssociative();
+
+        return $this->buildModel($response);
+    }
+
 //Todo
+
     public function deleteUser(string $requestUri): void
     {
 
@@ -87,7 +91,6 @@ class LocalDbUserRepository implements UserRepository
             $this->queryBuilder
                 ->insert('users')
                 ->values([
-                    'id' => ':id',
                     'name' => ':name',
                     'username' => ':username',
                     'email' => ':email',
@@ -98,7 +101,6 @@ class LocalDbUserRepository implements UserRepository
                     'password' => ':password',
 
                 ])
-                ->setParameter('id', $PostData['id'])
                 ->setParameter('name', $PostData['name'])
                 ->setParameter('username', $PostData['username'])
                 ->setParameter('email', $PostData['email'])

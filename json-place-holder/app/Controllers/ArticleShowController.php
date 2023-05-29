@@ -28,11 +28,11 @@ class ArticleShowController
 
     public function allArticles(): string
     {
-        $articleRequest = new ArticleRequest('/posts');
         $articleResponse = $this->articleService->execute();
+
         return (new Renderer())->showAllArticles(
             'ShowAllArticles.twig',
-            $articleResponse->getResponse()->getArticles($articleRequest->getUri()),
+            $articleResponse->getResponse()->getAllArticles(),
         );
     }
 
@@ -41,13 +41,13 @@ class ArticleShowController
         $articleRequest = new ArticleRequest($_SERVER["REQUEST_URI"]);
         $articleResponse = $this->articleService->execute();
 
-        $commentRequest = new CommentRequest($_SERVER["REQUEST_URI"] . '/comments');
+        $commentRequest = new CommentRequest($_SERVER["REQUEST_URI"]);
         $commentResponse = $this->commentService->execute();
         return (new Renderer())->showArticleAndComments
 
         (
             'ShowSingleArticle.twig',
-            $articleResponse->getResponse()->getArticles($articleRequest->getUri()),
+            $articleResponse->getResponse()->getAllArticles($articleRequest->getUri()),
             $commentResponse->getResponse()->getComments($commentRequest->getUri())
         );
     }

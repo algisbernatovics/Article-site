@@ -11,7 +11,6 @@ Functions::defineRootDir();
 Functions::loadDotEnv();
 
 $container = (new Container())->getContainer();
-$container->get('\App\Controllers\UserShowController');
 
 echo '1- All Users' . PHP_EOL;
 echo '2- All Articles' . PHP_EOL;

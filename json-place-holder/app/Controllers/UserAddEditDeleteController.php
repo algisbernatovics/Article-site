@@ -20,20 +20,20 @@ class UserAddEditDeleteController
         return (new Renderer())->userAddEditForm('UserAddEditForm.twig', true, true);
     }
 
-    public function addUser()
+    public function addUser(): ?string
     {
         $userResponse = $this->userService->execute();
         $status = ($userResponse->getResponse())->addUser($_POST);
         $passwordMatch = ($_POST['password0'] === $_POST['password1']);
         if ($status && $passwordMatch) {
-            Functions::redirect('/');
+            return Functions::redirect('/');
         } else
             return (new Renderer())->userAddEditForm('UserAddEditForm.twig', $passwordMatch, $status);
     }
 
 //Todo
-    public
-    function deleteUser(): void
+
+    public function deleteUser(): void
     {
 
     }

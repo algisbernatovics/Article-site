@@ -10,7 +10,7 @@ class Renderer
 {
     protected FilesystemLoader $loader;
     protected Environment $twig;
-    protected $sessionId;
+    protected ?string $sessionId;
 
     public function __construct()
     {
@@ -19,7 +19,9 @@ class Renderer
             'debug' => true,
         ]);
         $this->twig->addExtension(new DebugExtension());
-        $this->sessionId = $_SESSION['user_id'];
+        if (isset($_SESSION['user_id'])) {
+            $this->sessionId = $_SESSION['user_id'];
+        } else $this->sessionId = NULL;
     }
 
     public function showAllArticles(string $template, array $posts): string

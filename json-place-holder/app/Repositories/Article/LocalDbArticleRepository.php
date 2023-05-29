@@ -3,36 +3,25 @@
 
 namespace App\Repositories\Article;
 
-use App\Core\Functions;
-use App\Core\PDO;
+use App\Core\DBALConnection;
 use App\Models\Articles;
-
 
 class LocalDbArticleRepository implements ArticleRepository
 {
-    private object $PDOConnection;
+    private object $DBALConnection;
     private object $queryBuilder;
 
     public function __construct()
     {
-        $this->PDOConnection = (new PDO())->getPDOconnection();
-        $this->queryBuilder = $this->PDOConnection->createQueryBuilder();
+        $this->DBALConnection = (new DBALConnection())->getDBALConnection();
+        $this->queryBuilder = $this->DBALConnection->createQueryBuilder();
     }
 
-    public function getArticles(string $requestUri): array
+    public function getAllArticles(): array
     {
-        $id = Functions::digitsOnly($requestUri);
-
-        if ($id > 0) {
-            $response = $this->queryBuilder->select('*')
-                ->from('articles')
-                ->where("id =$id")
-                ->fetchAllAssociative();
-        } else {
-            $response = $this->queryBuilder->select('*')
-                ->from('articles')
-                ->fetchAllAssociative();
-        }
+        $response = $this->queryBuilder->select('*')
+            ->from('articles')
+            ->fetchAllAssociative();
         return $this->buildModel($response);
     }
 
@@ -52,31 +41,37 @@ class LocalDbArticleRepository implements ArticleRepository
         return $articles;
     }
 
-    public function getUserArticles(string $requestUri): array
+    public function getUserArticles(int $userId): array
     {
-        $id = Functions::digitsOnly($requestUri);
-
         $response = $this->queryBuilder->select('*')
             ->from('articles')
-            ->where("user_id = $id")
+            ->where("user_id = $userId")
             ->fetchAllAssociative();
 
         return $this->buildModel($response);
     }
 
-    public function deleteArticle(string $requestUri)
+    public function getSingleArticle(int $articleId): array
     {
-        $id = Functions::digitsOnly($requestUri);
+        $response = $this->queryBuilder->select('*')
+            ->from('articles')
+            ->where("id = $articleId")
+            ->fetchAllAssociative();
+
+        return $this->buildModel($response);
+    }
+
+    public function deleteArticle(int $articleId): void
+    {
         $this->queryBuilder
             ->delete('articles')
             ->where('id = :id')
-            ->setParameter('id', $id)
+            ->setParameter('id', $articleId)
             ->executeStatement();
     }
 
-    public function insertArticle($PostData, $userId)
+    public function insertArticle(array $PostData, int $userId): void
     {
-        var_dump($userId);
         $this->queryBuilder
             ->insert('articles')
             ->values([
@@ -90,16 +85,14 @@ class LocalDbArticleRepository implements ArticleRepository
             ->executeStatement();
     }
 
-    public function updateArticle($PostData, $requestUri)
+    public function updateArticle(array $PostData, int $articleId): void
     {
-        $id = Functions::digitsOnly($requestUri);
-
         $this->queryBuilder
             ->update('articles')
             ->where('id = :id')
             ->set('title', ':title')
             ->set('body', ':body')
-            ->setParameter('id', $id)
+            ->setParameter('id', $articleId)
             ->setParameter('title', $PostData['title'])
             ->setParameter('body', $PostData['body'])
             ->executeStatement();

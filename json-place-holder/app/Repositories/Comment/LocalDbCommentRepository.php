@@ -1,31 +1,26 @@
 <?php
 
-
 namespace App\Repositories\Comment;
 
-use App\Core\Functions;
-use App\Core\PDO;
+use App\Core\DBALConnection;
 use App\Models\Comments;
-
 
 class LocalDbCommentRepository implements CommentRepository
 {
-    private object $PDOConnection;
+    private object $DBALConnection;
     private object $queryBuilder;
 
     public function __construct()
     {
-        $this->PDOConnection = (new PDO())->getPDOconnection();
-        $this->queryBuilder = $this->PDOConnection->createQueryBuilder();
+        $this->DBALConnection = (new DBALConnection())->getDBALConnection();
+        $this->queryBuilder = $this->DBALConnection->createQueryBuilder();
     }
 
-    public function getComments(string $requestUri): array
+    public function getComments(int $articleId): array
     {
-        $id = Functions::digitsOnly($requestUri);
-
         $response = $this->queryBuilder->select('*')
             ->from('comments')
-            ->where("article_id = $id")
+            ->where("article_id = $articleId")
             ->fetchAllAssociative();
 
         return $this->buildModel($response);
@@ -48,13 +43,13 @@ class LocalDbCommentRepository implements CommentRepository
     }
 
 //Todo
-    public function deleteComment(string $requestUri)
+    public function deleteComment(int $id): void
     {
 
     }
 
 //Todo
-    public function addComment($PostData)
+    public function addComment(array $PostData): void
     {
 
     }
