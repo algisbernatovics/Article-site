@@ -5,7 +5,6 @@
 
     {% for post in posts %}
 
-
         <div class="w-full rounded-lg mb-6">
 
 
@@ -17,7 +16,6 @@
                     <a href="{{ post.userUrl }}" rel="author"
                        class="text-xl font-bold text-gray-900 dark:text-white">Author User
                         Name:{{ post.userName }}</a>
-
 
                 </div>
 
@@ -33,10 +31,14 @@
                 <h2 class="text-lg lg:text-2l font-bold text-gray-900 dark:text-white">Discussions</h2>
 
 
-                <form class="mb-6">
+                <form action="/addComment/{{ post.id }}" method="post"
+                      class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                           name='title' type="title" required="" placeholder="Title">
                     <div class="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
                         <label for="comment" class="sr-only">Your comment</label>
-                        <textarea id="comment" rows="6"
+
+                        <textarea name='body' id="comment" rows="6"
                                   class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800"
                                   placeholder="Write a comment..." required></textarea>
                     </div>
@@ -55,20 +57,20 @@
                             dark:bg-gray-800 dark:border-gray-700">
                         {% for comment in comments %}
 
-
-
                             <div class="w-full shadow-lg rounded-lg mb-6 dark:bg-slate-800 hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700
                             shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] p-6 bg-white border border-gray-200 rounded-lg shadow
                             dark:bg-gray-800 dark:border-gray-700">
 
                                 <article class="text-base bg-white rounded-lg dark:bg-gray-900">
 
+                                    <a href="{{ comment.userUrl }}" rel="author"
+                                       class="text-xl font-bold text-gray-900 dark:text-white">
 
-                                    <p class="inline-flex items-center mr-3 text-gray-900 dark:text-white">
-                                        <img
-                                                class="mr-2 w-6 h-6 rounded-full"
-                                                src="https://180dc.org/wp-content/uploads/2022/04/Blank-Avatar.png"
-                                                alt="Michael Gough">{{ comment.name|capitalize }}</p>
+                                        <p class="inline-flex items-center mr-3 text-gray-900 dark:text-white">
+                                            <img
+                                                    class="mr-2 w-6 h-6 rounded-full"
+                                                    src="https://180dc.org/wp-content/uploads/2022/04/Blank-Avatar.png"
+                                                    alt="Michael Gough">{{ comment.userName|capitalize }}</p></a>
 
                                     <p>{{ comment.body|capitalize }}</p>
 

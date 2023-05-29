@@ -4,6 +4,7 @@ namespace App\Repositories\Comment;
 
 use App\Core\DBALConnection;
 use App\Models\Comments;
+use App\Repositories\User\LocalDbUserRepository;
 
 class LocalDbCommentRepository implements CommentRepository
 {
@@ -28,15 +29,18 @@ class LocalDbCommentRepository implements CommentRepository
 
     private function buildModel(array $response): array
     {
-
+        $userRepository = new LocalDbUserRepository();
         $comments = [];
+
         foreach ($response as $comment) {
+            $userName = ($userRepository->getSingleUser($comment['user_id']))[0]->getName();
             $comments[] = new comments (
                 $comment['id'],
                 $comment['user_id'],
                 $comment['title'],
-                $comment['email'],
-                $comment['body']
+                $comment['body'],
+                $userName,
+                '/users/' . $comment['user_id']
             );
         }
         return $comments;
@@ -51,17 +55,26 @@ class LocalDbCommentRepository implements CommentRepository
         return $this->buildModel($response);
     }
 
-//Todo
-
     public function deleteComment(int $id): void
     {
 
     }
 
-//Todo
-    public function addComment(array $PostData): void
+    public function insertComment(array $PostData, int $userId, int $articleId): void
     {
-
+        $this->queryBuilder
+            ->insert('comments')
+            ->values([
+                'article_id' => ':article_id',
+                'user_id' => ':userId',
+                'title' => ':title',
+                'body' => ':body'
+            ])
+            ->setParameter('userId', $userId)
+            ->setParameter('article_id', $articleId)
+            ->setParameter('title', $PostData['title'])
+            ->setParameter('body', $PostData['body'])
+            ->executeStatement();
     }
 }
 

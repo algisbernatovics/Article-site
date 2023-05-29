@@ -32,6 +32,8 @@ class Routes
             $r->addRoute(['GET'], '/login', '\App\Controllers\UserSessionController@login');
             $r->addRoute(['GET'], '/logout', '\App\Controllers\UserSessionController@logout');
 
+            $r->addRoute(['GET'], '/addComment[/{id}]', '\App\Controllers\CommentAddDeleteController@addComment');
+
         });
     }
 

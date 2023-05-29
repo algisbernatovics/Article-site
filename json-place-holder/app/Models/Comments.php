@@ -7,21 +7,33 @@ class Comments
     protected int $postId;
     protected int $id;
     protected string $name;
-    protected string $email;
     protected string $body;
+    protected string $userName;
+    protected string $userUrl;
 
-    public function __construct($postId, int $id, string $name, string $email, string $body)
+    public function __construct($postId, int $id, string $name, string $body, string $userName, string $userUrl)
     {
         $this->postId = $postId;
         $this->id = $id;
         $this->name = $name;
-        $this->email = $email;
         $this->body = $body;
+        $this->userName = $userName;
+        $this->userUrl = $userUrl;
     }
 
     public function getPostId(): int
     {
         return $this->postId;
+    }
+
+    public function getUserName(): string
+    {
+        return $this->userName;
+    }
+
+    public function getUserUrl(): string
+    {
+        return $this->userUrl;
     }
 
     public function getId(): int
@@ -32,11 +44,6 @@ class Comments
     public function getName(): string
     {
         return $this->name;
-    }
-
-    public function getEmail(): string
-    {
-        return $this->email;
     }
 
     public function getBody(): string
