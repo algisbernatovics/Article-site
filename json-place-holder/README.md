@@ -1,17 +1,12 @@
 <img src="prev0.png" alt="">
 <img src="prev1.png" alt="">
 
-
 This program works with api.
 https://jsonplaceholder.typicode.com/
 
 JSONPlaceholder is a free online REST API that you can use whenever you need some fake data.
 
-
-This is the final commit of the JsonPlaceHolder repo.
-
-Next time this program will be in a new repository as the JsonPlaceHolder API will be removed as no longer needed
-because the program will work with mysql database.
+Now the program works with mysql database.
 
 ## Getting started
 
