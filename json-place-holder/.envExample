@@ -1,5 +1,0 @@
-DBNAME = ''
-USER_ = ''
-PASSWORD = ''
-HOST = 'localhost'
-DRIVER = 'pdo_mysql'
