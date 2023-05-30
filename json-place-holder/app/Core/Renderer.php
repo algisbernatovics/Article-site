@@ -82,4 +82,13 @@ class Renderer
                 'articles' => $article
             ]);
     }
+
+    public function showCommentEditForm(string $template, array $comment): string
+    {
+        return $this->twig->render(
+            $template,
+            ['sessionState' => $this->sessionId,
+                'comments' => $comment
+            ]);
+    }
 }

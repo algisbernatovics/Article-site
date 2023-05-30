@@ -19,6 +19,7 @@ class LocalDbCommentRepository implements CommentRepository
 
     public function getComments(int $articleId): array
     {
+
         $response = $this->queryBuilder->select('*')
             ->from('comments')
             ->where("article_id = $articleId")
@@ -55,9 +56,14 @@ class LocalDbCommentRepository implements CommentRepository
         return $this->buildModel($response);
     }
 
-    public function deleteComment(int $id): void
+    public function deleteComment(int $commentId): void
     {
-
+        var_dump($commentId);
+        $this->queryBuilder
+            ->delete('comments')
+            ->where('id = :id')
+            ->setParameter('id', $commentId)
+            ->executeStatement();
     }
 
     public function insertComment(array $PostData, int $userId, int $articleId): void
@@ -76,6 +82,30 @@ class LocalDbCommentRepository implements CommentRepository
             ->setParameter('body', $PostData['body'])
             ->executeStatement();
     }
+
+    public function getCommentForUpdate(int $commentId): array
+    {
+
+        $response = $this->queryBuilder->select('*')
+            ->from('comments')
+            ->where("id = $commentId")
+            ->fetchAllAssociative();
+        return $this->buildModel($response);
+    }
+
+    public function updateComment(array $PostData, int $commentId): void
+    {
+        $this->queryBuilder
+            ->update('comments')
+            ->where('id = :id')
+            ->set('title', ':title')
+            ->set('body', ':body')
+            ->setParameter('id', $commentId)
+            ->setParameter('title', $PostData['title'])
+            ->setParameter('body', $PostData['body'])
+            ->executeStatement();
+    }
+
 }
 
 

@@ -4,26 +4,26 @@ namespace App\Models;
 
 class Comments
 {
-    protected int $postId;
-    protected int $id;
+    protected int $commentId;
+    protected int $userId;
     protected string $name;
     protected string $body;
     protected string $userName;
     protected string $userUrl;
 
-    public function __construct($postId, int $id, string $name, string $body, string $userName, string $userUrl)
+    public function __construct(int $commentId, int $userId, string $name, string $body, string $userName, string $userUrl)
     {
-        $this->postId = $postId;
-        $this->id = $id;
+        $this->commentId = $commentId;
+        $this->userId = $userId;
         $this->name = $name;
         $this->body = $body;
         $this->userName = $userName;
         $this->userUrl = $userUrl;
     }
 
-    public function getPostId(): int
+    public function getCommentId(): int
     {
-        return $this->postId;
+        return $this->commentId;
     }
 
     public function getUserName(): string
@@ -36,9 +36,9 @@ class Comments
         return $this->userUrl;
     }
 
-    public function getId(): int
+    public function getUserId(): int
     {
-        return $this->id;
+        return $this->userId;
     }
 
     public function getName(): string

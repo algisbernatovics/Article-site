@@ -57,7 +57,8 @@ class JsonPlaceHolderCommentRepository implements CommentRepository
                 $comment->id,
                 $comment->name,
                 $comment->email,
-                $comment->body
+                $comment->body,
+                ''
             );
         }
         return $comments;

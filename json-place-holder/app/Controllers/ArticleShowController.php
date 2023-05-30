@@ -7,20 +7,17 @@ use App\Services\Articles\Show\ArticleRequest;
 use App\Services\Articles\Show\ArticleService;
 use App\Services\Comments\Show\CommentRequest;
 use App\Services\Comments\Show\CommentService;
-use App\Services\Users\Show\UserService;
 
 
 class ArticleShowController
 {
     private object $articleService;
     private object $commentService;
-    private object $userService;
 
-    public function __construct(articleService $articleService, commentService $commentService, userService $userService)
+    public function __construct(articleService $articleService, commentService $commentService)
     {
         $this->articleService = $articleService;
         $this->commentService = $commentService;
-        $this->userService = $userService;
     }
 
     public function home(): string
@@ -41,8 +38,6 @@ class ArticleShowController
 
     public function singleArticle(): string
     {
-        $userService = $this->userService->execute();
-
         $articleRequest = new ArticleRequest($_SERVER["REQUEST_URI"]);
         $articleResponse = $this->articleService->execute();
 
@@ -54,7 +49,6 @@ class ArticleShowController
             'ShowSingleArticle.twig',
             $articleResponse->getResponse()->getSingleArticle($articleRequest->getUri()),
             $commentResponse->getResponse()->getComments($commentRequest->getUri())
-
         );
     }
 }
