@@ -25,11 +25,6 @@ class Container
             CommentRepository::class => new LocalDbCommentRepository(),
             UserRepository::class => new LocalDbUserRepository(),
 
-//JSON Place Holder API Resource
-//            ArticleRepository::class => new JsonPlaceHolderArticleRepository(),
-//            UserRepository::class => new JsonPlaceHolderUserRepository(),
-//            CommentRepository::class => new JsonPlaceHolderCommentRepository()
-
         ]);
 
         $this->container = $builder->build();
