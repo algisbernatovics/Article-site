@@ -1,0 +1,47 @@
+{% extends "Layout.twig" %}
+{% block content %}
+    <div class="dark:bg-black grid place-items-up place-items-center">
+        <div class="h-56 grid grid-cols-2 gap-12 content-normal">
+
+            {% for post in posts %}
+
+                <div class="w-full shadow-lg rounded-lg mb-6">
+
+                    <figure class="dark:bg-slate-800 hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700
+                        shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] p-6 bg-white border border-gray-200 rounded-lg shadow
+                        dark:bg-gray-800 dark:border-gray-700 ">
+                        <article>
+
+                            <header class="mb-4 lg:mb-6 not-format">
+                                <address class="flex items-center mb-6 not-italic">
+                                    <div class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white">
+                                        <div>
+
+                                            <a href="{{ post.userUrl }}" rel="author"
+                                               class="text-xl font-bold text-gray-900 dark:text-white">Author User
+                                                Name:{{ post.userName }}</a>
+                                        </div>
+
+                                    </div>
+                                </address>
+                                <a href="{{ post.postUrl }}">
+                                    <img src="https://placehold.co/600x400?text={{ post.title|capitalize }}"
+                                         alt="post.title"></a>
+                            </header>
+                            <p class="lead">{{ post.body|capitalize }}</p>
+                            <section class="not-format">
+                            </section>
+                        </article>
+                    </figure>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+
