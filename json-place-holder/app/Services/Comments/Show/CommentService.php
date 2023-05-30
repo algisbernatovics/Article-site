@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Services\Comments\Show;
+namespace App\Services\Comments;
 
 use App\Repositories\Comment\CommentRepository;
+use App\Repositories\Comment\JsonPlaceHolderCommentRepository;
 
 class CommentService
 {
@@ -10,7 +11,7 @@ class CommentService
 
     public function __construct(CommentRepository $commentRepository)
     {
-        $this->commentRepository = $commentRepository;
+        $this->commentRepository=$commentRepository;
     }
 
     public function execute(): CommentResponse

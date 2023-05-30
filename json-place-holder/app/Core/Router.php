@@ -8,8 +8,7 @@ class Router
 {
     public static function Router()
     {
-        Functions::defineRootDir();
-        Functions::loadDotEnv();
+        define('ROOT_DIR', realpath(__DIR__ . '/../..'));
 
         $container = (new Container())->getContainer();
         $dispatcher = (new Routes())->getDispatcher();

@@ -4,6 +4,5 @@ namespace App\Repositories\Article;
 
 interface ArticleRepository
 {
-    public function getAllArticles(): array;
-
+    public function getArticles(string $requestUri): ?array;
 }

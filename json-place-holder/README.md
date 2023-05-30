@@ -1,12 +1,11 @@
-<img src="prev0.png" alt="">
-<img src="prev1.png" alt="">
+<img src="prev0.png">
+<img src="prev1.png">
+
 
 This program works with api.
 https://jsonplaceholder.typicode.com/
 
 JSONPlaceholder is a free online REST API that you can use whenever you need some fake data.
-
-Now the program works with mysql database.
 
 ## Getting started
 

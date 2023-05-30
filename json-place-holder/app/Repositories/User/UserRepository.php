@@ -4,6 +4,5 @@ namespace App\Repositories\User;
 
 interface UserRepository
 {
-    public function getUsers(): array;
-
+    public function getUsers(string $requestUri): ?array;
 }

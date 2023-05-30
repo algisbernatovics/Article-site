@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Users\Show;
+namespace App\Services\Users;
 
 class UserResponse
 {

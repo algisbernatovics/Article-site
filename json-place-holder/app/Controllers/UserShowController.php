@@ -3,12 +3,12 @@
 namespace App\Controllers;
 
 use App\Core\Renderer;
-use App\Services\Articles\Show\ArticleRequest;
-use App\Services\Articles\Show\ArticleService;
-use App\Services\Users\Show\UserRequest;
-use App\Services\Users\Show\UserService;
+use App\Services\Articles\ArticleRequest;
+use App\Services\Articles\ArticleService;
+use App\Services\Users\UserRequest;
+use App\Services\Users\UserService;
 
-class UserShowController
+class UsersController
 {
     private object $userService;
     private object $userArticleService;
@@ -21,23 +21,24 @@ class UserShowController
 
     public function allUsers(): string
     {
+        $userRequest = new UserRequest('/users');
         $userResponse = $this->userService->execute();
-        return (new Renderer())->showAllUsers(
-            'ShowAllUsers.twig',
-            $userResponse->getResponse()->getUsers());
+        return (new Renderer())->viewUsers(
+            'Users.twig',
+            $userResponse->getResponse()->getUsers($userRequest->getUri()));
     }
 
-    public function singleUser(): string
+    public function user(): string
     {
         $userRequest = new UserRequest($_SERVER["REQUEST_URI"]);
         $userResponse = $this->userService->execute();
 
-        $userArticleRequest = new ArticleRequest($_SERVER["REQUEST_URI"]);
+        $userArticleRequest = new ArticleRequest($_SERVER["REQUEST_URI"] . '/posts');
         $userArticleResponse = $this->userArticleService->execute();
-        return (new Renderer())->showSingleUser(
-            'ShowSingleUser.twig',
-            $userResponse->getResponse()->getSingleUser($userRequest->getUri()),
-            $userArticleResponse->getResponse()->getUserArticles($userArticleRequest->getUri())
+        return (new Renderer())->viewSingleUser(
+            'SingleUser.twig',
+            $userResponse->getResponse()->getUsers($userRequest->getUri()),
+            $userArticleResponse->getResponse()->getArticles($userArticleRequest->getUri())
         );
     }
 }

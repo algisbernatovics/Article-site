@@ -1,16 +1,13 @@
 <?php
 
-namespace App\Services\Articles\Show;
-
-use App\Core\Functions;
-
+namespace App\Services\Articles;
 class ArticleRequest
 {
     protected string $uri;
 
     public function __construct(string $uri)
     {
-        $this->uri = Functions::digitsOnly($uri);
+        $this->uri = $uri;
     }
 
     public function getUri(): string

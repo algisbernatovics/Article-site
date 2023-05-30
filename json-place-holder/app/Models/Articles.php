@@ -11,9 +11,8 @@ class Articles
 
     protected string $userUrl;
     protected string $postUrl;
-    protected string $userName;
 
-    public function __construct(int $userId, int $id, string $title, string $body, string $userUrl, string $postUrl, string $userName)
+    public function __construct(int $userId, int $id, string $title, string $body, string $userUrl, string $postUrl)
     {
         $this->userId = $userId;
         $this->id = $id;
@@ -21,12 +20,6 @@ class Articles
         $this->body = $body;
         $this->userUrl = $userUrl;
         $this->postUrl = $postUrl;
-        $this->userName = $userName;
-    }
-
-    public function getUserName(): string
-    {
-        return $this->userName;
     }
 
     public function getUserId(): int

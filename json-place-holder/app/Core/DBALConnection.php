@@ -5,12 +5,14 @@ namespace App\Core;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
 
-class DBALConnection
+class PDO
 {
-    protected $DBALConnection;
+    private $PDOconnection;
 
     public function __construct()
     {
+        $_ENV = (new DotEnv())->getENV();
+
         $connectionParams = [
             'dbname' => $_ENV['DBNAME'],
             'user' => $_ENV['USER_'],
@@ -18,12 +20,12 @@ class DBALConnection
             'host' => $_ENV['HOST'],
             'driver' => $_ENV['DRIVER'],
         ];
-        $this->DBALConnection = DriverManager::getConnection($connectionParams);
+        $this->PDOconnection = DriverManager::getConnection($connectionParams);
     }
 
-    public function getDBALConnection(): Connection
+    public function getPDOconnection(): Connection
     {
-        return $this->DBALConnection;
+        return $this->PDOconnection;
     }
 
 }

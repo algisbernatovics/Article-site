@@ -1,8 +1,6 @@
 <?php
 
-namespace App\Services\Comments\Show;
-
-use App\Core\Functions;
+namespace App\Services\Comments;
 
 class CommentRequest
 {
@@ -10,7 +8,7 @@ class CommentRequest
 
     public function __construct(string $uri)
     {
-        $this->uri = Functions::digitsOnly($uri);
+        $this->uri = $uri;
     }
 
     public function getUri(): string

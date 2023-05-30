@@ -12,11 +12,9 @@ class Users
     protected string $phone;
     protected string $website;
     protected string $companyName;
-    protected string $password;
 
     public function __construct(
-        int    $id, string $name, string $username, string $email, string $city,
-        string $phone, string $website, string $companyName, string $password)
+        int $id, string $name, string $username, string $email, string $city, string $phone, string $website, string $companyName)
     {
         $this->id = $id;
         $this->name = $name;
@@ -26,17 +24,11 @@ class Users
         $this->phone = $phone;
         $this->website = $website;
         $this->companyName = $companyName;
-        $this->password = $password;
     }
 
     public function getCompanyName(): string
     {
         return $this->companyName;
-    }
-
-    public function getPassword(): string
-    {
-        return $this->password;
     }
 
     public function getId(): int
@@ -49,7 +41,7 @@ class Users
         return $this->name;
     }
 
-    public function getUserName(): string
+    public function getUsername(): string
     {
         return $this->username;
     }

@@ -14,64 +14,32 @@
         <nav class="flex items-center justify-between flex-wrap bg-teal-500 p-6">
             <div class="flex items-center flex-shrink-0 text-white mr-6">
 
-
+                <path d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z"/>
+                </svg>
                 <a href="/" class="flex items-left">
                     <img src="https://flowbite.com/docs/images/logo.svg" class="mr-3 h-6 sm:h-9"
                          alt="JSONPlaceholder"/>
                     <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">JSONPlaceholder</span>
                 </a>
             </div>
-
             <div class="block lg:hidden">
 
             </div>
             <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
                 <div class="text-sm lg:flex-grow">
-
-                    <a href="/allArticles"
+                    <a href="/allPosts"
                        class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">
                         Articles
                     </a>
-
                     <a href="/allUsers"
                        class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">
                         Users
                     </a>
-
-
-                    {% if sessionState %}
-
-                        <a href="/addArticleForm"
-                           class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">
-                            Add Article
-                        </a>
-
-                    {% endif %}
-
+                    <a href="/showForm"
+                       class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">
+                        Add Article
+                    </a>
                 </div>
-
-                {% if sessionState %}
-
-                    <div>
-                        <a href="/logout"
-                           class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">Logout</a>
-                    </div>
-
-                {% else %}
-
-                    <div>
-                        <a href="/registerForm"
-                           class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">Register</a>
-                    </div>
-
-                    <div>
-                        <a href="/loginForm"
-                           class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">Login</a>
-                    </div>
-
-
-                {% endif %}
-
             </div>
         </nav>
 

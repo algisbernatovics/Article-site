@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Articles\Show;
+namespace App\Services\Articles;
 
 use App\Repositories\Article\ArticleRepository;
 
