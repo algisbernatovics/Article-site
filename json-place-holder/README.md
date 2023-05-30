@@ -7,6 +7,11 @@ https://jsonplaceholder.typicode.com/
 
 JSONPlaceholder is a free online REST API that you can use whenever you need some fake data.
 
+
+This is the final commit of the JsonPlaceHolder repo.
+
+Next time this program will be in a new repository as the JsonPlaceHolder API will be removed as no longer needed.
+
 ## Getting started
 
 - download project
