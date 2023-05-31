@@ -7,8 +7,6 @@ use App\Repositories\Article\ArticleRepository;
 class InsertArticleService
 {
     protected ArticleRepository $articleRepository;
-    protected string $title;
-    protected string $body;
 
     public function __construct(articleRepository $articleRepository)
     {
@@ -20,7 +18,7 @@ class InsertArticleService
         return ((new InsertArticleResponse($this->articleRepository))
             ->getResponse())
             ->insertArticle(
-                $request->getUri(),
+                $request->getUserId(),
                 $request->getTitle(),
                 $request->getBody()
             );

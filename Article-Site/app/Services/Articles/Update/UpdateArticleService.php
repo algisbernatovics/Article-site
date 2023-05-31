@@ -7,8 +7,6 @@ use App\Repositories\Article\ArticleRepository;
 class UpdateArticleService
 {
     protected ArticleRepository $articleRepository;
-    protected string $title;
-    protected string $body;
 
     public function __construct(articleRepository $articleRepository)
     {

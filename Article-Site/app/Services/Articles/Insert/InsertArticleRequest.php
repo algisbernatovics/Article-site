@@ -6,20 +6,20 @@ use App\Core\Functions;
 
 class InsertArticleRequest
 {
-    protected string $uri;
+    protected string $userId;
     protected string $title;
     protected string $body;
 
-    public function __construct(string $uri,string $title,string $body)
+    public function __construct(int $userId,string $title,string $body)
     {
-        $this->uri = Functions::digitsOnly($uri);
+        $this->userId = $userId;
         $this->body = $body;
         $this->title = $title;
     }
 
-    public function getUri(): string
+    public function getUserId(): string
     {
-        return $this->uri;
+        return $this->userId;
     }
 
     public function getTitle(): string

@@ -5,6 +5,7 @@ namespace App\Repositories\Comment;
 use App\Core\DBALConnection;
 use App\Models\Comments;
 use App\Repositories\User\LocalDbUserRepository;
+use Exception;
 
 class LocalDbCommentRepository implements CommentRepository
 {
@@ -56,31 +57,43 @@ class LocalDbCommentRepository implements CommentRepository
         return $this->buildModel($response);
     }
 
-    public function deleteComment(int $commentId): void
+    public function deleteComment(int $commentId): bool
     {
-        var_dump($commentId);
-        $this->queryBuilder
-            ->delete('comments')
-            ->where('id = :id')
-            ->setParameter('id', $commentId)
-            ->executeStatement();
+        try {
+
+            $this->queryBuilder
+                ->delete('comments')
+                ->where('id = :id')
+                ->setParameter('id', $commentId)
+                ->executeStatement();
+
+        } catch (Exception $e) {
+            return false;
+        }
+        return true;
     }
 
-    public function insertComment(array $PostData, int $userId, int $articleId): void
+    public function insertComment(int $userId, int $articleId, string $title, string $body): bool
     {
-        $this->queryBuilder
-            ->insert('comments')
-            ->values([
-                'article_id' => ':article_id',
-                'user_id' => ':userId',
-                'title' => ':title',
-                'body' => ':body'
-            ])
-            ->setParameter('userId', $userId)
-            ->setParameter('article_id', $articleId)
-            ->setParameter('title', $PostData['title'])
-            ->setParameter('body', $PostData['body'])
-            ->executeStatement();
+        try {
+
+            $this->queryBuilder
+                ->insert('comments')
+                ->values([
+                    'article_id' => ':article_id',
+                    'user_id' => ':userId',
+                    'title' => ':title',
+                    'body' => ':body'
+                ])
+                ->setParameter('userId', $userId)
+                ->setParameter('article_id', $articleId)
+                ->setParameter('title', $title)
+                ->setParameter('body', $body)
+                ->executeStatement();
+        } catch (Exception $e) {
+            return false;
+        }
+        return true;
     }
 
     public function getCommentForUpdate(int $commentId): array
@@ -93,19 +106,24 @@ class LocalDbCommentRepository implements CommentRepository
         return $this->buildModel($response);
     }
 
-    public function updateComment(array $PostData, int $commentId): void
+    public function updateComment(int $commentId, string $title, string $body): bool
     {
-        $this->queryBuilder
-            ->update('comments')
-            ->where('id = :id')
-            ->set('title', ':title')
-            ->set('body', ':body')
-            ->setParameter('id', $commentId)
-            ->setParameter('title', $PostData['title'])
-            ->setParameter('body', $PostData['body'])
-            ->executeStatement();
-    }
+        try {
 
+            $this->queryBuilder
+                ->update('comments')
+                ->where('id = :id')
+                ->set('title', ':title')
+                ->set('body', ':body')
+                ->setParameter('id', $commentId)
+                ->setParameter('title', $title)
+                ->setParameter('body', $body)
+                ->executeStatement();
+        } catch (Exception $e) {
+            return false;
+        }
+        return true;
+    }
 }
 
 

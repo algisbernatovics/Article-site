@@ -7,8 +7,6 @@ use App\Repositories\Article\ArticleRepository;
 class DeleteArticleService
 {
     protected ArticleRepository $articleRepository;
-    protected string $title;
-    protected string $body;
 
     public function __construct(articleRepository $articleRepository)
     {

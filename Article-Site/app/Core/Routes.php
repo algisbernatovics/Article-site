@@ -32,7 +32,7 @@ class Routes
             $r->addRoute(['GET'], '/login', '\App\Controllers\UserSessionController@login');
             $r->addRoute(['GET'], '/logout', '\App\Controllers\UserSessionController@logout');
 
-            $r->addRoute(['GET'], '/addComment[/{id}]', '\App\Controllers\CommentAddEditDeleteController@addComment');
+            $r->addRoute(['GET'], '/addComment[/{id}]', '\App\Controllers\CommentAddEditDeleteController@insertComment');
             $r->addRoute(['GET'], '/deleteComment[/{id}]', '\App\Controllers\CommentAddEditDeleteController@deleteComment');
             $r->addRoute(['GET'], '/editCommentForm[/{id}]', '\App\Controllers\CommentAddEditDeleteController@showEditCommentForm');
             $r->addRoute(['GET'], '/updateComment[/{id}]', '\App\Controllers\CommentAddEditDeleteController@updateComment');
