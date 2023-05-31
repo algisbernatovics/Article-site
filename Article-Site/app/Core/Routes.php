@@ -26,7 +26,7 @@ class Routes
             $r->addRoute(['GET'], '/updateArticle[/{id}]', '\App\Controllers\ArticleAddEditDeleteController@updateArticle');
 
             $r->addRoute(['GET'], '/registerForm', '\App\Controllers\UserAddEditDeleteController@showUserForm');
-            $r->addRoute(['GET'], '/addUser', '\App\Controllers\UserAddEditDeleteController@addUser');
+            $r->addRoute(['GET'], '/addUser', '\App\Controllers\UserAddEditDeleteController@insertUser');
 
             $r->addRoute(['GET'], '/loginForm', '\App\Controllers\UserSessionController@showLoginForm');
             $r->addRoute(['GET'], '/login', '\App\Controllers\UserSessionController@login');

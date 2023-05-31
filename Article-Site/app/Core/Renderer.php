@@ -49,9 +49,9 @@ class Renderer
         return $this->twig->render($template, ['sessionState' => $this->sessionId]);
     }
 
-    public function userAddEditForm(string $template, bool $passwMatch, bool $emailUnique): string
+    public function userAddEditForm(string $template, bool $status): string
     {
-        return $this->twig->render($template, ['sessionState' => $this->sessionId, 'controlPasswd' => $passwMatch, 'controlEmail' => $emailUnique]);
+        return $this->twig->render($template, ['sessionState' => $this->sessionId, 'status' => $status]);
     }
 
     public function showLoginInputForm(string $template, bool $loginStatus): string

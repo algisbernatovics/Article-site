@@ -4,31 +4,45 @@ namespace App\Controllers;
 
 use App\Core\Functions;
 use App\Core\Renderer;
-use App\Services\Users\Show\ShowUserService;
+use App\Services\Users\Insert\InsertUserService;
+use App\Services\Users\Insert\InsertUserRequest;
 
 class UserAddEditDeleteController
 {
-    private ShowUserService $userService;
+    private InsertUserService $insertUserService;
 
-    public function __construct(ShowUserService $userService)
+    public function __construct(InsertUserService $insertUserService)
     {
-        $this->userService = $userService;
+        $this->insertUserService = $insertUserService;
     }
 
     public function showUserForm(): string
     {
-        return (new Renderer())->userAddEditForm('UserAddEditForm.twig', true, true);
+        return (new Renderer())->userAddEditForm('UserAddEditForm.twig', true);
     }
 
-    public function addUser(): string
+    public function insertUser(): string
     {
-        $userResponse = $this->userService->execute();
-        $status = ($userResponse->getResponse())->addUser($_POST);
-        $passwordMatch = ($_POST['password0'] === $_POST['password1']);
-        if ($status && $passwordMatch) {
+        $request = new InsertUserRequest(
+            $_POST['name'],
+            $_POST['username'],
+            $_POST['email'],
+            $_POST['city'],
+            $_POST['phone'],
+            $_POST['website'],
+            $_POST['company'],
+            $_POST['password0'],
+            $_POST['password1']
+        );
+
+        $status = ($this->insertUserService->execute($request));
+
+        if ($status) {
+
             return Functions::redirect('/loginForm');
+
         } else
-            return (new Renderer())->userAddEditForm('UserAddEditForm.twig', $passwordMatch, $status);
+            return (new Renderer())->userAddEditForm('UserAddEditForm.twig', $status);
     }
 
 //Todo

@@ -84,11 +84,23 @@ class LocalDbUserRepository implements UserRepository
         return false;
     }
 
-    public function addUser($PostData): bool
+    public function insertUser(
+        string $name,
+        string $username,
+        string $email,
+        string $city,
+        string $phone,
+        string $website,
+        string $company,
+        string $password
+    ): bool
+
     {
         try {
-            $userPassword = Functions::hash($PostData['password0']);
+
+            $userPassword = Functions::hash($password);
             $this->queryBuilder
+
                 ->insert('users')
                 ->values([
                     'name' => ':name',
@@ -101,25 +113,19 @@ class LocalDbUserRepository implements UserRepository
                     'password' => ':password',
 
                 ])
-                ->setParameter('name', $PostData['name'])
-                ->setParameter('username', $PostData['username'])
-                ->setParameter('email', $PostData['email'])
-                ->setParameter('city', $PostData['city'])
-                ->setParameter('phone', $PostData['phone'])
-                ->setParameter('website', $PostData['website'])
-                ->setParameter('company', $PostData['company'])
+
+                ->setParameter('name', $name)
+                ->setParameter('username', $username)
+                ->setParameter('email', $email)
+                ->setParameter('city', $city)
+                ->setParameter('phone', $phone)
+                ->setParameter('website', $website)
+                ->setParameter('company', $company)
                 ->setParameter('password', $userPassword)
                 ->executeStatement();
 
-        } catch (Exception $exception) {
-
-            if (!isset($_SERVER['argv'])) {
-                return false;
-            }
-            if (isset($_SERVER['argv'])) {
-                throw new Exception("SQLState 23000 Duplicate Email Entry");
-
-            }
+        } catch (Exception $e) {
+            return false;
         }
         return true;
     }
