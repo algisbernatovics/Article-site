@@ -4,7 +4,7 @@ namespace App\Services\Users\Show;
 
 use App\Repositories\User\UserRepository;
 
-class UserService
+class ShowUserService
 {
     protected UserRepository $UserRepository;
 
@@ -13,8 +13,8 @@ class UserService
         $this->UserRepository = $UserRepository;
     }
 
-    public function execute(): UserResponse
+    public function execute(): ShowUserResponse
     {
-        return new UserResponse($this->UserRepository);
+        return new ShowUserResponse($this->UserRepository);
     }
 }

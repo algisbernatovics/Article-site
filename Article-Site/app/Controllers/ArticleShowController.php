@@ -3,10 +3,10 @@
 namespace App\Controllers;
 
 use App\Core\Renderer;
-use App\Services\Articles\Show\ArticleRequest;
-use App\Services\Articles\Show\ArticleService;
-use App\Services\Comments\Show\CommentRequest;
-use App\Services\Comments\Show\CommentService;
+use App\Services\Articles\Show\ShowArticleRequest;
+use App\Services\Articles\Show\ShowArticleService;
+use App\Services\Comments\Show\ShowCommentRequest;
+use App\Services\Comments\Show\ShowCommentService;
 
 
 class ArticleShowController
@@ -14,7 +14,7 @@ class ArticleShowController
     private object $articleService;
     private object $commentService;
 
-    public function __construct(articleService $articleService, commentService $commentService)
+    public function __construct(ShowArticleService $articleService, ShowCommentService $commentService)
     {
         $this->articleService = $articleService;
         $this->commentService = $commentService;
@@ -38,10 +38,10 @@ class ArticleShowController
 
     public function singleArticle(): string
     {
-        $articleRequest = new ArticleRequest($_SERVER["REQUEST_URI"]);
+        $articleRequest = new ShowArticleRequest($_SERVER["REQUEST_URI"]);
         $articleResponse = $this->articleService->execute();
 
-        $commentRequest = new CommentRequest($_SERVER["REQUEST_URI"]);
+        $commentRequest = new ShowCommentRequest($_SERVER["REQUEST_URI"]);
         $commentResponse = $this->commentService->execute();
 
         return (new Renderer())->showArticleAndComments

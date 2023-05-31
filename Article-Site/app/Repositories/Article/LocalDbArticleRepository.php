@@ -6,6 +6,7 @@ namespace App\Repositories\Article;
 use App\Core\DBALConnection;
 use App\Models\Articles;
 use App\Repositories\User\LocalDbUserRepository;
+use mysql_xdevapi\Exception;
 
 class LocalDbArticleRepository implements ArticleRepository
 {
@@ -65,40 +66,59 @@ class LocalDbArticleRepository implements ArticleRepository
         return $this->buildModel($response);
     }
 
-    public function deleteArticle(int $articleId): void
+    public function deleteArticle(int $articleId): bool
     {
-        $this->queryBuilder
-            ->delete('articles')
-            ->where('id = :id')
-            ->setParameter('id', $articleId)
-            ->executeStatement();
+        try {
+
+            $this->queryBuilder
+                ->delete('articles')
+                ->where('id = :id')
+                ->setParameter('id', $articleId)
+                ->executeStatement();
+        } catch (Exception $e) {
+            return false;
+        }
+        return true;
     }
 
-    public function insertArticle(array $PostData, int $userId): void
+    public function insertArticle(int $userId, string $title, string $body): bool
     {
-        $this->queryBuilder
-            ->insert('articles')
-            ->values([
-                'title' => ':title',
-                'body' => ':body',
-                'user_id' => ':user_Id',
-            ])
-            ->setParameter('title', $PostData['title'])
-            ->setParameter('body', $PostData['body'])
-            ->setParameter('user_Id', $userId)
-            ->executeStatement();
+        try {
+
+            $this->queryBuilder
+                ->insert('articles')
+                ->values([
+                    'user_id' => ':user_Id',
+                    'title' => ':title',
+                    'body' => ':body'
+                ])
+                ->setParameter('user_Id', $userId)
+                ->setParameter('title', $title)
+                ->setParameter('body', $body)
+                ->executeStatement();
+        } catch (Exception $e) {
+            return false;
+        }
+        return true;
     }
 
-    public function updateArticle(array $PostData, int $articleId): void
+    public function updateArticle(int $articleId, string $title, string $body): bool
     {
-        $this->queryBuilder
-            ->update('articles')
-            ->where('id = :id')
-            ->set('title', ':title')
-            ->set('body', ':body')
-            ->setParameter('id', $articleId)
-            ->setParameter('title', $PostData['title'])
-            ->setParameter('body', $PostData['body'])
-            ->executeStatement();
+        try {
+
+            $this->queryBuilder
+                ->update('articles')
+                ->where('id = :id')
+                ->set('title', ':title')
+                ->set('body', ':body')
+                ->setParameter('id', $articleId)
+                ->setParameter('title', $title)
+                ->setParameter('body', $body)
+                ->executeStatement();
+
+        } catch (Exception $e) {
+            return false;
+        }
+        return true;
     }
 }

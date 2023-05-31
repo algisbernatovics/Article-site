@@ -4,7 +4,7 @@ namespace App\Services\Comments\Show;
 
 use App\Repositories\Comment\CommentRepository;
 
-class CommentService
+class ShowCommentService
 {
     protected CommentRepository $commentRepository;
 
@@ -13,8 +13,8 @@ class CommentService
         $this->commentRepository = $commentRepository;
     }
 
-    public function execute(): CommentResponse
+    public function execute(): ShowCommentResponse
     {
-        return new CommentResponse($this->commentRepository);
+        return new ShowCommentResponse($this->commentRepository);
     }
 }

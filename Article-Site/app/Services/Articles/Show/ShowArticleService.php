@@ -4,7 +4,7 @@ namespace App\Services\Articles\Show;
 
 use App\Repositories\Article\ArticleRepository;
 
-class ArticleService
+class ShowArticleService
 {
     protected ArticleRepository $articleRepository;
 
@@ -13,8 +13,8 @@ class ArticleService
         $this->articleRepository = $articleRepository;
     }
 
-    public function execute(): ArticleResponse
+    public function execute(): ShowArticleResponse
     {
-        return new ArticleResponse($this->articleRepository);
+        return new ShowArticleResponse($this->articleRepository);
     }
 }

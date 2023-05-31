@@ -2,7 +2,7 @@
 
 namespace App\Services\Comments\Show;
 
-class CommentResponse
+class ShowCommentResponse
 {
     protected object $commentRepository;
 

@@ -26,30 +26,30 @@ $i = readline('Your Choice:');
 switch ($i) {
     case 1:
         ConsoleShowResponse::showUsers((
-        new ConsoleMakeRequest($container->get('App\Services\Users\Show\UserService')))->allUsers());
+        new ConsoleMakeRequest($container->get('App\Services\Users\Show\ShowUserService')))->allUsers());
         break;
     case 2:
         ConsoleShowResponse::showArticles((
-        new ConsoleMakeRequest($container->get('App\Services\Articles\Show\ArticleService')))->allArticles());
+        new ConsoleMakeRequest($container->get('App\Services\Articles\Show\ShowArticleService')))->allArticles());
         break;
     case 3:
         ConsoleShowResponse::showComments((
-        new ConsoleMakeRequest($container->get('App\Services\Comments\Show\CommentService')))->allComments());
+        new ConsoleMakeRequest($container->get('App\Services\Comments\Show\ShowCommentService')))->allComments());
         break;
     case 4:
         $id = (int)readline('User Id:');
         ConsoleShowResponse::showUsers((
-        new ConsoleMakeRequest($container->get('App\Services\Users\Show\UserService')))->userById($id));
+        new ConsoleMakeRequest($container->get('App\Services\Users\Show\ShowUserService')))->userById($id));
         break;
     case 5:
         $id = (int)readline('Article Id:');
         ConsoleShowResponse::showArticles((
-        new ConsoleMakeRequest($container->get('App\Services\Articles\Show\ArticleService')))->articlesById($id));
+        new ConsoleMakeRequest($container->get('App\Services\Articles\Show\ShowArticleService')))->articlesById($id));
         break;
     case 6:
         $id = (int)readline('Article Id:');
         ConsoleShowResponse::showComments((
-        new ConsoleMakeRequest($container->get('App\Services\Comments\Show\CommentService')))->postComments($id));
+        new ConsoleMakeRequest($container->get('App\Services\Comments\Show\ShowCommentService')))->postComments($id));
         break;
     case 7:
         echo 'Exit.' . PHP_EOL;

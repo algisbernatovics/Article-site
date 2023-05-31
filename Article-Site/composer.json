@@ -20,6 +20,7 @@
     "ext-readline": "*",
     "php-di/php-di": "^6.4",
     "doctrine/dbal": "^3.6",
-    "vlucas/phpdotenv": "^5.5"
+    "vlucas/phpdotenv": "^5.5",
+    "ext-mysql_xdevapi": "*"
   }
 }

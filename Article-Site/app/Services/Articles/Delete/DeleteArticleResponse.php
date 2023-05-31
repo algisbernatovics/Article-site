@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services\Articles\Show;
+namespace App\Services\Articles\Delete;
 
-class ArticleResponse
+class DeleteArticleResponse
 {
     protected object $articleRepository;
 

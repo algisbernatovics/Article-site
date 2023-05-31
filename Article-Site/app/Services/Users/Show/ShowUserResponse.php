@@ -2,7 +2,7 @@
 
 namespace App\Services\Users\Show;
 
-class UserResponse
+class ShowUserResponse
 {
     protected object $userRepository;
 

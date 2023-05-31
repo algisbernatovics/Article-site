@@ -2,9 +2,9 @@
 
 namespace App\Console;
 
-use App\Services\Articles\Show\ArticleRequest;
-use App\Services\Comments\Show\CommentRequest;
-use App\Services\Users\Show\UserRequest;
+use App\Services\Articles\Show\ShowArticleRequest;
+use App\Services\Comments\Show\ShowCommentRequest;
+use App\Services\Users\Show\ShowUserRequest;
 
 
 class ConsoleMakeRequest
@@ -20,42 +20,42 @@ class ConsoleMakeRequest
 
     public function allUsers(): array
     {
-        $userRequest = new UserRequest('');
+        $userRequest = new ShowUserRequest('');
         $userResponse = $this->service->execute();
         return $userResponse->getResponse()->getUsers($userRequest->getUri());
     }
 
     public function allArticles(): array
     {
-        $articleRequest = new ArticleRequest('');
+        $articleRequest = new ShowArticleRequest('');
         $articleResponse = $this->service->execute();
         return $articleResponse->getResponse()->getAllArticles($articleRequest->getUri());
     }
 
     public function allComments(): array
     {
-        $commentRequest = new CommentRequest('');
+        $commentRequest = new ShowCommentRequest('');
         $commentResponse = $this->service->execute();
         return $commentResponse->getResponse()->getAllComments($commentRequest->getUri());
     }
 
     public function userById(int $id): array
     {
-        $userRequest = new UserRequest($id);
+        $userRequest = new ShowUserRequest($id);
         $userResponse = $this->service->execute();
         return $userResponse->getResponse()->getSingleUser($userRequest->getUri());
     }
 
     public function articlesById(int $id): array
     {
-        $articleRequest = new ArticleRequest($id);
+        $articleRequest = new ShowArticleRequest($id);
         $articleResponse = $this->service->execute();
         return $articleResponse->getResponse()->getSingleArticle($articleRequest->getUri());
     }
 
     public function postComments(int $id): array
     {
-        $commentRequest = new CommentRequest($id);
+        $commentRequest = new ShowCommentRequest($id);
         $commentResponse = $this->service->execute();
         return $commentResponse->getResponse()->getComments($commentRequest->getUri());
     }

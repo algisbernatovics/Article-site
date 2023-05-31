@@ -4,13 +4,13 @@ namespace App\Controllers;
 
 use App\Core\Functions;
 use App\Core\Renderer;
-use App\Services\Users\Show\UserService;
+use App\Services\Users\Show\ShowUserService;
 
 class UserAddEditDeleteController
 {
-    private UserService $userService;
+    private ShowUserService $userService;
 
-    public function __construct(UserService $userService)
+    public function __construct(ShowUserService $userService)
     {
         $this->userService = $userService;
     }

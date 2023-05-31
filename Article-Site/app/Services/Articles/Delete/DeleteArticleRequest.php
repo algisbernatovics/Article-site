@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Services\Articles\Show;
+namespace App\Services\Articles\Delete;
 
 use App\Core\Functions;
 
-class ArticleRequest
+class DeleteArticleRequest
 {
     protected string $uri;
 
@@ -12,7 +12,6 @@ class ArticleRequest
     {
         $this->uri = Functions::digitsOnly($uri);
     }
-
     public function getUri(): string
     {
         return $this->uri;

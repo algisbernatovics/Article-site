@@ -4,16 +4,34 @@ namespace App\Controllers;
 
 use App\Core\Functions;
 use App\Core\Renderer;
-use App\Services\Articles\Show\ArticleRequest;
-use App\Services\Articles\Show\ArticleService;
+use App\Services\Articles\Show\ShowArticleRequest;
+use App\Services\Articles\Show\ShowArticleService;
+use App\Services\Articles\Update\UpdateArticleRequest;
+use App\Services\Articles\Update\UpdateArticleService;
+use App\Services\Articles\Delete\DeleteArticleRequest;
+use App\Services\Articles\Delete\DeleteArticleService;
+use App\Services\Articles\Insert\InsertArticleRequest;
+use App\Services\Articles\Insert\InsertArticleService;
 
 class ArticleAddEditDeleteController
 {
-    private ArticleService $articleService;
+    private UpdateArticleService $updateArticleService;
+    private ShowArticleService $showArticleService;
+    private DeleteArticleService $deleteArticleService;
+    private InsertArticleService $insertArticleService;
 
-    public function __construct(articleService $articleService)
+
+    public function __construct(
+        UpdateArticleService $updateArticleService,
+        ShowArticleService   $showArticleService,
+        DeleteArticleService $deleteArticleService,
+        InsertArticleService $insertArticleService
+    )
     {
-        $this->articleService = $articleService;
+        $this->updateArticleService = $updateArticleService;
+        $this->showArticleService = $showArticleService;
+        $this->deleteArticleService = $deleteArticleService;
+        $this->insertArticleService = $insertArticleService;
     }
 
     public function showAddArticleForm(): string
@@ -27,9 +45,8 @@ class ArticleAddEditDeleteController
     public function showEditArticleForm(): string
     {
         if (isset($_SESSION['user_id'])) {
-
-            $articleRequest = new ArticleRequest($_SERVER["REQUEST_URI"]);
-            $articleResponse = $this->articleService->execute();
+            $articleRequest = new ShowArticleRequest($_SERVER["REQUEST_URI"]);
+            $articleResponse = $this->showArticleService->execute();
             return (new Renderer())->showArticleEditForm
             (
                 'ArticleEditForm.twig',
@@ -42,10 +59,13 @@ class ArticleAddEditDeleteController
     public function deleteArticle(): void
     {
         if (isset($_SESSION['user_id'])) {
-            $articleRequest = new ArticleRequest($_SERVER["REQUEST_URI"]);
-            $articleResponse = $this->articleService->execute();
-            $articleResponse->getResponse()->deleteArticle($articleRequest->getUri());
-            Functions::Redirect('/');
+            $request = new DeleteArticleRequest($_SERVER["REQUEST_URI"]);
+            $response = $this->deleteArticleService->execute($request);
+            if ($response) {
+                Functions::Redirect('/');
+            } else {
+                (new ErrorController())->errorVoid();
+            }
         } else
             (new ErrorController())->unauthorizedErrorVoid();
     }
@@ -53,20 +73,27 @@ class ArticleAddEditDeleteController
     public function updateArticle(): void
     {
         if (isset($_SESSION['user_id'])) {
-            $articleRequest = new ArticleRequest($_SERVER["REQUEST_URI"]);
-            $articleResponse = $this->articleService->execute();
-            $articleResponse->getResponse()->updateArticle($_POST, $articleRequest->getUri());
-            Functions::Redirect('/');
+            $request = new UpdateArticleRequest($_SERVER["REQUEST_URI"], $_POST['title'], $_POST['body']);
+            $response = $this->updateArticleService->execute($request);
+            if ($response) {
+                Functions::Redirect('/');
+            } else {
+                (new ErrorController())->errorVoid();
+            }
         } else
             (new ErrorController())->unauthorizedErrorVoid();
     }
 
-    public function addArticle(): void
+    public function insertArticle(): void
     {
         if (isset($_SESSION['user_id'])) {
-            $articleResponse = $this->articleService->execute();
-            $articleResponse->getResponse()->insertArticle($_POST, $_SESSION['user_id']);
-            Functions::Redirect('/');
+            $request = new InsertArticleRequest($_SESSION['user_id'], $_POST['title'], $_POST['body']);
+            $response = $this->insertArticleService->execute($request);
+            if ($response) {
+                Functions::Redirect('/');
+            } else {
+                (new ErrorController())->errorVoid();
+            }
         } else
             (new ErrorController())->unauthorizedErrorVoid();
     }

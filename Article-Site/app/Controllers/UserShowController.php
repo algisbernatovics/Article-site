@@ -3,17 +3,17 @@
 namespace App\Controllers;
 
 use App\Core\Renderer;
-use App\Services\Articles\Show\ArticleRequest;
-use App\Services\Articles\Show\ArticleService;
-use App\Services\Users\Show\UserRequest;
-use App\Services\Users\Show\UserService;
+use App\Services\Articles\Show\ShowArticleRequest;
+use App\Services\Articles\Show\ShowArticleService;
+use App\Services\Users\Show\ShowUserRequest;
+use App\Services\Users\Show\ShowUserService;
 
 class UserShowController
 {
     private object $userService;
     private object $userArticleService;
 
-    public function __construct(UserService $userService, ArticleService $userArticleService)
+    public function __construct(ShowUserService $userService, ShowArticleService $userArticleService)
     {
         $this->userService = $userService;
         $this->userArticleService = $userArticleService;
@@ -29,10 +29,10 @@ class UserShowController
 
     public function singleUser(): string
     {
-        $userRequest = new UserRequest($_SERVER["REQUEST_URI"]);
+        $userRequest = new ShowUserRequest($_SERVER["REQUEST_URI"]);
         $userResponse = $this->userService->execute();
 
-        $userArticleRequest = new ArticleRequest($_SERVER["REQUEST_URI"]);
+        $userArticleRequest = new ShowArticleRequest($_SERVER["REQUEST_URI"]);
         $userArticleResponse = $this->userArticleService->execute();
         return (new Renderer())->showSingleUser(
             'ShowSingleUser.twig',

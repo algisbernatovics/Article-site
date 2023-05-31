@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Services\Users\Show;
+namespace App\Services\Comments\Show;
 
 use App\Core\Functions;
 
-class UserRequest
+class ShowCommentRequest
 {
     protected string $uri;
 
