@@ -40,7 +40,8 @@ class UserShowController
         return (new Renderer())->show(
             'ShowSingleUser.twig',
             [
-                'user'=>$userResponse->getResponse()->getSingleUser($userRequest->getUri())
+                'user'=>$userResponse->getResponse()->getSingleUser($userRequest->getUri()),
+                'posts'=>$userArticleResponse->getResponse()->getUserArticles($userArticleRequest->getUri())
             ]
         );
     }
