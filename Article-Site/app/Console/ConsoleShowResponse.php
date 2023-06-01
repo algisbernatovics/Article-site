@@ -37,10 +37,9 @@ class ConsoleShowResponse
     {
         foreach ($response as $comment) {
             echo '-----------------------------------------' . PHP_EOL;
-            echo 'ID     : ' . $comment->getId() . PHP_EOL;
-            echo 'Post ID: ' . $comment->getPostId() . PHP_EOL;
-            echo 'Name   : ' . $comment->getName() . PHP_EOL;
-            echo 'Email  : ' . $comment->getEmail() . PHP_EOL;
+            echo 'ID     : ' . $comment->getCommentId() . PHP_EOL;
+            echo 'Post ID: ' . $comment->getUserId() . PHP_EOL;
+            echo 'Name   : ' . $comment->getTitle() . PHP_EOL;
             echo 'Body   : ' . $comment->getBody() . PHP_EOL;
         }
     }

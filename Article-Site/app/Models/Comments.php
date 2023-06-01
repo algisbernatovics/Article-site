@@ -6,16 +6,16 @@ class Comments
 {
     protected int $commentId;
     protected int $userId;
-    protected string $name;
+    protected string $title;
     protected string $body;
     protected string $userName;
     protected string $userUrl;
 
-    public function __construct(int $commentId, int $userId, string $name, string $body, string $userName, string $userUrl)
+    public function __construct(int $commentId, int $userId, string $title, string $body, string $userName, string $userUrl)
     {
         $this->commentId = $commentId;
         $this->userId = $userId;
-        $this->name = $name;
+        $this->title = $title;
         $this->body = $body;
         $this->userName = $userName;
         $this->userUrl = $userUrl;
@@ -41,9 +41,9 @@ class Comments
         return $this->userId;
     }
 
-    public function getName(): string
+    public function getTitle(): string
     {
-        return $this->name;
+        return $this->title;
     }
 
     public function getBody(): string
