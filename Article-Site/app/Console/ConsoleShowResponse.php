@@ -30,6 +30,7 @@ class ConsoleShowResponse
             echo 'PostUrl: ' . $post->getPostUrl() . PHP_EOL;
             echo 'Title  : ' . $post->getTitle() . PHP_EOL;
             echo 'Body   : ' . $post->getBody() . PHP_EOL;
+            echo '-----------------------------------------' . PHP_EOL;
         }
     }
 
@@ -41,6 +42,7 @@ class ConsoleShowResponse
             echo 'Post ID: ' . $comment->getUserId() . PHP_EOL;
             echo 'Name   : ' . $comment->getTitle() . PHP_EOL;
             echo 'Body   : ' . $comment->getBody() . PHP_EOL;
+            echo '-----------------------------------------' . PHP_EOL;
         }
     }
 }
