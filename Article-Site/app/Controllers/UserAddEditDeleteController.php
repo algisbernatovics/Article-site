@@ -18,7 +18,9 @@ class UserAddEditDeleteController
 
     public function showUserForm(): string
     {
-        return (new Renderer())->userAddEditForm('UserAddEditForm.twig', true);
+        return (new Renderer())->show(
+            'UserAddEditForm.twig',
+            ['status' => true]);
     }
 
     public function insertUser(): string
@@ -42,7 +44,9 @@ class UserAddEditDeleteController
             return Functions::redirect('/loginForm');
 
         } else
-            return (new Renderer())->userAddEditForm('UserAddEditForm.twig', $status);
+            return (new Renderer())->show(
+                'UserAddEditForm.twig',
+                ['status' => $status]);
     }
 
 //Todo

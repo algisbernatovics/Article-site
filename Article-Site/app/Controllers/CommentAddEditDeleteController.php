@@ -80,9 +80,13 @@ class CommentAddEditDeleteController
         if (isset($_SESSION['user_id'])) {
             $request = new ShowCommentRequest(($_SERVER["REQUEST_URI"]));
             $commentResponse = $this->commentService->execute();
-            return (new Renderer())->showCommentEditForm(
+            return (new Renderer())->show(
                 'CommentEditForm.twig',
-                $commentResponse->getResponse()->getCommentForUpdate($request->getUri()));
+                [
+                    'comments' => $commentResponse->getResponse()->getCommentForUpdate($request->getUri())
+                ]
+            );
+
         } else
             return (new ErrorController())->unauthorizedError();
     }

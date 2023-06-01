@@ -23,6 +23,6 @@ class ErrorController
 
     public function unauthorizedErrorVoid(): void
     {
-        (new Renderer())->unauthorizedErrorVoid('ErrorUnauthorized.twig');
+        (new Renderer())->errorVoid('ErrorUnauthorized.twig');
     }
 }

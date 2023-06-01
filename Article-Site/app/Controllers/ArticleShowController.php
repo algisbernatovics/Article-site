@@ -30,9 +30,11 @@ class ArticleShowController
     {
         $articleResponse = $this->articleService->execute();
 
-        return (new Renderer())->showAllArticles(
+        return (new Renderer())->show(
             'ShowAllArticles.twig',
-            $articleResponse->getResponse()->getAllArticles(),
+            [
+                'posts' => $articleResponse->getResponse()->getAllArticles()
+            ]
         );
     }
 
@@ -44,11 +46,13 @@ class ArticleShowController
         $commentRequest = new ShowCommentRequest($_SERVER["REQUEST_URI"]);
         $commentResponse = $this->commentService->execute();
 
-        return (new Renderer())->showArticleAndComments
+        return (new Renderer())->show
         (
             'ShowSingleArticle.twig',
-            $articleResponse->getResponse()->getSingleArticle($articleRequest->getUri()),
-            $commentResponse->getResponse()->getComments($commentRequest->getUri())
+            [
+                'posts' => $articleResponse->getResponse()->getSingleArticle($articleRequest->getUri()),
+                'comments' => $commentResponse->getResponse()->getComments($commentRequest->getUri())
+            ]
         );
     }
 }

@@ -37,7 +37,7 @@ class ArticleAddEditDeleteController
     public function showAddArticleForm(): string
     {
         if (isset($_SESSION['user_id'])) {
-            return (new Renderer())->showArticleInputForm('ArticleAddForm.twig');
+            return (new Renderer())->show('ArticleAddForm.twig');
         } else
             return (new ErrorController())->unauthorizedError();
     }
@@ -47,10 +47,12 @@ class ArticleAddEditDeleteController
         if (isset($_SESSION['user_id'])) {
             $articleRequest = new ShowArticleRequest($_SERVER["REQUEST_URI"]);
             $articleResponse = $this->showArticleService->execute();
-            return (new Renderer())->showArticleEditForm
+            return (new Renderer())->show
             (
                 'ArticleEditForm.twig',
-                $articleResponse->getResponse()->getSingleArticle($articleRequest->getUri())
+                [
+                    'articles' => $articleResponse->getResponse()->getSingleArticle($articleRequest->getUri())
+                ]
             );
         } else
             return (new ErrorController())->unauthorizedError();

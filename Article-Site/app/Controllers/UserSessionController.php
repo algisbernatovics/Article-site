@@ -18,7 +18,13 @@ class UserSessionController
     public function showLoginForm(): string
     {
         if (!isset($_SESSION['user_id'])) {
-            return (new Renderer())->showLoginInputForm('ShowLoginForm.twig', true);
+            return (new Renderer())->show
+            (
+                'ShowLoginForm.twig',
+                [
+                    'loginStatus' => true
+                ]
+            );
         } else
             return (new ErrorController())->error();
     }
@@ -29,7 +35,13 @@ class UserSessionController
             $response = $this->userService->execute();
             $passwordVerifyResult = $response->getResponse()->userLogin($_POST);
             if (!$passwordVerifyResult) {
-                return (new Renderer())->showLoginInputForm('ShowLoginForm.twig', $passwordVerifyResult);
+                return (new Renderer())->show
+                (
+                    'ShowLoginForm.twig',
+                    [
+                        'loginStatus' => $passwordVerifyResult
+                    ]
+                );
             }
             if ($passwordVerifyResult) {
                 $userId = ((($response->getResponse())->getUserId($_POST['email'])[0])->getId());
@@ -44,6 +56,6 @@ class UserSessionController
 
     {
         unset($_SESSION['user_id']);
-        functions::redirect('/');
+        Functions::redirect('/');
     }
 }

@@ -22,9 +22,12 @@ class UserShowController
     public function allUsers(): string
     {
         $userResponse = $this->userService->execute();
-        return (new Renderer())->showAllUsers(
+        return (new Renderer())->show(
             'ShowAllUsers.twig',
-            $userResponse->getResponse()->getUsers());
+            [
+                'users'=>$userResponse->getResponse()->getUsers()
+            ]
+        );
     }
 
     public function singleUser(): string
@@ -34,10 +37,11 @@ class UserShowController
 
         $userArticleRequest = new ShowArticleRequest($_SERVER["REQUEST_URI"]);
         $userArticleResponse = $this->userArticleService->execute();
-        return (new Renderer())->showSingleUser(
+        return (new Renderer())->show(
             'ShowSingleUser.twig',
-            $userResponse->getResponse()->getSingleUser($userRequest->getUri()),
-            $userArticleResponse->getResponse()->getUserArticles($userArticleRequest->getUri())
+            [
+                'user'=>$userResponse->getResponse()->getSingleUser($userRequest->getUri())
+            ]
         );
     }
 }
