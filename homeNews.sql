@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 01, 2023 at 01:23 AM
+-- Generation Time: Jun 14, 2023 at 01:20 PM
 -- Server version: 8.0.33-0ubuntu0.22.04.2
 -- PHP Version: 7.4.33
 
@@ -32,7 +32,7 @@ CREATE TABLE `articles` (
   `user_id` int NOT NULL,
   `title` varchar(255) NOT NULL,
   `body` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `articles`
@@ -54,7 +54,7 @@ CREATE TABLE `comments` (
   `article_id` int NOT NULL,
   `title` varchar(255) NOT NULL,
   `body` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `comments`
@@ -213,7 +213,7 @@ CREATE TABLE `pma__recent` (
 --
 
 INSERT INTO `pma__recent` (`username`, `tables`) VALUES
-('root', '[{\"db\":\"homeNews\",\"table\":\"comments\"},{\"db\":\"homeNews\",\"table\":\"articles\"},{\"db\":\"homeNews\",\"table\":\"users\"}]');
+('root', '[{\"db\":\"homeNews\",\"table\":\"users\"},{\"db\":\"ibank\",\"table\":\"users\"},{\"db\":\"ibank\",\"table\":\"money_accounts\"},{\"db\":\"ibank\",\"table\":\"migrations\"},{\"db\":\"homeNews\",\"table\":\"articles\"},{\"db\":\"DreamBank\",\"table\":\"users\"},{\"db\":\"dreamBank\",\"table\":\"users\"},{\"db\":\"dreamBank\",\"table\":\"migrations\"},{\"db\":\"homeNews\",\"table\":\"comments\"},{\"db\":\"dreamBank\",\"table\":\"failed_jobs\"}]');
 
 -- --------------------------------------------------------
 
@@ -328,7 +328,7 @@ CREATE TABLE `pma__userconfig` (
 --
 
 INSERT INTO `pma__userconfig` (`username`, `timevalue`, `config_data`) VALUES
-('root', '2023-05-31 22:14:57', '{\"Console\\/Mode\":\"collapse\"}');
+('root', '2023-06-05 18:06:38', '{\"Console\\/Mode\":\"collapse\"}');
 
 -- --------------------------------------------------------
 
@@ -363,13 +363,13 @@ CREATE TABLE `users` (
   `id` int NOT NULL,
   `name` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
-  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
   `city` varchar(255) NOT NULL,
   `phone` varchar(255) NOT NULL,
   `website` varchar(255) NOT NULL,
   `company` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `users`
@@ -579,7 +579,7 @@ ALTER TABLE `pma__savedsearches`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=119;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
